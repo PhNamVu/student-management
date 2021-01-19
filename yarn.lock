@@ -2386,6 +2386,14 @@
   resolved "https://registry.yarnpkg.com/@types/zen-observable/-/zen-observable-0.8.2.tgz#808c9fa7e4517274ed555fa158f2de4b4f468e71"
   integrity sha512-HrCIVMLjE1MOozVoD86622S7aunluLb2PJdPfb3nYiEtohm8mIB/vyv0Fd37AdeMFrTUQXEunw78YloMA3Qilg==
 
+"@typescript-eslint/eslint-plugin-tslint@^4.14.0":
+  version "4.14.0"
+  resolved "https://registry.yarnpkg.com/@typescript-eslint/eslint-plugin-tslint/-/eslint-plugin-tslint-4.14.0.tgz#c465ff418f2dd016c3890648784b6d35068adc84"
+  integrity sha512-d14sju1LLPvzyZItiXw7WhqKUkiJaf2Y2g5JlAx90NhNseTyElcTmZW5vo6gqLDPLb2VsKQ4KYMYKZNTXXJGpw==
+  dependencies:
+    "@typescript-eslint/experimental-utils" "4.14.0"
+    lodash "^4.17.15"
+
 "@typescript-eslint/eslint-plugin@^4.14.0":
   version "4.14.0"
   resolved "https://registry.yarnpkg.com/@typescript-eslint/eslint-plugin/-/eslint-plugin-4.14.0.tgz#92db8e7c357ed7d69632d6843ca70b71be3a721d"
