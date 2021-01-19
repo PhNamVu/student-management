@@ -1,15 +1,15 @@
-import * as Types from './operations';
+import * as Types from './operations'
 
-import { gql } from '@apollo/client';
-import * as Apollo from '@apollo/client';
+import { gql } from '@apollo/client'
+import * as Apollo from '@apollo/client'
 
 export const GetUsersDocument = gql`
-    query getUsers {
-  users(limit: 10) {
-    id
+  query getUsers {
+    users(limit: 10) {
+      id
+    }
   }
-}
-    `;
+`
 
 /**
  * __useGetUsersQuery__
@@ -26,12 +26,33 @@ export const GetUsersDocument = gql`
  *   },
  * });
  */
-export function useGetUsersQuery(baseOptions?: Apollo.QueryHookOptions<Types.GetUsersQuery, Types.GetUsersQueryVariables>) {
-        return Apollo.useQuery<Types.GetUsersQuery, Types.GetUsersQueryVariables>(GetUsersDocument, baseOptions);
-      }
-export function useGetUsersLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Types.GetUsersQuery, Types.GetUsersQueryVariables>) {
-          return Apollo.useLazyQuery<Types.GetUsersQuery, Types.GetUsersQueryVariables>(GetUsersDocument, baseOptions);
-        }
-export type GetUsersQueryHookResult = ReturnType<typeof useGetUsersQuery>;
-export type GetUsersLazyQueryHookResult = ReturnType<typeof useGetUsersLazyQuery>;
-export type GetUsersQueryResult = Apollo.QueryResult<Types.GetUsersQuery, Types.GetUsersQueryVariables>;
+export function useGetUsersQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    Types.GetUsersQuery,
+    Types.GetUsersQueryVariables
+  >
+) {
+  return Apollo.useQuery<Types.GetUsersQuery, Types.GetUsersQueryVariables>(
+    GetUsersDocument,
+    baseOptions
+  )
+}
+export function useGetUsersLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    Types.GetUsersQuery,
+    Types.GetUsersQueryVariables
+  >
+) {
+  return Apollo.useLazyQuery<Types.GetUsersQuery, Types.GetUsersQueryVariables>(
+    GetUsersDocument,
+    baseOptions
+  )
+}
+export type GetUsersQueryHookResult = ReturnType<typeof useGetUsersQuery>
+export type GetUsersLazyQueryHookResult = ReturnType<
+  typeof useGetUsersLazyQuery
+>
+export type GetUsersQueryResult = Apollo.QueryResult<
+  Types.GetUsersQuery,
+  Types.GetUsersQueryVariables
+>
