@@ -17,7 +17,7 @@ export const Users= () => {
             <PrimaryBtn>Submit</PrimaryBtn>
             <p>This is from Users component maybe</p>
             {userDetail?.map((item: any) => 
-                <p>
+                <p key={item.id}>
                     {item.id}
                 </p> 
             )}

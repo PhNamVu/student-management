@@ -1,0 +1,26 @@
+query getMagazine0{
+  magazines(where: {closureTemp: {_gt: "now()"}}) {
+    label
+    closureTemp
+    closureFinal
+    createdAt
+  }
+}
+
+query getMagazine1{
+  magazines(where: {closureFinal: {_gt: "now()"}}) {
+    label
+    closureTemp
+    closureFinal
+    createdAt
+  }
+}
+
+query getMagazine2{
+  magazines(where: {closureFinal: {_lt: "now()"}}) {
+    label
+    closureTemp
+    closureFinal
+    createdAt
+  }
+}

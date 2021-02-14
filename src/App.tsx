@@ -1,3 +1,4 @@
+// Run 'npx kill-port 3000' to disable port 3000
 import React from 'react'
 import './App.css'
 import {
@@ -19,9 +20,7 @@ const client = new ApolloClient({
 function App() {
   return (
     <ApolloProvider client={client}>
-      <Layout>
-        <Users />
-      </Layout>
+      <Layout style={{ width: "100%", backgroundColor: "black" }} />
     </ApolloProvider>
   )
 }
