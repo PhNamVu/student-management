@@ -7,7 +7,7 @@ module.exports = {
     'prettier/@typescript-eslint', // Uses eslint-config-prettier to disable ESLint rules from @typescript-eslint/eslint-plugin that would conflict with prettier
     'plugin:prettier/recommended', // Enables eslint-plugin-prettier and eslint-config-prettier. This will display prettier errors as ESLint errors. Make sure this is always the last configuration in the extends array.
   ],
-  plugins: ['react', '@typescript-eslint', 'jest', '@typescript-eslint/tslint'],
+  plugins: ['react', '@typescript-eslint/eslint-plugin', 'jest'],
   env: {
     es6: true,
     node: true,
@@ -23,13 +23,16 @@ module.exports = {
   },
   ignorePatterns: ['/node_modules/**', '/build/**'],
   rules: {
+    'no-console': 0,
+    'prefer-template': 0,
+    'no-underscore-dangle': 0,
     'no-unused-vars': [
       'warn',
       { args: 'none', argsIgnorePattern: 'req|res|next|val' },
     ],
-    'prettier/prettier': ['error'],
     '@typescript-eslint/no-explicit-any': 'off',
     '@typescript-eslint/explicit-module-boundary-types': 'off',
+    'prettier/prettier': ['error', { singleQuote: true }],
   },
   settings: {
     react: {
