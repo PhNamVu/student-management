@@ -11,3 +11,21 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+/*Navbar*/
+.header-links a{
+  font-size: large;
+  font-weight: 800;
+  text-align: center;
+  color: black;
+  padding: 0.2rem;
+}
+
+.header-links :hover{
+  color:#FCCD26 !important;
+}
+
+.avatar {
+  text-align: center;
+}
+
