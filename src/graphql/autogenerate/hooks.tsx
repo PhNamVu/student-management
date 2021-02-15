@@ -3,9 +3,10 @@ import * as Types from './operations'
 import { gql } from '@apollo/client'
 import * as Apollo from '@apollo/client'
 
-export const GetMagazine0Document = gql`
-  query getMagazine0 {
-    magazines(where: { closureTemp: { _gt: "now()" } }) {
+export const GetMagazineDocument = gql`
+  query getMagazine($where: magazines_bool_exp) {
+    magazines(where: $where) {
+      id
       label
       closureTemp
       closureFinal
@@ -15,167 +16,50 @@ export const GetMagazine0Document = gql`
 `
 
 /**
- * __useGetMagazine0Query__
+ * __useGetMagazineQuery__
  *
- * To run a query within a React component, call `useGetMagazine0Query` and pass it any options that fit your needs.
- * When your component renders, `useGetMagazine0Query` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useGetMagazineQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetMagazineQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useGetMagazine0Query({
+ * const { data, loading, error } = useGetMagazineQuery({
  *   variables: {
+ *      where: // value for 'where'
  *   },
  * });
  */
-export function useGetMagazine0Query(
+export function useGetMagazineQuery(
   baseOptions?: Apollo.QueryHookOptions<
-    Types.GetMagazine0Query,
-    Types.GetMagazine0QueryVariables
+    Types.GetMagazineQuery,
+    Types.GetMagazineQueryVariables
   >
 ) {
   return Apollo.useQuery<
-    Types.GetMagazine0Query,
-    Types.GetMagazine0QueryVariables
-  >(GetMagazine0Document, baseOptions)
+    Types.GetMagazineQuery,
+    Types.GetMagazineQueryVariables
+  >(GetMagazineDocument, baseOptions)
 }
-export function useGetMagazine0LazyQuery(
+export function useGetMagazineLazyQuery(
   baseOptions?: Apollo.LazyQueryHookOptions<
-    Types.GetMagazine0Query,
-    Types.GetMagazine0QueryVariables
+    Types.GetMagazineQuery,
+    Types.GetMagazineQueryVariables
   >
 ) {
   return Apollo.useLazyQuery<
-    Types.GetMagazine0Query,
-    Types.GetMagazine0QueryVariables
-  >(GetMagazine0Document, baseOptions)
+    Types.GetMagazineQuery,
+    Types.GetMagazineQueryVariables
+  >(GetMagazineDocument, baseOptions)
 }
-export type GetMagazine0QueryHookResult = ReturnType<
-  typeof useGetMagazine0Query
+export type GetMagazineQueryHookResult = ReturnType<typeof useGetMagazineQuery>
+export type GetMagazineLazyQueryHookResult = ReturnType<
+  typeof useGetMagazineLazyQuery
 >
-export type GetMagazine0LazyQueryHookResult = ReturnType<
-  typeof useGetMagazine0LazyQuery
->
-export type GetMagazine0QueryResult = Apollo.QueryResult<
-  Types.GetMagazine0Query,
-  Types.GetMagazine0QueryVariables
->
-export const GetMagazine1Document = gql`
-  query getMagazine1 {
-    magazines(where: { closureFinal: { _gt: "now()" } }) {
-      label
-      closureTemp
-      closureFinal
-      createdAt
-    }
-  }
-`
-
-/**
- * __useGetMagazine1Query__
- *
- * To run a query within a React component, call `useGetMagazine1Query` and pass it any options that fit your needs.
- * When your component renders, `useGetMagazine1Query` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetMagazine1Query({
- *   variables: {
- *   },
- * });
- */
-export function useGetMagazine1Query(
-  baseOptions?: Apollo.QueryHookOptions<
-    Types.GetMagazine1Query,
-    Types.GetMagazine1QueryVariables
-  >
-) {
-  return Apollo.useQuery<
-    Types.GetMagazine1Query,
-    Types.GetMagazine1QueryVariables
-  >(GetMagazine1Document, baseOptions)
-}
-export function useGetMagazine1LazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<
-    Types.GetMagazine1Query,
-    Types.GetMagazine1QueryVariables
-  >
-) {
-  return Apollo.useLazyQuery<
-    Types.GetMagazine1Query,
-    Types.GetMagazine1QueryVariables
-  >(GetMagazine1Document, baseOptions)
-}
-export type GetMagazine1QueryHookResult = ReturnType<
-  typeof useGetMagazine1Query
->
-export type GetMagazine1LazyQueryHookResult = ReturnType<
-  typeof useGetMagazine1LazyQuery
->
-export type GetMagazine1QueryResult = Apollo.QueryResult<
-  Types.GetMagazine1Query,
-  Types.GetMagazine1QueryVariables
->
-export const GetMagazine2Document = gql`
-  query getMagazine2 {
-    magazines(where: { closureFinal: { _lt: "now()" } }) {
-      label
-      closureTemp
-      closureFinal
-      createdAt
-    }
-  }
-`
-
-/**
- * __useGetMagazine2Query__
- *
- * To run a query within a React component, call `useGetMagazine2Query` and pass it any options that fit your needs.
- * When your component renders, `useGetMagazine2Query` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetMagazine2Query({
- *   variables: {
- *   },
- * });
- */
-export function useGetMagazine2Query(
-  baseOptions?: Apollo.QueryHookOptions<
-    Types.GetMagazine2Query,
-    Types.GetMagazine2QueryVariables
-  >
-) {
-  return Apollo.useQuery<
-    Types.GetMagazine2Query,
-    Types.GetMagazine2QueryVariables
-  >(GetMagazine2Document, baseOptions)
-}
-export function useGetMagazine2LazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<
-    Types.GetMagazine2Query,
-    Types.GetMagazine2QueryVariables
-  >
-) {
-  return Apollo.useLazyQuery<
-    Types.GetMagazine2Query,
-    Types.GetMagazine2QueryVariables
-  >(GetMagazine2Document, baseOptions)
-}
-export type GetMagazine2QueryHookResult = ReturnType<
-  typeof useGetMagazine2Query
->
-export type GetMagazine2LazyQueryHookResult = ReturnType<
-  typeof useGetMagazine2LazyQuery
->
-export type GetMagazine2QueryResult = Apollo.QueryResult<
-  Types.GetMagazine2Query,
-  Types.GetMagazine2QueryVariables
+export type GetMagazineQueryResult = Apollo.QueryResult<
+  Types.GetMagazineQuery,
+  Types.GetMagazineQueryVariables
 >
 export const GetUsersDocument = gql`
   query getUsers {

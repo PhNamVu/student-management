@@ -14,6 +14,9 @@
 .card-title {
     font-weight: bold
 }
+
+button:focus { outline: none !important; }
+
 .line{
     border-bottom: 4px solid #BF0F50;
     position: inherit;
@@ -21,26 +24,29 @@
 .btn-circle {
     border-radius: 6em !important;
 }
+h3 {
+    font-size: 1.5rem !important;
+}
 /* Small devices (landscape phones, 544px and up) */
-@media (min-width: 400px) {  
+/* @media (min-width: 400px) {  
     span {font-size: 10px} 
     h2 {font-size:44px;}  
-}
+} */
 
 /* Medium devices (tablets, 768px and up) The navbar toggle appears at this breakpoint */
-@media (min-width: 768px) {  
+/* @media (min-width: 768px) {  
     span {font-size:13px;} 
     h2 {font-size:47px;}  
-}
-
+} */
+/* 
 @media (min-width: 992px) { 
     span {font-size:16px;}
     h2 {font-size:50px;}  
-}
+} */
 
 /* Extra large devices (large desktops, 1200px and up) */
-@media (min-width: 1200px) {  
+/* @media (min-width: 1200px) {  
     span {font-size:16px;}  
     h2 {font-size:50px;}  
 }
-  
+   */

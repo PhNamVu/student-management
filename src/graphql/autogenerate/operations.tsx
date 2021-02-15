@@ -1,34 +1,14 @@
 import * as Types from './schemas'
 
-export type GetMagazine0QueryVariables = Types.Exact<{ [key: string]: never }>
+export type GetMagazineQueryVariables = Types.Exact<{
+  where?: Types.Maybe<Types.Magazines_Bool_Exp>
+}>
 
-export type GetMagazine0Query = { __typename?: 'query_root' } & {
+export type GetMagazineQuery = { __typename?: 'query_root' } & {
   magazines: Array<
     { __typename?: 'magazines' } & Pick<
       Types.Magazines,
-      'label' | 'closureTemp' | 'closureFinal' | 'createdAt'
-    >
-  >
-}
-
-export type GetMagazine1QueryVariables = Types.Exact<{ [key: string]: never }>
-
-export type GetMagazine1Query = { __typename?: 'query_root' } & {
-  magazines: Array<
-    { __typename?: 'magazines' } & Pick<
-      Types.Magazines,
-      'label' | 'closureTemp' | 'closureFinal' | 'createdAt'
-    >
-  >
-}
-
-export type GetMagazine2QueryVariables = Types.Exact<{ [key: string]: never }>
-
-export type GetMagazine2Query = { __typename?: 'query_root' } & {
-  magazines: Array<
-    { __typename?: 'magazines' } & Pick<
-      Types.Magazines,
-      'label' | 'closureTemp' | 'closureFinal' | 'createdAt'
+      'id' | 'label' | 'closureTemp' | 'closureFinal' | 'createdAt'
     >
   >
 }

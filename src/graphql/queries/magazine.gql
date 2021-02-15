@@ -1,23 +1,6 @@
-query getMagazine0{
-  magazines(where: {closureTemp: {_gt: "now()"}}) {
-    label
-    closureTemp
-    closureFinal
-    createdAt
-  }
-}
-
-query getMagazine1{
-  magazines(where: {closureFinal: {_gt: "now()"}}) {
-    label
-    closureTemp
-    closureFinal
-    createdAt
-  }
-}
-
-query getMagazine2{
-  magazines(where: {closureFinal: {_lt: "now()"}}) {
+query getMagazine($where: magazines_bool_exp){
+  magazines(where: $where) {
+    id
     label
     closureTemp
     closureFinal
