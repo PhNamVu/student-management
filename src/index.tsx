@@ -7,16 +7,19 @@ import { LightTheme, BaseProvider } from 'baseui'
 import { Client as Styletron } from 'styletron-engine-atomic'
 import { Provider as StyletronProvider } from 'styletron-react'
 import 'bootstrap/dist/css/bootstrap.css'
+import { ProvideAuth } from './hooks/use-auth'
 
 const engine = new Styletron()
 const root = document.getElementById('root') as any
 
 ReactDOM.render(
-  <StyletronProvider value={engine}>
-    <BaseProvider theme={LightTheme}>
-      <App />
-    </BaseProvider>
-  </StyletronProvider>,
+  <ProvideAuth>
+    <StyletronProvider value={engine}>
+      <BaseProvider theme={LightTheme}>
+        <App />
+      </BaseProvider>
+    </StyletronProvider>
+  </ProvideAuth>,
   root
 )
 
