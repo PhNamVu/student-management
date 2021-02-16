@@ -9,7 +9,7 @@ const PrimaryButton = (props: ButtonProps) => {
     <Button
       {...props}
       kind="primary"
-      size={'compact'}
+      size={'large'}
       shape="pill"
       overrides={{
         BaseButton: {
@@ -18,15 +18,16 @@ const PrimaryButton = (props: ButtonProps) => {
             paddingTop: theme.sizing.scale100,
             paddingBottom: theme.sizing.scale100,
             boxShadow: `0 1px 2px rgba(0, 0, 0, 0.1)`,
-            backgroundColor: theme.colors.positive500,
+            color: 'black',
+            backgroundColor: '#F1F1F1',
             ':hover': {
-              backgroundColor: theme.colors.positive600,
+              backgroundColor: '#FFDC60',
             },
             ':focus': {
-              backgroundColor: theme.colors.positive700,
+              backgroundColor: '#FFDC60',
             },
             ':active': {
-              backgroundColor: theme.colors.positive700,
+              backgroundColor: '#FFDC60',
             },
           },
         },

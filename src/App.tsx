@@ -5,7 +5,9 @@ import { ApolloProvider } from '@apollo/client'
 import { BrowserRouter, Route } from 'react-router-dom'
 import { Container } from 'reactstrap'
 import { LoginPage } from './Pages/LoginPage'
+import { CreateMagazine } from './Pages/CreateMagazine'
 import { ToasterContainer } from 'baseui/toast'
+import { NavBar } from './components/AdminNav'
 
 import { useAuth } from './hooks/use-auth'
 import createUnAuthClient from './apollo/unauth-client'
@@ -66,11 +68,12 @@ function App() {
           <BrowserRouter>
             <ToasterContainer>
               <ApolloProvider client={client}>
+                <NavBar></NavBar>
                 <Container
                   fluid
-                  style={{ backgroundColor: '#D1DCE1', minHeight: '100vh' }}
+                  style={{ backgroundColor: '#FFFFFF', minHeight: '100vh' }}
                 >
-                  <p>Login successful</p>
+                  <Route path="/magazine/add" element={<CreateMagazine />} />
                 </Container>
               </ApolloProvider>
             </ToasterContainer>
