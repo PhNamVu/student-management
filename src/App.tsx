@@ -1,3 +1,4 @@
+// Run 'npx kill-port 3000' to disable port 3000
 import React from 'react'
 import './App.css'
 import { ApolloProvider } from '@apollo/client'

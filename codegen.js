@@ -3,7 +3,7 @@ module.exports = {
     {
       'https://fun-whale-23.hasura.app/v1/graphql': {
         headers: {
-          'x-hasura-admin-secret': '98769876',
+          'x-hasura-admin-secret': 'godplan',
         },
       },
     },

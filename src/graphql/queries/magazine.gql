@@ -1,0 +1,9 @@
+query getMagazine($where: magazines_bool_exp){
+  magazines(where: $where) {
+    id
+    label
+    closureTemp
+    closureFinal
+    createdAt
+  }
+}
