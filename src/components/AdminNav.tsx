@@ -10,10 +10,8 @@ import {
   NavLink,
 } from 'reactstrap'
 import { Avatar } from 'baseui/avatar'
-import logout from '../icons/logout.svg'
 
 export const NavBar = () => {
-  const url = logout
   const [collapsed, setCollapsed] = useState(true)
   const toggleNavbar = () => setCollapsed(!collapsed)
   return (
@@ -22,7 +20,7 @@ export const NavBar = () => {
         <Container fluid>
           <NavbarToggler onClick={toggleNavbar} className="mr-2" />
           <Collapse isOpen={!collapsed} navbar>
-            <div>
+            <div className="mr-sm-auto">
               <Nav navbar className="header-links btn">
                 <NavItem>
                   <NavLink href="/accounts">Account</NavLink>
@@ -43,7 +41,7 @@ export const NavBar = () => {
                   src="https://api.adorable.io/avatars/285/10@adorable.io.png"
                 />
                 <Button variant="light" style={{ backgroundColor: 'white' }}>
-                  <img src={url} width={24} height={24} />
+                  <img src="/icon/logout.svg" width={24} height={24} />
                 </Button>{' '}
               </NavItem>
             </Nav>
@@ -53,3 +51,4 @@ export const NavBar = () => {
     </div>
   )
 }
+export default Navbar
