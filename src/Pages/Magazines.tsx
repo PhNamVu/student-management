@@ -1,15 +1,15 @@
 import React, { useEffect }from 'react'
 import { useGetMagazineQuery } from '../graphql/autogenerate/hooks'
 import { Container, Row } from 'reactstrap'
-import { Tabs, Tab, makeStyles, Theme } from '@material-ui/core';
+import { Tabs, Tab, makeStyles} from '@material-ui/core';
 import './magazine.css'
-import { MagazineBlock } from './MagazineBlock'
+import { MagazineBlock } from '../components/MagazineBlock'
 
 
 //Style for Tabs
-const useStyles = makeStyles((theme: Theme) => ({
+const useStyles = makeStyles(() => ({
     root: {
-      flexGrow: 1,
+        flexGrow: 1,
     },
     indicator: {
         display: "flex",
@@ -22,8 +22,8 @@ const useStyles = makeStyles((theme: Theme) => ({
     default_tabStyle: {
         color: "#9B9B9B",
     }
-  }))
-  
+}))
+
 const handleQueryVariables = (queryCondition: any) => {
     if(queryCondition.isTemp == true) {
         if(queryCondition.isgt == true) return {closureTemp: {_gt: "now()"}} 
@@ -33,15 +33,15 @@ const handleQueryVariables = (queryCondition: any) => {
     }
 }
 
-export const Magazines = (props: any) => {
+export const MagazinesPage = () => {
     const [value, setValue] = React.useState(0)
     const [tempOrFinal, setTempOrFinal] = React.useState({isTemp: true, isgt: true})
-    const { data, loading, error } = useGetMagazineQuery({
+    const { data, error } = useGetMagazineQuery({
         fetchPolicy: 'network-only',
         variables: {
             where: handleQueryVariables(tempOrFinal)
         }
-      })
+    })
     const mgzDetail = data && data.magazines
     
     const handleChange = (event: React.ChangeEvent<unknown>, newValue: number) => {
