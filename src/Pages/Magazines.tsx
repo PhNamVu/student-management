@@ -3,7 +3,7 @@ import { useGetMagazineQuery } from '../graphql/autogenerate/hooks'
 import { Container, Row } from 'reactstrap'
 import { Tabs, Tab, makeStyles, Theme } from '@material-ui/core';
 import './magazine.css'
-import { MagazineBlock } from './MagazineBlock'
+import { MagazineBlock } from '../components/MagazineBlock'
 
 
 //Style for Tabs
