@@ -1,3 +1,4 @@
+// Run 'npx kill-port 3000' to disable port 3000
 import React from 'react'
 import './App.css'
 import { ApolloProvider } from '@apollo/client'
@@ -12,7 +13,9 @@ import { NavBar } from './components/AdminNav'
 import { useAuth } from './hooks/use-auth'
 import createUnAuthClient from './apollo/unauth-client'
 import createAuthApolloClient from './apollo/auth-client'
+
 import {PageNotFound} from './Pages/PageNotFound'
+import { MagazinesPage } from './Pages/Magazines'
 
 function App() {
   const { state } = useAuth()
@@ -31,8 +34,6 @@ function App() {
                 <Route path="/" element={<LoginPage />} />
                 <Route path="*" element={<PageNotFound />} />
               </Routes>
-              
-              
             </Container>
           </ApolloProvider>
         </ToasterContainer>
@@ -57,7 +58,6 @@ function App() {
                   <Route path="/" element={<LoginPage />} />
                   <Route path="*" element={<PageNotFound />} />
                 </Routes>
-                
               </Container>
             </ApolloProvider>
           </ToasterContainer>
@@ -81,7 +81,11 @@ function App() {
                   fluid
                   style={{ backgroundColor: '#FFFFFF', minHeight: '100vh' }}
                 >
-                  <Route path="/magazine/add" element={<CreateMagazine />} />
+                  <Routes>
+                    <Route path="/" element={<MagazinesPage />} />
+                    <Route path="/magazine/add" element={<CreateMagazine />} />
+                    <Route path="*" element={<PageNotFound />} />
+                  </Routes>
                 </Container>
               </ApolloProvider>
             </ToasterContainer>

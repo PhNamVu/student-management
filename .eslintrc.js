@@ -28,17 +28,17 @@ module.exports = {
       'warn',
       { args: 'none', argsIgnorePattern: 'req|res|next|val' },
     ],
-    'prettier/prettier': ['off'],
+    'prettier/prettier': ["off"],
     '@typescript-eslint/no-explicit-any': 'off',
     '@typescript-eslint/explicit-module-boundary-types': 'off',
   },
   settings: {
-    'eslint.validate': [
-      'javascript',
-      'javascriptreact',
-      'typescript',
-      'typescriptreact',
-    ],
+    "eslint.validate": [
+      "javascript",
+      "javascriptreact",
+      "typescript",
+      "typescriptreact",
+  ],
     react: {
       version: 'detect',
     },
