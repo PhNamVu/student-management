@@ -13,6 +13,8 @@ import { NavBar } from './components/AdminNav'
 import { useAuth } from './hooks/use-auth'
 import createUnAuthClient from './apollo/unauth-client'
 import createAuthApolloClient from './apollo/auth-client'
+
+import {PageNotFound} from './Pages/PageNotFound'
 import { MagazinesPage } from './Pages/Magazines'
 
 function App() {
@@ -28,8 +30,9 @@ function App() {
               fluid
               style={{ backgroundColor: '#D1DCE1', minHeight: '100vh' }}
             >
-              <Routes>
+              <Routes> 
                 <Route path="/" element={<LoginPage />} />
+                <Route path="*" element={<PageNotFound />} />
               </Routes>
             </Container>
           </ApolloProvider>
@@ -51,8 +54,9 @@ function App() {
                 fluid
                 style={{ backgroundColor: '#D1DCE1', minHeight: '100vh' }}
               >
-                <Routes>
+                <Routes> 
                   <Route path="/" element={<LoginPage />} />
+                  <Route path="*" element={<PageNotFound />} />
                 </Routes>
               </Container>
             </ApolloProvider>
@@ -80,6 +84,7 @@ function App() {
                   <Routes>
                     <Route path="/" element={<MagazinesPage />} />
                     <Route path="/magazine/add" element={<CreateMagazine />} />
+                    <Route path="*" element={<PageNotFound />} />
                   </Routes>
                 </Container>
               </ApolloProvider>

@@ -24,9 +24,6 @@ module.exports = {
   },
   ignorePatterns: ['/node_modules/**', '/build/**'],
   rules: {
-    'no-console': 0,
-    'prefer-template': 0,
-    'no-underscore-dangle': 0,
     'no-unused-vars': [
       'warn',
       { args: 'none', argsIgnorePattern: 'req|res|next|val' },
