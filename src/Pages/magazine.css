@@ -1,12 +1,15 @@
 .magazine-tab {
  color: #9B9B9B;
 }
-.mgzTabs {
-    margin-bottom: 3em;
+.mgzAdd.row{
+    margin: 0 1rem 1rem 1rem;
 }
 .Mui-selected {
     outline: 'none',                                                                   
   }
+.btn-warning > span {
+    font-weight: bold
+}
 .card {
     border: none !important;
     border-radius: 0 !important;
@@ -16,7 +19,6 @@
 }
 
 button:focus { outline: none !important; }
-
 .line{
     border-bottom: 4px solid #BF0F50;
     position: inherit;

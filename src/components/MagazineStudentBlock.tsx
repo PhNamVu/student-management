@@ -72,7 +72,7 @@ type Props = {
     createdAt: string
 };
 
-export const MagazineBlock = ({ label, closureTemp, closureFinal, tabStatus, createdAt }: Props) => {
+export const MagazineStudentBlock = ({ label, closureTemp, closureFinal, tabStatus, createdAt }: Props) => {
     const closureTempDateString = (moment(closureTemp)).format('DD/MM/YYYY HH:mm A')
     const closureFinalpDateString = (moment(closureFinal)).format('DD/MM/YYYY HH:mm A')
     const lineWidth = percentdaysLeft(tabStatus, closureTemp, closureFinal, createdAt)
@@ -94,8 +94,10 @@ export const MagazineBlock = ({ label, closureTemp, closureFinal, tabStatus, cre
                     </CardText>
                     <div className="d-flex align-items-center justify-content-end" >
                         <Button color="warning" className='btn-circle btn-lg'>
-                            <i className="fas fa-edit"></i>
+                            <i className="fas fa-plus"></i>
+                            <span style={{fontSize: '80%'}}>&nbsp;&nbsp;Submit Contribution</span>
                         </Button>
+                        
                     </div>
                 </CardBody>
                 
@@ -104,3 +106,4 @@ export const MagazineBlock = ({ label, closureTemp, closureFinal, tabStatus, cre
         </Col>
     )
 }
+export default MagazineStudentBlock
