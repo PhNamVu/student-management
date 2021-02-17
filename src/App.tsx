@@ -5,14 +5,18 @@ import { ApolloProvider } from '@apollo/client'
 
 import { BrowserRouter, Route } from 'react-router-dom'
 import { Container } from 'reactstrap'
+import { Magazines } from './Pages/Magazines'
 import { LoginPage } from './Pages/LoginPage'
 import { CreateMagazine } from './Pages/CreateMagazine'
 import { ToasterContainer } from 'baseui/toast'
 import { NavBar } from './components/AdminNav'
 
+import routes from './config/routes'
+
 import { useAuth } from './hooks/use-auth'
 import createUnAuthClient from './apollo/unauth-client'
 import createAuthApolloClient from './apollo/auth-client'
+import { Magazines_Update_Column } from './graphql/autogenerate/schemas'
 
 function App() {
   const { state } = useAuth()
@@ -74,7 +78,11 @@ function App() {
                   fluid
                   style={{ backgroundColor: '#FFFFFF', minHeight: '100vh' }}
                 >
-                  <Route path="/magazine/add" element={<CreateMagazine />} />
+                  <Routes>
+                    <Route path="/" element={<MagazinesPage />} />
+                    <Route path="/magazine/add" element={<CreateMagazine />} />
+                    <Route path="/magazine" element={<Magazines />} />
+                  </Routes>
                 </Container>
               </ApolloProvider>
             </ToasterContainer>
