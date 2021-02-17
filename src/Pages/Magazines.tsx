@@ -22,37 +22,25 @@ const useStyles = makeStyles(() => ({
     default_tabStyle: {
         color: "#9B9B9B",
     }
-}))
-
-const handleQueryVariables = (queryCondition: any) => {
-    if(queryCondition.isTemp == true) {
-        if(queryCondition.isgt == true) return {closureTemp: {_gt: "now()"}} 
-    } else if(queryCondition.isTemp == false) {
-        if(queryCondition.isgt == true) return {closureFinal: {_gt: "now()"}} 
-        else if (queryCondition.isgt == false) return {closureFinal: {_lt: "now()"}} 
-    }
+  }))
+  
+const handleQueryVariables = (value: any) => {
+    if(value == 0) return {closureTemp: {_gt: "now()"}} 
+    else if (value == 1) return {closureFinal: {_gt: "now()"}}
+    else if (value == 2) return {closureFinal: {_lt: "now()"}}
 }
 
 export const MagazinesPage = () => {
     const [value, setValue] = React.useState(0)
-    const [tempOrFinal, setTempOrFinal] = React.useState({isTemp: true, isgt: true})
-    const { data, error } = useGetMagazineQuery({
+    const { data, loading, error } = useGetMagazineQuery({
         fetchPolicy: 'network-only',
-        variables: {
-            where: handleQueryVariables(tempOrFinal)
-        }
-    })
+        variables: { where: handleQueryVariables(value)}
+      })
     const mgzDetail = data && data.magazines
     
     const handleChange = (event: React.ChangeEvent<unknown>, newValue: number) => {
         setValue(newValue)
-
     }
-    useEffect(() => {
-        if(value == 0) setTempOrFinal({isTemp: true, isgt: true})
-        if(value == 1) setTempOrFinal({isTemp: false, isgt: true})
-        if(value == 2) setTempOrFinal({isTemp: false, isgt: false})
-    }, [value])
     const classes = useStyles()
     
     // if (loading) return <div>Loading ...</div>
@@ -80,6 +68,7 @@ export const MagazinesPage = () => {
         </Container>
     )
 }
+export default Magazines
 
 //divide 3 card each CardDeck (row)
 const chunk = (arr: any, chunkSize: number) =>  {
