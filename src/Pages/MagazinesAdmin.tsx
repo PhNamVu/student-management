@@ -43,10 +43,6 @@ export const MagazinesPage = () => {
     const handleChange = (event: React.ChangeEvent<unknown>, newValue: number) => {
         setValue(newValue)
     }
-    const navigate = useNavigate();
-    const handleAddMgz = () => {
-        navigate(`/magazine/add`)
-    }
     const classes = useStyles()
     return (
         <Container>
