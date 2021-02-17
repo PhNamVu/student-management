@@ -2,7 +2,7 @@ import React from 'react'
 import './App.css'
 import { ApolloProvider } from '@apollo/client'
 
-import { BrowserRouter, Route } from 'react-router-dom'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { Container } from 'reactstrap'
 import { LoginPage } from './Pages/LoginPage'
 import { CreateMagazine } from './Pages/CreateMagazine'
@@ -12,6 +12,7 @@ import { NavBar } from './components/AdminNav'
 import { useAuth } from './hooks/use-auth'
 import createUnAuthClient from './apollo/unauth-client'
 import createAuthApolloClient from './apollo/auth-client'
+import {PageNotFound} from './Pages/PageNotFound'
 
 function App() {
   const { state } = useAuth()
@@ -26,8 +27,12 @@ function App() {
               fluid
               style={{ backgroundColor: '#D1DCE1', minHeight: '100vh' }}
             >
-              <Route path="/" element={<LoginPage />} />
-              {/* <Route path="*" element={<Navigate to="/pages/LoginPage" />} /> */}
+              <Routes> 
+                <Route path="/" element={<LoginPage />} />
+                <Route path="*" element={<PageNotFound />} />
+              </Routes>
+              
+              
             </Container>
           </ApolloProvider>
         </ToasterContainer>
@@ -48,8 +53,11 @@ function App() {
                 fluid
                 style={{ backgroundColor: '#D1DCE1', minHeight: '100vh' }}
               >
-                <Route path="/" element={<LoginPage />} />
-                {/* <Route path="*" element={<Navigate to="/pages/LoginPage" />} /> */}
+                <Routes> 
+                  <Route path="/" element={<LoginPage />} />
+                  <Route path="*" element={<PageNotFound />} />
+                </Routes>
+                
               </Container>
             </ApolloProvider>
           </ToasterContainer>

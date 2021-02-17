@@ -13,7 +13,7 @@ code {
 }
 
 /*Navbar*/
-.header-links a{
+.header-links a {
   font-size: large;
   font-weight: 800;
   text-align: center;
@@ -21,10 +21,31 @@ code {
   padding: 0.2rem;
 }
 
-.header-links :hover{
-  color:#FCCD26 !important;
+.header-links :hover {
+  color: #fccd26 !important;
 }
 
 .avatar {
   text-align: center;
+}
+
+.pageError {
+  font-family: 'Pacifico', cursive;
+}
+.error {
+  background: url(../src/img/background404.jpg) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  font-size: 30px;
+  background-size: cover;
+  position: fixed;
+  min-height: 100%;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
