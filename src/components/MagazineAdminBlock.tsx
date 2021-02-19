@@ -1,6 +1,7 @@
 /* eslint-disable prefer-const */
 import React from 'react'
 import moment from 'moment';
+import { useNavigate } from "react-router-dom";
 import { Card, CardText, CardBody, CardTitle, Col, Button} from 'reactstrap';
 
 
@@ -65,6 +66,7 @@ const percentdaysLeft = (tabStatus: number, closureTemp: string, closureFinal: s
 }
 
 type Props = {
+    id: string;
     label: string;
     closureTemp: string;
     closureFinal: string;
@@ -72,14 +74,19 @@ type Props = {
     createdAt: string
 };
 
-export const MagazineBlock = ({ label, closureTemp, closureFinal, tabStatus, createdAt }: Props) => {
+export const MagazineBlock = ({ id, label, closureTemp, closureFinal, tabStatus, createdAt }: Props) => {
     const closureTempDateString = (moment(closureTemp)).format('DD/MM/YYYY HH:mm A')
     const closureFinalpDateString = (moment(closureFinal)).format('DD/MM/YYYY HH:mm A')
     const lineWidth = percentdaysLeft(tabStatus, closureTemp, closureFinal, createdAt)
     let lineStyle = { "width": `${lineWidth}` } as React.CSSProperties
+    let navigate = useNavigate();
+
+    const handleOnclick = (idMgz: string, mgzLabel: string) => {
+        navigate(`/ad/contribute/${idMgz}/${mgzLabel}`)
+    }
     
     return (
-        <Col lg="4" sm='12'>
+        <Col lg="4" sm='12' style={{ cursor: 'pointer'}} onClick={() => handleOnclick(id, label)}>
             <Card style={{margin: '0 0 26px 0'}}>
                 <CardBody>
                     <CardText className="d-flex align-items-center justify-content-end">
@@ -98,7 +105,6 @@ export const MagazineBlock = ({ label, closureTemp, closureFinal, tabStatus, cre
                         </Button>
                     </div>
                 </CardBody>
-                
                 <div className="line" style={lineStyle}></div>
             </Card>
         </Col>

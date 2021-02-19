@@ -3,6 +3,84 @@ import * as Types from './operations'
 import { gql } from '@apollo/client'
 import * as Apollo from '@apollo/client'
 
+export const GetContributeDocument = gql`
+  query getContribute($idMgz: uuid) {
+    contributions(where: { magazine: { id: { _eq: $idMgz } } }) {
+      title
+      magazine {
+        label
+      }
+      id
+      user {
+        fullName
+        faculty {
+          label
+        }
+      }
+      userByPublicBy {
+        fullName
+      }
+      isSelected
+      faculty {
+        label
+      }
+      artical
+      image
+      deleted
+      createdAt
+      updatedAt
+    }
+  }
+`
+
+/**
+ * __useGetContributeQuery__
+ *
+ * To run a query within a React component, call `useGetContributeQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetContributeQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetContributeQuery({
+ *   variables: {
+ *      idMgz: // value for 'idMgz'
+ *   },
+ * });
+ */
+export function useGetContributeQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    Types.GetContributeQuery,
+    Types.GetContributeQueryVariables
+  >
+) {
+  return Apollo.useQuery<
+    Types.GetContributeQuery,
+    Types.GetContributeQueryVariables
+  >(GetContributeDocument, baseOptions)
+}
+export function useGetContributeLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    Types.GetContributeQuery,
+    Types.GetContributeQueryVariables
+  >
+) {
+  return Apollo.useLazyQuery<
+    Types.GetContributeQuery,
+    Types.GetContributeQueryVariables
+  >(GetContributeDocument, baseOptions)
+}
+export type GetContributeQueryHookResult = ReturnType<
+  typeof useGetContributeQuery
+>
+export type GetContributeLazyQueryHookResult = ReturnType<
+  typeof useGetContributeLazyQuery
+>
+export type GetContributeQueryResult = Apollo.QueryResult<
+  Types.GetContributeQuery,
+  Types.GetContributeQueryVariables
+>
 export const GetMagazineDocument = gql`
   query getMagazine($where: magazines_bool_exp) {
     magazines(where: $where) {

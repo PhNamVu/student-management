@@ -1,9 +1,10 @@
-import React, { useEffect }from 'react'
+import React from 'react'
 import { useGetMagazineQuery } from '../graphql/autogenerate/hooks'
-import { Container, Row } from 'reactstrap'
+import { Container, Row, Button } from 'reactstrap'
 import { Tabs, Tab, makeStyles} from '@material-ui/core';
+import { useNavigate } from "react-router-dom";
 import './magazine.css'
-import { MagazineBlock } from '../components/MagazineBlock'
+import MagazineStudentBlock from '../components/MagazineStudentBlock'
 
 
 //Style for Tabs
@@ -22,37 +23,29 @@ const useStyles = makeStyles(() => ({
     default_tabStyle: {
         color: "#9B9B9B",
     }
-}))
-
-const handleQueryVariables = (queryCondition: any) => {
-    if(queryCondition.isTemp == true) {
-        if(queryCondition.isgt == true) return {closureTemp: {_gt: "now()"}} 
-    } else if(queryCondition.isTemp == false) {
-        if(queryCondition.isgt == true) return {closureFinal: {_gt: "now()"}} 
-        else if (queryCondition.isgt == false) return {closureFinal: {_lt: "now()"}} 
-    }
+  }))
+  
+const handleQueryVariables = (value: any) => {
+    if(value == 0) return {closureTemp: {_gt: "now()"}} 
+    else if (value == 1) return {closureFinal: {_gt: "now()"}}
+    else if (value == 2) return {closureFinal: {_lt: "now()"}}
 }
 
-export const MagazinesPage = () => {
+export const MagazinesStudentPage = () => {
     const [value, setValue] = React.useState(0)
-    const [tempOrFinal, setTempOrFinal] = React.useState({isTemp: true, isgt: true})
-    const { data, error } = useGetMagazineQuery({
+    const { data, loading, error } = useGetMagazineQuery({
         fetchPolicy: 'network-only',
-        variables: {
-            where: handleQueryVariables(tempOrFinal)
-        }
-    })
+        variables: { where: handleQueryVariables(value)}
+      })
+    const navigate = useNavigate();
+    const handleAddMgz = () => {
+        navigate(`/magazine/add`)
+    }
     const mgzDetail = data && data.magazines
     
     const handleChange = (event: React.ChangeEvent<unknown>, newValue: number) => {
         setValue(newValue)
-
     }
-    useEffect(() => {
-        if(value == 0) setTempOrFinal({isTemp: true, isgt: true})
-        if(value == 1) setTempOrFinal({isTemp: false, isgt: true})
-        if(value == 2) setTempOrFinal({isTemp: false, isgt: false})
-    }, [value])
     const classes = useStyles()
     
     // if (loading) return <div>Loading ...</div>
@@ -75,11 +68,18 @@ export const MagazinesPage = () => {
                         <Tab label="PUBLISHED" disableRipple style={{padding: '0', margin: '6px 12px 0 12px'}} className={value===2 ? classes.active_tab :classes.default_tabStyle}/>
                     </Tabs>
                 </div>
+                <Row className='mgzAdd d-flex justify-content-end'>
+                    <Button color="warning" onClick={handleAddMgz}>
+                        <i className="fas fa-plus"></i>
+                        <span>&nbsp;&nbsp;Add</span>
+                    </Button>
+                </Row>
                 {showMgz(chunk(mgzDetail, 3), value)}
             </div>
         </Container>
     )
 }
+export default MagazinesStudentPage
 
 //divide 3 card each CardDeck (row)
 const chunk = (arr: any, chunkSize: number) =>  {
@@ -96,7 +96,7 @@ const showMgz = (info: any, value:number) => {
     if(info) {
         return info.map( (subArr: any, index: any) => {
             const aMgzBlock = subArr.map( (el: any, i: any) => {
-                return <MagazineBlock key={i} label={el.label} closureTemp={el.closureTemp} closureFinal={el.closureFinal} tabStatus={value} createdAt={el.createdAt}/>
+                return <MagazineStudentBlock key={i} label={el.label} closureTemp={el.closureTemp} closureFinal={el.closureFinal} tabStatus={value} createdAt={el.createdAt}/>
             })
             return <Row key={index} style={{margin: 0}}>{aMgzBlock}</Row>
         })
