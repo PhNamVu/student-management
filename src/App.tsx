@@ -5,7 +5,6 @@ import { ApolloProvider } from '@apollo/client'
 
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { Container } from 'reactstrap'
-import { Magazines } from './Pages/Magazines'
 import { LoginPage } from './Pages/LoginPage'
 import { CreateMagazine } from './Pages/CreateMagazine'
 import { ToasterContainer } from 'baseui/toast'
@@ -14,13 +13,9 @@ import MagazinesPage from './Pages/MagazinesAdmin'
 import MagazinesStudentPage from './Pages/MagazinesStudent'
 import ContributeMgzPage from './Pages/ContributeMgz'
 
-
-import routes from './config/routes'
-
 import { useAuth } from './hooks/use-auth'
 import createUnAuthClient from './apollo/unauth-client'
 import createAuthApolloClient from './apollo/auth-client'
-import { Magazines_Update_Column } from './graphql/autogenerate/schemas'
 
 import {PageNotFound} from './Pages/PageNotFound'
 
@@ -94,7 +89,7 @@ function App() {
                     <Route path="*" element={<PageNotFound />} />
                     <Route path="/ad/magazine" element={<MagazinesPage />} />
                     <Route path="/stu/magazine" element={<MagazinesStudentPage />} />
-                    <Route path="/ad/contribute/:mgzTitle" element={<ContributeMgzPage/>} />
+                    <Route path="/ad/contribute/:idMgz/:mgzTitle" element={<ContributeMgzPage/>} />
                   </Routes>
                 </Container>
               </ApolloProvider>

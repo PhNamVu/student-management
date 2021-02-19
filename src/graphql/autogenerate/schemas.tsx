@@ -258,7 +258,7 @@ export type Contributions = {
   facultyId?: Maybe<Scalars['uuid']>
   id: Scalars['uuid']
   image?: Maybe<Scalars['jsonb']>
-  isPublic?: Maybe<Scalars['Boolean']>
+  isSelected?: Maybe<Scalars['Boolean']>
   /** An object relationship */
   magazine?: Maybe<Magazines>
   magazineId?: Maybe<Scalars['uuid']>
@@ -353,7 +353,7 @@ export type Contributions_Bool_Exp = {
   facultyId?: Maybe<Uuid_Comparison_Exp>
   id?: Maybe<Uuid_Comparison_Exp>
   image?: Maybe<Jsonb_Comparison_Exp>
-  isPublic?: Maybe<Boolean_Comparison_Exp>
+  isSelected?: Maybe<Boolean_Comparison_Exp>
   magazine?: Maybe<Magazines_Bool_Exp>
   magazineId?: Maybe<Uuid_Comparison_Exp>
   ownerId?: Maybe<Uuid_Comparison_Exp>
@@ -398,7 +398,7 @@ export type Contributions_Insert_Input = {
   facultyId?: Maybe<Scalars['uuid']>
   id?: Maybe<Scalars['uuid']>
   image?: Maybe<Scalars['jsonb']>
-  isPublic?: Maybe<Scalars['Boolean']>
+  isSelected?: Maybe<Scalars['Boolean']>
   magazine?: Maybe<Magazines_Obj_Rel_Insert_Input>
   magazineId?: Maybe<Scalars['uuid']>
   ownerId?: Maybe<Scalars['uuid']>
@@ -491,7 +491,7 @@ export type Contributions_Order_By = {
   facultyId?: Maybe<Order_By>
   id?: Maybe<Order_By>
   image?: Maybe<Order_By>
-  isPublic?: Maybe<Order_By>
+  isSelected?: Maybe<Order_By>
   magazine?: Maybe<Magazines_Order_By>
   magazineId?: Maybe<Order_By>
   ownerId?: Maybe<Order_By>
@@ -528,7 +528,7 @@ export enum Contributions_Select_Column {
   /** column name */
   Image = 'image',
   /** column name */
-  IsPublic = 'isPublic',
+  IsSelected = 'isSelected',
   /** column name */
   MagazineId = 'magazineId',
   /** column name */
@@ -549,7 +549,7 @@ export type Contributions_Set_Input = {
   facultyId?: Maybe<Scalars['uuid']>
   id?: Maybe<Scalars['uuid']>
   image?: Maybe<Scalars['jsonb']>
-  isPublic?: Maybe<Scalars['Boolean']>
+  isSelected?: Maybe<Scalars['Boolean']>
   magazineId?: Maybe<Scalars['uuid']>
   ownerId?: Maybe<Scalars['uuid']>
   publicBy?: Maybe<Scalars['uuid']>
@@ -572,7 +572,7 @@ export enum Contributions_Update_Column {
   /** column name */
   Image = 'image',
   /** column name */
-  IsPublic = 'isPublic',
+  IsSelected = 'isSelected',
   /** column name */
   MagazineId = 'magazineId',
   /** column name */

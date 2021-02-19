@@ -33,6 +33,11 @@ const handleQueryVariables = (value: any) => {
 
 export const MagazinesPage = () => {
     const [value, setValue] = React.useState(0)
+    const classes = useStyles()
+    const navigate = useNavigate();
+    const handleAddMgz = () => {
+        navigate(`/magazine/add`)
+    }
     const { data, loading, error } = useGetMagazineQuery({
         fetchPolicy: 'network-only',
         variables: { where: handleQueryVariables(value)}
@@ -43,7 +48,7 @@ export const MagazinesPage = () => {
     const handleChange = (event: React.ChangeEvent<unknown>, newValue: number) => {
         setValue(newValue)
     }
-    const classes = useStyles()
+    
     return (
         <Container>
             <div className="justify-content">
@@ -89,7 +94,7 @@ const showMgz = (info: any, value:number) => {
     if(info) {
         return info.map( (subArr: any, index: any) => {
             const aMgzBlock = subArr.map( (el: any, i: any) => {
-                return <MagazineBlock key={i} label={el.label} closureTemp={el.closureTemp} closureFinal={el.closureFinal} tabStatus={value} createdAt={el.createdAt}/>
+                return <MagazineBlock key={i} id={el.id} label={el.label} closureTemp={el.closureTemp} closureFinal={el.closureFinal} tabStatus={value} createdAt={el.createdAt}/>
             })
             return <Row key={index} style={{margin: 0}}>{aMgzBlock}</Row>
         })
