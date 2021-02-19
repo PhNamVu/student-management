@@ -8,10 +8,12 @@ import { Container } from 'reactstrap'
 import { LoginPage } from './Pages/LoginPage'
 import { CreateMagazine } from './Pages/CreateMagazine'
 import { ToasterContainer } from 'baseui/toast'
-import { NavBar } from './components/AdminNav'
+
 import MagazinesPage from './Pages/MagazinesAdmin'
 import MagazinesStudentPage from './Pages/MagazinesStudent'
 import ContributeMgzPage from './Pages/ContributeMgz'
+
+import { AdminNav } from './components/AdminNav'
 
 import { useAuth } from './hooks/use-auth'
 import createUnAuthClient from './apollo/unauth-client'
@@ -78,7 +80,7 @@ function App() {
           <BrowserRouter>
             <ToasterContainer>
               <ApolloProvider client={client}>
-                <NavBar></NavBar>
+                <AdminNav/>
                 <Container
                   fluid
                   style={{ backgroundColor: '#F8F8F8', minHeight: '100vh' }}
