@@ -3,7 +3,7 @@ import React from 'react'
 import './App.css'
 import { ApolloProvider } from '@apollo/client'
 
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { Route, Routes } from 'react-router-dom'
 import { Container } from 'reactstrap'
 import { LoginPage } from './Pages/LoginPage'
 import { CreateMagazine } from './Pages/CreateMagazine'
@@ -27,7 +27,6 @@ function App() {
   if (!state.user) {
     const unAuthClient = createUnAuthClient()
     return (
-      <BrowserRouter>
         <ToasterContainer>
           <ApolloProvider client={unAuthClient}>
             <Container
@@ -41,7 +40,6 @@ function App() {
             </Container>
           </ApolloProvider>
         </ToasterContainer>
-      </BrowserRouter>
     )
   } else {
     if (
@@ -51,7 +49,6 @@ function App() {
     ) {
       const unAuthClient = createUnAuthClient()
       return (
-        <BrowserRouter>
           <ToasterContainer>
             <ApolloProvider client={unAuthClient}>
               <Container
@@ -65,7 +62,6 @@ function App() {
               </Container>
             </ApolloProvider>
           </ToasterContainer>
-        </BrowserRouter>
       )
     }
     {
@@ -77,7 +73,6 @@ function App() {
         ]
       if (role === 'admin') {
         return (
-          <BrowserRouter>
             <ToasterContainer>
               <ApolloProvider client={client}>
                 <AdminNav/>
@@ -96,7 +91,6 @@ function App() {
                 </Container>
               </ApolloProvider>
             </ToasterContainer>
-          </BrowserRouter>
         )
       } else {
         return null
