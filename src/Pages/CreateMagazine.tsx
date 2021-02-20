@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Col, Form, FormGroup, Input, Label, Row } from 'reactstrap'
-import { DatePicker } from 'baseui/datepicker'
+import { Datepicker } from 'baseui/datepicker'
 import { TimePicker } from 'baseui/timepicker'
 import { useStyletron } from 'baseui'
 import PrimaryButton from '../components/shared/button/PrimaryBtn'
@@ -8,22 +8,13 @@ import PrimaryButton from '../components/shared/button/PrimaryBtn'
 export const CreateMagazine = () => {
   const [name, setName] = useState('')
   const [css, theme] = useStyletron()
-  const [closureDate, setClosureDate] = useState([new Date()])
-  const [finalClosureDate, setFinalClosureDate] = useState([new Date()])
-  const [closureTime, setClosureTime] = useState(
-    new Date('2021-02-16T08:28:24.591Z')
-  )
-  const [finalClosureTime, setFinalClosureTime] = useState(
-    new Date('2021-02-16T08:28:24.591Z')
-  )
+  const [closureTemp, setClosureTemp] = useState(new Date())
+  const [closureFinal, setClosureFinal] = useState(new Date())
+  
   const submidHandler = (e: any) => {
     e.preventDefault()
     console.log(
       name,
-      closureDate,
-      finalClosureDate,
-      closureTime,
-      finalClosureTime
     )
   }
 
@@ -43,35 +34,37 @@ export const CreateMagazine = () => {
           <FormGroup>
             <Label for="closuredate">Closure Date</Label>
             <div className="d-flex">
-              <DatePicker
-                value={closureDate}
+              <Datepicker
+                mask="99/99/9999"
+                formatString="dd/MM/yyyy"
+                value={closureTemp}
                 onChange={({ date }) =>
-                  setClosureDate(Array.isArray(date) ? date : [date])
+                  setClosureFinal(date as Date)
                 }
                 clearable
                 peekNextMonth
               />
+
               <div className="ml-2">
-                <TimePicker value={closureTime} onChange={setClosureTime} />
+              <TimePicker value={closureTemp} onChange={setClosureTemp} />
               </div>
             </div>
           </FormGroup>
           <FormGroup>
             <Label for="finalclosuredate">Final Closure Date</Label>
             <div className="d-flex">
-              <DatePicker
-                value={finalClosureDate}
+              <Datepicker
+                mask="99/99/9999"
+                formatString="dd/MM/yyyy"
+                value={closureFinal}
                 onChange={({ date }) =>
-                  setFinalClosureDate(Array.isArray(date) ? date : [date])
+                  setClosureFinal(date as Date)
                 }
                 clearable
                 peekNextMonth
               />
               <div className="ml-2">
-                <TimePicker
-                  value={finalClosureTime}
-                  onChange={setFinalClosureTime}
-                />
+                <TimePicker value={closureFinal} onChange={setClosureFinal} />
               </div>
             </div>
           </FormGroup>

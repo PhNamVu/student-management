@@ -7,3 +7,12 @@ query getMagazine($where: magazines_bool_exp){
     createdAt
   }
 }
+
+mutation addMagazine($object: magazines_insert_input!) {
+  insert_magazines(objects: [$object]) {
+    affected_rows
+    returning {
+      id
+    }
+  }
+}
