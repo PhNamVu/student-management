@@ -83,7 +83,7 @@ function App() {
                   <Routes>
                     <Route path="/" element={<MagazinesPage />} />
                     <Route path="/magazine/add" element={<CreateMagazine />} />
-                    <Route path="*" element={<PageNotFound />} />
+                    {/* <Route path="*" element={<PageNotFound />} /> */}
                     <Route path="/ad/magazine" element={<MagazinesPage />} />
                     <Route path="/stu/magazine" element={<MagazinesStudentPage />} />
                     <Route path="/ad/contribute/:idMgz/:mgzTitle" element={<ContributeMgzPage/>} />
