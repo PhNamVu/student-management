@@ -1,9 +1,8 @@
 /* eslint-disable prefer-const */
 import React from 'react'
 import moment from 'moment';
+import { useNavigate } from "react-router-dom";
 import { Card, CardText, CardBody, CardTitle, Col, Button} from 'reactstrap';
-
-
 
 const showRemainTime = (tabStatus: number, closureTemp: string, closureFinal: string) => {
     if(tabStatus === 0){
@@ -65,6 +64,7 @@ const percentdaysLeft = (tabStatus: number, closureTemp: string, closureFinal: s
 }
 
 type Props = {
+    id: string
     label: string;
     closureTemp: string;
     closureFinal: string;
@@ -72,11 +72,16 @@ type Props = {
     createdAt: string
 };
 
-export const MagazineStudentBlock = ({ label, closureTemp, closureFinal, tabStatus, createdAt }: Props) => {
+export const MagazineStudentBlock = ({ id, label, closureTemp, closureFinal, tabStatus, createdAt }: Props) => {
     const closureTempDateString = (moment(closureTemp)).format('DD/MM/YYYY HH:mm A')
     const closureFinalpDateString = (moment(closureFinal)).format('DD/MM/YYYY HH:mm A')
     const lineWidth = percentdaysLeft(tabStatus, closureTemp, closureFinal, createdAt)
     let lineStyle = { "width": `${lineWidth}` } as React.CSSProperties
+
+    let navigate = useNavigate();
+    const handleSubmitBtn = (idMgz: string) => {
+        navigate(`/stu/submitContribute/${idMgz}`)
+    }
     
     return (
         <Col lg="4" sm='12'>
@@ -93,7 +98,7 @@ export const MagazineStudentBlock = ({ label, closureTemp, closureFinal, tabStat
                         <small style={(tabStatus == 1)?{ 'fontWeight': 'bold', fontSize: '60%' } :{fontSize: '60%' }}>FINAL CLOSURE: {closureFinalpDateString}</small>
                     </CardText>
                     <div className="d-flex align-items-center justify-content-end" >
-                        <Button color="warning" className='btn-circle btn-lg'>
+                        <Button color="warning" className='btn-circle btn-lg' onClick={() =>{handleSubmitBtn(id)}}>
                             <i className="fas fa-plus"></i>
                             <span style={{fontSize: '80%'}}>&nbsp;&nbsp;Submit Contribution</span>
                         </Button>

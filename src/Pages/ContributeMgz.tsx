@@ -3,8 +3,8 @@ import { useGetContributeQuery } from '../graphql/autogenerate/hooks'
 import { Container, Table } from 'reactstrap'
 import { useParams } from 'react-router-dom'
 import clsx from "clsx";
-import { createStyles, lighten, makeStyles, withStyles, Theme } from "@material-ui/core/styles";
-import { TableBody, TableHead, TableRow, TableCell, Checkbox, TableContainer, Typography, Toolbar, Tooltip, TablePagination } from "@material-ui/core"
+import { createStyles, lighten, makeStyles, Theme } from "@material-ui/core/styles";
+import { TableBody, TableHead, TableRow, TableCell, Checkbox, TableContainer, Typography, Toolbar, Tooltip, TablePagination, CircularProgress, Backdrop  } from "@material-ui/core"
 import IconButton from "@material-ui/core/IconButton";
 import GetAppIcon from '@material-ui/icons/GetApp';
 
@@ -139,11 +139,10 @@ const useStyles = makeStyles((theme: Theme) =>
         table: {
             minWidth: 750
         },
-        cell: {
-            '&:last-child': {
-              paddingTop: 50,
-            },
-          },
+        backdrop: {
+            zIndex: theme.zIndex.drawer + 1,
+            color: '#fff',
+        },
     })
 )
 
@@ -158,8 +157,12 @@ export const ContributeMgzPage = () => {
     const { data, loading, error } = useGetContributeQuery({
         fetchPolicy: 'network-only',
         variables: { idMgz: params.idMgz }
-      })
-      // if (loading) return <div>Loading ...</div>
+    })
+    if (loading) return (
+        <Backdrop className={customStyle.backdrop} open={loading}>
+            <CircularProgress color="inherit"/>
+        </Backdrop>
+    )
     if (error) return <div> Error at Magazines component {console.log(error)}</div>
     const dataDetail = data && data.contributions
     const rows: any = dataDetail?.map((el:any, index) => {
@@ -231,7 +234,7 @@ export const ContributeMgzPage = () => {
                                         key={row.title}
                                         selected={isItemSelected}
                                     >
-                                        <TableCell padding='checkbox' className={customStyle.cell} style={{padding:'0'}}>
+                                        <TableCell padding='checkbox' style={{padding:'0'}}>
                                             <Checkbox checked={isItemSelected} inputProps={{ "aria-labelledby": labelId }} />
                                         </TableCell>
                                         <TableCell component="th" id={labelId} scope="row">
