@@ -92,7 +92,15 @@ function App() {
               </ApolloProvider>
             </ToasterContainer>
         )
-      } else {
+      } else if (role === 'student') {
+        return (
+          <ToasterContainer>
+            <ApolloProvider client={client}>
+              <AdminNav/>
+            </ApolloProvider>
+          </ToasterContainer>
+      )
+      }else {
         return null
       }
     }
