@@ -30,7 +30,7 @@ export const AdminNav = () => {
                   <NavLink href="/accounts">Account</NavLink>
                 </NavItem>
                 <NavItem>
-                  <NavLink href="/magazine">Magazine</NavLink>
+                  <NavLink href="/ad/magazine">Magazine</NavLink>
                 </NavItem>
                 <NavItem>
                   <NavLink href="/chart">Chart</NavLink>

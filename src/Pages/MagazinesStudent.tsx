@@ -1,7 +1,7 @@
 import React from 'react'
 import { useGetMagazineQuery } from '../graphql/autogenerate/hooks'
 import { Container, Row, Button } from 'reactstrap'
-import { Tabs, Tab, makeStyles} from '@material-ui/core';
+import { Tabs, Tab, makeStyles, createStyles, Backdrop, CircularProgress, Theme} from '@material-ui/core';
 import { useNavigate } from "react-router-dom";
 import './magazine.css'
 import MagazineStudentBlock from '../components/MagazineStudentBlock'
@@ -23,7 +23,16 @@ const useStyles = makeStyles(() => ({
     default_tabStyle: {
         color: "#9B9B9B",
     }
-  }))
+}))
+
+  const loadingStyles = makeStyles((theme: Theme) =>
+  createStyles({
+      backdrop: {
+      zIndex: theme.zIndex.drawer + 1,
+      color: '#fff',
+      },
+  }),
+);
   
 const handleQueryVariables = (value: any) => {
     if(value == 0) return {closureTemp: {_gt: "now()"}} 
@@ -37,25 +46,27 @@ export const MagazinesStudentPage = () => {
         fetchPolicy: 'network-only',
         variables: { where: handleQueryVariables(value)}
       })
-    const navigate = useNavigate();
-    const handleAddMgz = () => {
-        navigate(`/magazine/add`)
-    }
+    const navigate = useNavigate()
     const mgzDetail = data && data.magazines
     
     const handleChange = (event: React.ChangeEvent<unknown>, newValue: number) => {
         setValue(newValue)
     }
     const classes = useStyles()
+    const customStyle = loadingStyles()
     
-    // if (loading) return <div>Loading ...</div>
+    if (loading) return (
+        <Backdrop className={customStyle.backdrop} open={loading}>
+            <CircularProgress color="inherit"/>
+        </Backdrop>
+    )
     if (error) return <div> Error at Magazines component {console.log(error)}</div>
 
     return (
         <Container>
             <div className="justify-content">
-                <h2 style={{ padding: "20px 0 1px 12px", }}>Magazines</h2>
-                <div className="mgzTabs">
+                <h2 style={{ padding: "20px 0 1px 12px", fontWeight:'bold'}}>Magazines</h2>
+                <div className="mgzTabs" style={{marginBottom:'20px'}}>
                     <Tabs 
                         value={value}
                         onChange={handleChange}
@@ -68,12 +79,6 @@ export const MagazinesStudentPage = () => {
                         <Tab label="PUBLISHED" disableRipple style={{padding: '0', margin: '6px 12px 0 12px'}} className={value===2 ? classes.active_tab :classes.default_tabStyle}/>
                     </Tabs>
                 </div>
-                <Row className='mgzAdd d-flex justify-content-end'>
-                    <Button color="warning" onClick={handleAddMgz}>
-                        <i className="fas fa-plus"></i>
-                        <span>&nbsp;&nbsp;Add</span>
-                    </Button>
-                </Row>
                 {showMgz(chunk(mgzDetail, 3), value)}
             </div>
         </Container>
@@ -96,7 +101,7 @@ const showMgz = (info: any, value:number) => {
     if(info) {
         return info.map( (subArr: any, index: any) => {
             const aMgzBlock = subArr.map( (el: any, i: any) => {
-                return <MagazineStudentBlock key={i} label={el.label} closureTemp={el.closureTemp} closureFinal={el.closureFinal} tabStatus={value} createdAt={el.createdAt}/>
+                return <MagazineStudentBlock key={i} id={el.id} label={el.label} closureTemp={el.closureTemp} closureFinal={el.closureFinal} tabStatus={value} createdAt={el.createdAt}/>
             })
             return <Row key={index} style={{margin: 0}}>{aMgzBlock}</Row>
         })

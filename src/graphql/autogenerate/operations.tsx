@@ -1,5 +1,32 @@
 import * as Types from './schemas'
 
+export type PostCommentMutationVariables = Types.Exact<{
+  object: Types.Comments_Insert_Input
+}>
+
+export type PostCommentMutation = { __typename?: 'mutation_root' } & {
+  insert_comments_one?: Types.Maybe<
+    { __typename?: 'comments' } & Pick<Types.Comments, 'id'>
+  >
+}
+
+export type GetCommentQueryVariables = Types.Exact<{
+  contributionId?: Types.Maybe<Types.Scalars['uuid']>
+}>
+
+export type GetCommentQuery = { __typename?: 'query_root' } & {
+  comments: Array<
+    { __typename?: 'comments' } & Pick<
+      Types.Comments,
+      'id' | 'content' | 'createAt'
+    > & {
+        user?: Types.Maybe<
+          { __typename?: 'users' } & Pick<Types.Users, 'fullName'>
+        >
+      }
+  >
+}
+
 export type GetContributeQueryVariables = Types.Exact<{
   idMgz?: Types.Maybe<Types.Scalars['uuid']>
 }>
