@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import { Col, Form, FormGroup, Input, Label, Row } from 'reactstrap'
-import { Datepicker } from 'baseui/datepicker'
 import { TimePicker } from 'baseui/timepicker'
 import { useStyletron } from 'baseui'
 import PrimaryButton from '../components/shared/button/PrimaryBtn'
+import DatePicker from 'react-date-picker'
 
 export const CreateMagazine = () => {
   const [name, setName] = useState('')
@@ -14,7 +14,7 @@ export const CreateMagazine = () => {
   const submidHandler = (e: any) => {
     e.preventDefault()
     console.log(
-      name,
+      name
     )
   }
 
@@ -25,7 +25,7 @@ export const CreateMagazine = () => {
         <Form onSubmit={submidHandler}>
           <FormGroup>
             <Label for="name">Name</Label>
-            <Input
+            <Input required
               value={name}
               name="name"
               onChange={(e) => setName(e.target.value)}
@@ -34,17 +34,10 @@ export const CreateMagazine = () => {
           <FormGroup>
             <Label for="closuredate">Closure Date</Label>
             <div className="d-flex">
-              <Datepicker
-                mask="99/99/9999"
-                formatString="dd/MM/yyyy"
-                value={closureTemp}
-                onChange={({ date }) =>
-                  setClosureFinal(date as Date)
-                }
-                clearable
-                peekNextMonth
-              />
-
+                <DatePicker required className="calendar"
+                  value={closureTemp}
+                  onChange={ (date) => setClosureTemp(date as Date)}
+                />
               <div className="ml-2">
               <TimePicker value={closureTemp} onChange={setClosureTemp} />
               </div>
@@ -53,15 +46,9 @@ export const CreateMagazine = () => {
           <FormGroup>
             <Label for="finalclosuredate">Final Closure Date</Label>
             <div className="d-flex">
-              <Datepicker
-                mask="99/99/9999"
-                formatString="dd/MM/yyyy"
+              <DatePicker required className="calendar"
                 value={closureFinal}
-                onChange={({ date }) =>
-                  setClosureFinal(date as Date)
-                }
-                clearable
-                peekNextMonth
+                onChange={(date) => setClosureFinal(date as Date)}
               />
               <div className="ml-2">
                 <TimePicker value={closureFinal} onChange={setClosureFinal} />
@@ -82,4 +69,3 @@ export const CreateMagazine = () => {
     </Row>
   )
 }
-export default CreateMagazine

@@ -6,7 +6,7 @@ import reportWebVitals from './reportWebVitals'
 import { LightTheme, BaseProvider } from 'baseui'
 import { Client as Styletron } from 'styletron-engine-atomic'
 import { Provider as StyletronProvider } from 'styletron-react'
-// import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap/dist/css/bootstrap.css'
 import { ProvideAuth } from './hooks/use-auth'
 import { BrowserRouter } from 'react-router-dom'
 
