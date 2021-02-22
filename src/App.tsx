@@ -12,6 +12,7 @@ import { ToasterContainer } from 'baseui/toast'
 import MagazinesPage from './Pages/MagazinesAdmin'
 import MagazinesStudentPage from './Pages/MagazinesStudent'
 import ContributeMgzPage from './Pages/ContributeMgz'
+import SubmitContributePage from './Pages/EditContribute'
 
 import { AdminNav } from './components/AdminNav'
 
@@ -87,6 +88,7 @@ function App() {
                     <Route path="/ad/magazine" element={<MagazinesPage />} />
                     <Route path="/stu/magazine" element={<MagazinesStudentPage />} />
                     <Route path="/ad/contribute/:idMgz/:mgzTitle" element={<ContributeMgzPage/>} />
+                    <Route path="/stu/submitContribute/:idMgz" element={<SubmitContributePage userId={state.user.uid}/>} />
                   </Routes>
                 </Container>
               </ApolloProvider>

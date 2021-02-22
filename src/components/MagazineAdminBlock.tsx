@@ -79,8 +79,8 @@ export const MagazineBlock = ({ id, label, closureTemp, closureFinal, tabStatus,
     const closureFinalpDateString = (moment(closureFinal)).format('DD/MM/YYYY HH:mm A')
     const lineWidth = percentdaysLeft(tabStatus, closureTemp, closureFinal, createdAt)
     let lineStyle = { "width": `${lineWidth}` } as React.CSSProperties
-    let navigate = useNavigate();
 
+    let navigate = useNavigate();
     const handleOnclick = (idMgz: string, mgzLabel: string) => {
         navigate(`/ad/contribute/${idMgz}/${mgzLabel}`)
     }

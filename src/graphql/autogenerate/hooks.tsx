@@ -3,6 +3,116 @@ import * as Types from './operations'
 import { gql } from '@apollo/client'
 import * as Apollo from '@apollo/client'
 
+export const PostCommentDocument = gql`
+  mutation postComment($object: comments_insert_input!) {
+    insert_comments_one(object: $object) {
+      id
+    }
+  }
+`
+export type PostCommentMutationFn = Apollo.MutationFunction<
+  Types.PostCommentMutation,
+  Types.PostCommentMutationVariables
+>
+
+/**
+ * __usePostCommentMutation__
+ *
+ * To run a mutation, you first call `usePostCommentMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `usePostCommentMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [postCommentMutation, { data, loading, error }] = usePostCommentMutation({
+ *   variables: {
+ *      object: // value for 'object'
+ *   },
+ * });
+ */
+export function usePostCommentMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    Types.PostCommentMutation,
+    Types.PostCommentMutationVariables
+  >
+) {
+  return Apollo.useMutation<
+    Types.PostCommentMutation,
+    Types.PostCommentMutationVariables
+  >(PostCommentDocument, baseOptions)
+}
+export type PostCommentMutationHookResult = ReturnType<
+  typeof usePostCommentMutation
+>
+export type PostCommentMutationResult = Apollo.MutationResult<Types.PostCommentMutation>
+export type PostCommentMutationOptions = Apollo.BaseMutationOptions<
+  Types.PostCommentMutation,
+  Types.PostCommentMutationVariables
+>
+export const GetCommentDocument = gql`
+  query getComment($contributionId: uuid) {
+    comments(
+      where: { contribution: { id: { _eq: $contributionId } } }
+      order_by: { createAt: asc }
+    ) {
+      id
+      content
+      createAt
+      user {
+        fullName
+      }
+    }
+  }
+`
+
+/**
+ * __useGetCommentQuery__
+ *
+ * To run a query within a React component, call `useGetCommentQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetCommentQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetCommentQuery({
+ *   variables: {
+ *      contributionId: // value for 'contributionId'
+ *   },
+ * });
+ */
+export function useGetCommentQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    Types.GetCommentQuery,
+    Types.GetCommentQueryVariables
+  >
+) {
+  return Apollo.useQuery<Types.GetCommentQuery, Types.GetCommentQueryVariables>(
+    GetCommentDocument,
+    baseOptions
+  )
+}
+export function useGetCommentLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    Types.GetCommentQuery,
+    Types.GetCommentQueryVariables
+  >
+) {
+  return Apollo.useLazyQuery<
+    Types.GetCommentQuery,
+    Types.GetCommentQueryVariables
+  >(GetCommentDocument, baseOptions)
+}
+export type GetCommentQueryHookResult = ReturnType<typeof useGetCommentQuery>
+export type GetCommentLazyQueryHookResult = ReturnType<
+  typeof useGetCommentLazyQuery
+>
+export type GetCommentQueryResult = Apollo.QueryResult<
+  Types.GetCommentQuery,
+  Types.GetCommentQueryVariables
+>
 export const GetContributeDocument = gql`
   query getContribute($idMgz: uuid) {
     contributions(where: { magazine: { id: { _eq: $idMgz } } }) {
