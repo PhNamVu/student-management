@@ -15,6 +15,7 @@ import ContributeMgzPage from './Pages/ContributeMgz'
 import SubmitContributePage from './Pages/EditContribute'
 
 import { AdminNav } from './components/AdminNav'
+import { StudentNav } from './components/StudenNav'
 
 import { useAuth } from './hooks/use-auth'
 import createUnAuthClient from './apollo/unauth-client'
@@ -85,9 +86,8 @@ function App() {
                     <Route path="/" element={<MagazinesPage />} />
                     <Route path="/magazine/add" element={<CreateMagazine />} />
                     <Route path="*" element={<PageNotFound />} />
-                    <Route path="/ad/magazine" element={<MagazinesPage />} />
-                    <Route path="/stu/magazine" element={<MagazinesStudentPage />} />
-                    <Route path="/ad/contribute/:idMgz/:mgzTitle" element={<ContributeMgzPage/>} />
+                    <Route path="/magazine" element={<MagazinesPage />} /> 
+                    <Route path="/contribute/:idMgz/:mgzTitle" element={<ContributeMgzPage/>} />
                     <Route path="/stu/submitContribute/:idMgz" element={<SubmitContributePage userId={state.user.uid}/>} />
                   </Routes>
                 </Container>
@@ -98,7 +98,15 @@ function App() {
         return (
           <ToasterContainer>
             <ApolloProvider client={client}>
-              <AdminNav/>
+              <StudentNav/>
+              <Container
+                fluid
+                style={{ backgroundColor: '#F8F8F8', minHeight: '100vh' }}
+              >
+                <Routes>
+                  <Route path="/" element={<MagazinesStudentPage />} />
+                </Routes>
+              </Container>  
             </ApolloProvider>
           </ToasterContainer>
       )
