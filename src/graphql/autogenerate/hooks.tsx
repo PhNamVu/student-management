@@ -249,6 +249,57 @@ export type GetMagazineQueryResult = Apollo.QueryResult<
   Types.GetMagazineQuery,
   Types.GetMagazineQueryVariables
 >
+export const AddMagazineDocument = gql`
+  mutation addMagazine($object: magazines_insert_input!) {
+    insert_magazines(objects: [$object]) {
+      affected_rows
+      returning {
+        id
+      }
+    }
+  }
+`
+export type AddMagazineMutationFn = Apollo.MutationFunction<
+  Types.AddMagazineMutation,
+  Types.AddMagazineMutationVariables
+>
+
+/**
+ * __useAddMagazineMutation__
+ *
+ * To run a mutation, you first call `useAddMagazineMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useAddMagazineMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [addMagazineMutation, { data, loading, error }] = useAddMagazineMutation({
+ *   variables: {
+ *      object: // value for 'object'
+ *   },
+ * });
+ */
+export function useAddMagazineMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    Types.AddMagazineMutation,
+    Types.AddMagazineMutationVariables
+  >
+) {
+  return Apollo.useMutation<
+    Types.AddMagazineMutation,
+    Types.AddMagazineMutationVariables
+  >(AddMagazineDocument, baseOptions)
+}
+export type AddMagazineMutationHookResult = ReturnType<
+  typeof useAddMagazineMutation
+>
+export type AddMagazineMutationResult = Apollo.MutationResult<Types.AddMagazineMutation>
+export type AddMagazineMutationOptions = Apollo.BaseMutationOptions<
+  Types.AddMagazineMutation,
+  Types.AddMagazineMutationVariables
+>
 export const GetUsersDocument = gql`
   query getUsers {
     users(limit: 10) {

@@ -1,40 +1,53 @@
 import React, { useState } from 'react'
 import { Col, Form, FormGroup, Input, Label, Row } from 'reactstrap'
-import { DatePicker } from 'baseui/datepicker'
 import { TimePicker } from 'baseui/timepicker'
 import { useStyletron } from 'baseui'
 import PrimaryButton from '../components/shared/button/PrimaryBtn'
+import DatePicker from 'react-date-picker'
+import { useAddMagazineMutation } from '../graphql/autogenerate/hooks'
+import { toaster } from 'baseui/toast'
+import { useNavigate } from 'react-router-dom'
 
 export const CreateMagazine = () => {
   const [name, setName] = useState('')
   const [css, theme] = useStyletron()
-  const [closureDate, setClosureDate] = useState([new Date()])
-  const [finalClosureDate, setFinalClosureDate] = useState([new Date()])
-  const [closureTime, setClosureTime] = useState(
-    new Date('2021-02-16T08:28:24.591Z')
-  )
-  const [finalClosureTime, setFinalClosureTime] = useState(
-    new Date('2021-02-16T08:28:24.591Z')
-  )
-  const submidHandler = (e: any) => {
+  const [closureTemp, setClosureTemp] = useState(new Date())
+  const [closureFinal, setClosureFinal] = useState(new Date())
+  const [addMagazine] = useAddMagazineMutation()
+  const navigate = useNavigate();
+  const submitHandler = async (e: any) => {
     e.preventDefault()
-    console.log(
-      name,
-      closureDate,
-      finalClosureDate,
-      closureTime,
-      finalClosureTime
-    )
+    try {
+      await addMagazine({
+        variables: {
+          object: {
+            label: name,
+            closureTemp,
+            closureFinal,
+          },
+        },
+      })
+      toaster.positive('Add magazine successful', {
+        autoHideDuration: 3000,
+      })
+      navigate('/')
+    } catch (error) {
+
+      console.log(error)
+      toaster.negative('Add magazine fail', {
+        autoHideDuration: 3000,
+      })
+    }
   }
 
   return (
     <Row className="d-flex justify-content-center">
       <Col xl="4" lg="5" md="4" sm="10" xs="5">
         <h3> Create Magazine</h3>
-        <Form onSubmit={submidHandler}>
+        <Form onSubmit={submitHandler}>
           <FormGroup>
             <Label for="name">Name</Label>
-            <Input
+            <Input required
               value={name}
               name="name"
               onChange={(e) => setName(e.target.value)}
@@ -42,36 +55,29 @@ export const CreateMagazine = () => {
           </FormGroup>
           <FormGroup>
             <Label for="closuredate">Closure Date</Label>
-            <div className="d-flex">
-              <DatePicker
-                value={closureDate}
-                onChange={({ date }) =>
-                  setClosureDate(Array.isArray(date) ? date : [date])
-                }
-                clearable
-                peekNextMonth
+            <div className="d-flex justify-content-end">
+              <DatePicker required className="calendar"
+                minDate={new Date()}
+                format='dd/MM/yyyy'
+                value={closureTemp} 
+                onChange={ (date) => setClosureTemp(date as Date)}
               />
               <div className="ml-2">
-                <TimePicker value={closureTime} onChange={setClosureTime} />
+                <TimePicker value={closureTemp} onChange={setClosureTemp} />
               </div>
             </div>
           </FormGroup>
           <FormGroup>
             <Label for="finalclosuredate">Final Closure Date</Label>
-            <div className="d-flex">
-              <DatePicker
-                value={finalClosureDate}
-                onChange={({ date }) =>
-                  setFinalClosureDate(Array.isArray(date) ? date : [date])
-                }
-                clearable
-                peekNextMonth
+            <div className="d-flex justify-content-end">
+              <DatePicker required className="calendar"
+                minDate={new Date()}
+                format='dd/MM/yyyy'
+                value={closureFinal}
+                onChange={(date) => setClosureFinal(date as Date)}
               />
               <div className="ml-2">
-                <TimePicker
-                  value={finalClosureTime}
-                  onChange={setFinalClosureTime}
-                />
+                <TimePicker value={closureFinal} onChange={setClosureFinal} />
               </div>
             </div>
           </FormGroup>
@@ -89,4 +95,3 @@ export const CreateMagazine = () => {
     </Row>
   )
 }
-export default CreateMagazine

@@ -77,6 +77,23 @@ export type GetMagazineQuery = { __typename?: 'query_root' } & {
   >
 }
 
+export type AddMagazineMutationVariables = Types.Exact<{
+  object: Types.Magazines_Insert_Input
+}>
+
+export type AddMagazineMutation = { __typename?: 'mutation_root' } & {
+  insert_magazines?: Types.Maybe<
+    { __typename?: 'magazines_mutation_response' } & Pick<
+      Types.Magazines_Mutation_Response,
+      'affected_rows'
+    > & {
+        returning: Array<
+          { __typename?: 'magazines' } & Pick<Types.Magazines, 'id'>
+        >
+      }
+  >
+}
+
 export type GetUsersQueryVariables = Types.Exact<{ [key: string]: never }>
 
 export type GetUsersQuery = { __typename?: 'query_root' } & {
