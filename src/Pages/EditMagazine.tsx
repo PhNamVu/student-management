@@ -57,7 +57,6 @@ export const EditMagazinePage = () => {
   const magazine = data?.magazines[0]
   console.log('magazine ne', magazine)
   return (
-  
     <Row className="d-flex justify-content-center">
       <Col xl="4" lg="5" md="4" sm="10" xs="5">
         <h3 className="mb-5"> Edit Magazine</h3>
