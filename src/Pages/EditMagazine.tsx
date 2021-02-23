@@ -1,5 +1,9 @@
-import React, { useState } from 'react'
+//hasura use tUTC format for timestamp => return utc string then query
+
+
+import React, { useState, useEffect } from 'react'
 import { Col, Form, FormGroup, Input, Label, Row } from 'reactstrap'
+import { makeStyles, createStyles, Backdrop, CircularProgress, Theme} from '@material-ui/core';
 import { TimePicker } from 'baseui/timepicker'
 import { useStyletron } from 'baseui'
 import PrimaryButton from '../components/shared/button/PrimaryBtn'
@@ -12,15 +16,24 @@ import {
 import { toaster } from 'baseui/toast'
 import { useNavigate, useParams } from 'react-router-dom'
 
+const loadingStyles = makeStyles((theme: Theme) =>
+    createStyles({
+        backdrop: {
+        zIndex: theme.zIndex.drawer + 1,
+        color: '#fff',
+        },
+    }),
+);
+
 export const EditMagazinePage = () => {
   const { id } = useParams()
-  const [name, setName] = useState('')
+  const customStyle = loadingStyles()
   const [css, theme] = useStyletron()
-  const [closureTemp, setClosureTemp] = useState(new Date())
-  const [closureFinal, setClosureFinal] = useState(new Date())
-  const [updateMagazine] = useEditMagazineMutation()
-  const navigate = useNavigate()
-  const { data, error } = useGetMagazineQuery({
+  const [name, setName] = useState('')
+  const [closureTemp, setClosureTemp] = useState('')
+  const [closureFinal, setClosureFinal] = useState('')
+
+  const { data, loading, error } = useGetMagazineQuery({
     fetchPolicy: 'network-only',
     variables: {
       where: {
@@ -28,92 +41,103 @@ export const EditMagazinePage = () => {
       },
     },
   })
+  const magazine = data && data?.magazines[0]
   
+  useEffect(() => {
+    if (magazine?.label) setName(magazine?.label)
+    if (magazine?.closureTemp) setClosureTemp(magazine?.closureTemp)
+    if (magazine?.closureFinal) setClosureFinal(magazine?.closureFinal)
+  }, [magazine])
+  const [editMagazineMutation] = useEditMagazineMutation({
+    variables: {
+       id: id,
+       object: {
+        label: name,
+        closureTemp,
+        closureFinal,
+      },
+    },
+  })
   if (error) return <div>Error at Edit Magazine component {error}</div>
+  if (loading) return (
+    <Backdrop className={customStyle.backdrop} open={loading}>
+        <CircularProgress color="inherit"/>
+    </Backdrop>
+  )
+
   const submitHandler = async (e: any) => {
     e.preventDefault()
     try {
-      await updateMagazine({
-        variables: {
-          object: {
-            label: name,
-            closureTemp,
-            closureFinal,
-          },
-        },
-      })
-      toaster.positive('Add magazine successful', {
+      await editMagazineMutation()
+      toaster.positive('Submit success', {
         autoHideDuration: 3000,
       })
-      navigate('/')
     } catch (error) {
-      console.log(error)
-      toaster.negative('Add magazine fail', {
+      console.log(error);
+      toaster.negative('Submit Fail', {
         autoHideDuration: 3000,
       })
     }
+    
   }
-  
-  const magazine = data?.magazines[0]
-  console.log('magazine ne', magazine)
+
+  if(moment(closureTemp).isSameOrAfter(closureFinal)) {
+    setClosureFinal(moment(closureTemp).add(1, 'minutes').format())
+  }
   return (
     <Row className="d-flex justify-content-center">
       <Col xl="4" lg="5" md="4" sm="10" xs="5">
-        <h3 className="mb-5"> Edit Magazine</h3>
+        <h2 className="mb-4 mt-4" style={{fontWeight:'bold'}}> Edit Magazine</h2>
         <Form onSubmit={submitHandler}>
           <FormGroup>
             <Label for="name">Name</Label>
-            {magazine?.label &&
-              <Input
+            <Input
                 required
-                value={magazine ? magazine?.label : 'Name no set'}
+                value={name ? name : 'null'}
                 name="name"
                 onChange={(e) => setName(e.target.value)}
-              />
-            }
+            />
           </FormGroup>
           <FormGroup>
             <Label for="closuredate">Closure Date</Label>
-            <div className="d-flex justify-content-end">
-              <DatePicker
-                required
-                className="calendar"
-                minDate={new Date()}
-                format="dd/MM/yyyy"
-                value={closureTemp}
-                onChange={(date) => setClosureTemp(date as Date)}
-              />
-              <div className="ml-2">
-                <TimePicker value={closureTemp} onChange={setClosureTemp} />
-              </div>
-            </div>
+            
+              {(closureTemp !== '') ? <div className="d-flex justify-content-end">
+                  <DatePicker
+                  required
+                  className="calendar"
+                  minDate={moment(closureTemp).toDate()}
+                  format="dd/MM/yyyy"
+                  value={moment(closureTemp).toDate()}
+                  onChange={(date) => setClosureTemp(moment(date.toString()).utc().format())}
+                />
+                  <div className="ml-2">
+                    <TimePicker 
+                    value={moment(closureTemp).toDate()} 
+                    onChange={(date) => setClosureTemp(moment(date.toString()).utc().format())} />
+                  </div>
+                </div>
+              : null}
           </FormGroup>
           <FormGroup>
             <Label for="finalclosuredate">Final Closure Date</Label>
-            <div className="d-flex justify-content-end">
+            {(closureFinal !== '') ? <div className="d-flex justify-content-end">
               <DatePicker
                 required
                 className="calendar"
-                minDate={new Date()}
+                minDate={moment(closureTemp).toDate()}
                 format="dd/MM/yyyy"
-                value={closureFinal}
-                onChange={(date) => setClosureFinal(date as Date)}
+                value={moment(closureFinal).toDate()}
+                onChange={(date) => setClosureFinal(moment(date.toString()).utc().format())}
               />
               <div className="ml-2">
                 <TimePicker
-                  value={closureFinal}
-                  onChange={setClosureFinal}
+                  value={moment(closureFinal).toDate()}
+                  onChange={(date) => setClosureFinal(moment(date.toString()).utc().format())}
                 />
               </div>
-            </div>
+            </div>: null}
           </FormGroup>
-          <div
-            className={css({
-              display: 'flex',
-              justifyContent: 'flex-end',
-              marginTop: theme.sizing.scale500,
-            })}
-          >
+          <div className='d-flex justify-content-center'>
             <PrimaryButton type="submit">Update</PrimaryButton>
           </div>
         </Form>

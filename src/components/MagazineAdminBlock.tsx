@@ -81,12 +81,12 @@ export const MagazineBlock = ({ id, label, closureTemp, closureFinal, tabStatus,
     let lineStyle = { "width": `${lineWidth}` } as React.CSSProperties
 
     let navigate = useNavigate();
-    const handleOnclick = (idMgz: string, mgzLabel: string) => {
-        navigate(`/ad/contribute/${idMgz}/${mgzLabel}`)
+    const handleEditMagazine = (idMgz: string,) => {
+        navigate(`/magazine/${idMgz}/edit`)
     }
     
     return (
-        <Col lg="4" sm='12' style={{ cursor: 'pointer'}} onClick={() => handleOnclick(id, label)}>
+        <Col lg="4" sm='12' style={{ cursor: 'pointer'}}>
             <Card style={{margin: '0 0 26px 0'}}>
                 <CardBody>
                     <CardText className="d-flex align-items-center justify-content-end">
@@ -100,7 +100,7 @@ export const MagazineBlock = ({ id, label, closureTemp, closureFinal, tabStatus,
                         <small style={(tabStatus == 1)?{ 'fontWeight': 'bold', fontSize: '60%' } :{fontSize: '60%' }}>FINAL CLOSURE: {closureFinalpDateString}</small>
                     </CardText>
                     <div className="d-flex align-items-center justify-content-end" >
-                        <Button color="warning" className='btn-circle btn-lg'>
+                        <Button color="warning" className='btn-circle btn-lg' onClick={() => handleEditMagazine(id)}>
                             <i className="fas fa-edit"></i>
                         </Button>
                     </div>
