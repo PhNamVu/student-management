@@ -1,3 +1,4 @@
+
 query getContribute($idMgz: uuid){
   contributions(where: {magazine: {id: {_eq: $idMgz}}}){
     title
@@ -7,6 +8,33 @@ query getContribute($idMgz: uuid){
     id
     user{
       fullName
+      faculty{
+        label
+      }
+    }
+    userByPublicBy{
+      fullName
+    }
+    isSelected
+    faculty{
+      label
+    }
+    artical
+    image
+    deleted
+    createdAt
+    updatedAt
+  }
+},
+
+query getContributeByUserId($idUser: uuid){
+  contributions(where: {user: {id: {_eq: $idUser}}}){
+    title
+    magazine{
+      label
+    }
+    id
+    user{
       faculty{
         label
       }

@@ -27,10 +27,10 @@ export const StudentNav = () => {
             <div className="mr-sm-auto">
               <Nav navbar className="header-links btn">
                 <NavItem>
-                  <NavLink href="/magazine">Magazine</NavLink>
+                  <NavLink href="/">Magazine</NavLink>
                 </NavItem>
                 <NavItem>
-                  <NavLink href="/contribution">Contribution</NavLink>
+                  <NavLink href="/contributions">Contribution</NavLink>
                 </NavItem>
               </Nav>
             </div>

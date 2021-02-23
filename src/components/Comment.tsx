@@ -1,9 +1,17 @@
 import React, { useEffect, useReducer } from 'react'
 import { Container } from 'reactstrap'
 import { Button, Comment, Form, Header } from 'semantic-ui-react'
-
+import { Tabs, Tab, makeStyles, createStyles, Backdrop, CircularProgress, Theme} from '@material-ui/core';
 import { usePostCommentMutation, useGetCommentLazyQuery } from '../graphql/autogenerate/hooks'
 
+const loadingStyles = makeStyles((theme: Theme) =>
+  createStyles({
+      backdrop: {
+      zIndex: theme.zIndex.drawer + 1,
+      color: '#fff',
+      },
+  }),
+);
 
 type Props = {
     userId: string,
@@ -12,6 +20,7 @@ type Props = {
 
 export default function Comments({ userId, contributionId }: Props) {
     const [textComment, setTextComment] = React.useState('')
+    const customStyle = loadingStyles()
     const changeTextComment = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
         setTextComment(event.target.value);
     }
@@ -30,13 +39,18 @@ export default function Comments({ userId, contributionId }: Props) {
             },
         }
     })
-
     useEffect(() => {
         getCommentQuery()
     }, [])
 
+    if (loading) return (
+        <Backdrop className={customStyle.backdrop} open={loading}>
+            <CircularProgress color="inherit"/>
+        </Backdrop>
+    )
+    if (error) return <div> Error at Comment component {console.log(error)}</div>
+    
     const commentArr = data && data.comments
-    console.log(commentArr)
 
     const handlePostComment = async (e: React.MouseEvent<unknown>) => {
         if (textComment.trim() != '') {

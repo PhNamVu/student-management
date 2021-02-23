@@ -2,20 +2,24 @@ import React from 'react'
 import { useGetMagazineQuery } from '../graphql/autogenerate/hooks'
 import { Container, Row, Button } from 'reactstrap'
 import { Tabs, Tab, makeStyles, createStyles, Backdrop, CircularProgress, Theme} from '@material-ui/core';
-import { useNavigate } from "react-router-dom";
 import './magazine.css'
 import MagazineStudentBlock from '../components/MagazineStudentBlock'
+import { NONAME } from 'dns';
 
 
 //Style for Tabs
 const useStyles = makeStyles(() => ({
     root: {
         flexGrow: 1,
+        display: "content",
+    },
+    wrapperTabs: {
+        alignItems:'start'
     },
     indicator: {
-        display: "flex",
-        justifyContent: "center",
-        backgroundColor: "#ffc107",
+        display: "content",
+        justifyContent: "start",
+        backgroundColor: "transparent",
     },
     active_tab: {
         color: "#ffc107",
@@ -25,7 +29,7 @@ const useStyles = makeStyles(() => ({
     }
 }))
 
-  const loadingStyles = makeStyles((theme: Theme) =>
+const loadingStyles = makeStyles((theme: Theme) =>
   createStyles({
       backdrop: {
       zIndex: theme.zIndex.drawer + 1,
@@ -46,7 +50,6 @@ export const MagazinesStudentPage = () => {
         fetchPolicy: 'network-only',
         variables: { where: handleQueryVariables(value)}
       })
-    const navigate = useNavigate()
     const mgzDetail = data && data.magazines
     
     const handleChange = (event: React.ChangeEvent<unknown>, newValue: number) => {
@@ -60,7 +63,7 @@ export const MagazinesStudentPage = () => {
             <CircularProgress color="inherit"/>
         </Backdrop>
     )
-    if (error) return <div> Error at Magazines component {console.log(error)}</div>
+    if (error) return <div> Error at Magazines Student component {console.log(error)}</div>
 
     return (
         <Container>
@@ -70,13 +73,38 @@ export const MagazinesStudentPage = () => {
                     <Tabs 
                         value={value}
                         onChange={handleChange}
-                        classes={{ indicator: classes.indicator}}
+                        classes={{indicator: classes.indicator}}
                         variant="scrollable"
                         scrollButtons="auto"
                     >
-                        <Tab label="SUBMITMENT ALLOW" disableRipple style={{padding: '0', margin: '6px 12px 0 12px'}} className={value===0 ? classes.active_tab :classes.default_tabStyle}/>
-                        <Tab label="COMPLETE SUBMITMENT" disableRipple style={{padding: '0', margin: '6px 12px 0 12px'}} className={value===1 ? classes.active_tab :classes.default_tabStyle}/>
-                        <Tab label="PUBLISHED" disableRipple style={{padding: '0', margin: '6px 12px 0 12px'}} className={value===2 ? classes.active_tab :classes.default_tabStyle}/>
+                        <Tab label={
+                                <React.Fragment>
+                                    SUBMITMENT ALLOw
+                                    {value===0 ? <div style={{borderBottom:'2px solid #ffc107', width:'9rem'}}/> : null}
+                                </React.Fragment>
+                            } 
+                            classes={{wrapper: classes.wrapperTabs}}
+                            disableRipple style={{padding: '0', margin:'0 0.25rem 0 1rem'}} 
+                            className={value===0 ? classes.active_tab :classes.default_tabStyle}
+                        />
+                        <Tab label={
+                                <React.Fragment>
+                                    COMPLETE SUBMITMENT
+                                    {value===1 ? <div style={{borderBottom:'2px solid #ffc107', width:'12rem'}}/> : null}
+                                </React.Fragment>
+                            } 
+                            disableRipple style={{padding: '0', margin:'0 0.25rem 0 1rem'}} 
+                            className={value===1 ? classes.active_tab :classes.default_tabStyle}
+                        />
+                        <Tab label={
+                                <React.Fragment>
+                                    PUBLISHED
+                                    {value===2 ? <div style={{borderBottom:'2px solid #ffc107', width:'5rem'}}/> : null}
+                                </React.Fragment>
+                            } 
+                            disableRipple style={{padding: '0', margin:'0 0.25rem 0 1rem'}} 
+                            className={value===2 ? classes.active_tab :classes.default_tabStyle}
+                        />
                     </Tabs>
                 </div>
                 {showMgz(chunk(mgzDetail, 3), value)}
