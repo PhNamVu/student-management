@@ -94,6 +94,24 @@ export type AddMagazineMutation = { __typename?: 'mutation_root' } & {
   >
 }
 
+export type EditMagazineMutationVariables = Types.Exact<{
+  id?: Types.Maybe<Types.Scalars['uuid']>
+  object: Types.Magazines_Set_Input
+}>
+
+export type EditMagazineMutation = { __typename?: 'mutation_root' } & {
+  update_magazines?: Types.Maybe<
+    { __typename?: 'magazines_mutation_response' } & Pick<
+      Types.Magazines_Mutation_Response,
+      'affected_rows'
+    > & {
+        returning: Array<
+          { __typename?: 'magazines' } & Pick<Types.Magazines, 'id'>
+        >
+      }
+  >
+}
+
 export type GetUsersQueryVariables = Types.Exact<{ [key: string]: never }>
 
 export type GetUsersQuery = { __typename?: 'query_root' } & {

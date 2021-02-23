@@ -300,6 +300,58 @@ export type AddMagazineMutationOptions = Apollo.BaseMutationOptions<
   Types.AddMagazineMutation,
   Types.AddMagazineMutationVariables
 >
+export const EditMagazineDocument = gql`
+  mutation editMagazine($id: uuid, $object: magazines_set_input!) {
+    update_magazines(where: { id: { _eq: $id } }, _set: $object) {
+      affected_rows
+      returning {
+        id
+      }
+    }
+  }
+`
+export type EditMagazineMutationFn = Apollo.MutationFunction<
+  Types.EditMagazineMutation,
+  Types.EditMagazineMutationVariables
+>
+
+/**
+ * __useEditMagazineMutation__
+ *
+ * To run a mutation, you first call `useEditMagazineMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useEditMagazineMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [editMagazineMutation, { data, loading, error }] = useEditMagazineMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *      object: // value for 'object'
+ *   },
+ * });
+ */
+export function useEditMagazineMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    Types.EditMagazineMutation,
+    Types.EditMagazineMutationVariables
+  >
+) {
+  return Apollo.useMutation<
+    Types.EditMagazineMutation,
+    Types.EditMagazineMutationVariables
+  >(EditMagazineDocument, baseOptions)
+}
+export type EditMagazineMutationHookResult = ReturnType<
+  typeof useEditMagazineMutation
+>
+export type EditMagazineMutationResult = Apollo.MutationResult<Types.EditMagazineMutation>
+export type EditMagazineMutationOptions = Apollo.BaseMutationOptions<
+  Types.EditMagazineMutation,
+  Types.EditMagazineMutationVariables
+>
 export const GetUsersDocument = gql`
   query getUsers {
     users(limit: 10) {

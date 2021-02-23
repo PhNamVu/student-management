@@ -22,6 +22,7 @@ import createUnAuthClient from './apollo/unauth-client'
 import createAuthApolloClient from './apollo/auth-client'
 
 import {PageNotFound} from './Pages/PageNotFound'
+import { EditMagazinePage } from './Pages/EditMagazine'
 
 function App() {
   const { state } = useAuth()
@@ -87,6 +88,7 @@ function App() {
                     <Route path="/magazine/add" element={<CreateMagazine />} />
                     <Route path="*" element={<PageNotFound />} />
                     <Route path="/magazine" element={<MagazinesPage />} /> 
+                    <Route path='magazine/:id/edit'element={<EditMagazinePage />} />
                     <Route path="/contribute/:idMgz/:mgzTitle" element={<ContributeMgzPage/>} />
                     <Route path="/stu/submitContribute/:idMgz" element={<SubmitContributePage userId={state.user.uid}/>} />
                   </Routes>

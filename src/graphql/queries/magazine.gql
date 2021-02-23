@@ -16,3 +16,13 @@ mutation addMagazine($object: magazines_insert_input!) {
     }
   }
 }
+
+mutation editMagazine($id: uuid, $object: magazines_set_input!) {
+  update_magazines(where: { id: { _eq: $id } }, _set: $object)
+  {
+    affected_rows
+    returning {
+      id
+    }
+  }
+}
