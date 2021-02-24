@@ -191,6 +191,83 @@ export type GetContributeQueryResult = Apollo.QueryResult<
   Types.GetContributeQuery,
   Types.GetContributeQueryVariables
 >
+export const GetContributeByUserIdDocument = gql`
+  query getContributeByUserId($idUser: uuid) {
+    contributions(where: { user: { id: { _eq: $idUser } } }) {
+      title
+      magazine {
+        label
+      }
+      id
+      user {
+        faculty {
+          label
+        }
+      }
+      userByPublicBy {
+        fullName
+      }
+      isSelected
+      faculty {
+        label
+      }
+      artical
+      image
+      deleted
+      createdAt
+      updatedAt
+    }
+  }
+`
+
+/**
+ * __useGetContributeByUserIdQuery__
+ *
+ * To run a query within a React component, call `useGetContributeByUserIdQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetContributeByUserIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetContributeByUserIdQuery({
+ *   variables: {
+ *      idUser: // value for 'idUser'
+ *   },
+ * });
+ */
+export function useGetContributeByUserIdQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    Types.GetContributeByUserIdQuery,
+    Types.GetContributeByUserIdQueryVariables
+  >
+) {
+  return Apollo.useQuery<
+    Types.GetContributeByUserIdQuery,
+    Types.GetContributeByUserIdQueryVariables
+  >(GetContributeByUserIdDocument, baseOptions)
+}
+export function useGetContributeByUserIdLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    Types.GetContributeByUserIdQuery,
+    Types.GetContributeByUserIdQueryVariables
+  >
+) {
+  return Apollo.useLazyQuery<
+    Types.GetContributeByUserIdQuery,
+    Types.GetContributeByUserIdQueryVariables
+  >(GetContributeByUserIdDocument, baseOptions)
+}
+export type GetContributeByUserIdQueryHookResult = ReturnType<
+  typeof useGetContributeByUserIdQuery
+>
+export type GetContributeByUserIdLazyQueryHookResult = ReturnType<
+  typeof useGetContributeByUserIdLazyQuery
+>
+export type GetContributeByUserIdQueryResult = Apollo.QueryResult<
+  Types.GetContributeByUserIdQuery,
+  Types.GetContributeByUserIdQueryVariables
+>
 export const GetMagazineDocument = gql`
   query getMagazine($where: magazines_bool_exp) {
     magazines(where: $where) {

@@ -12,10 +12,13 @@ const useStyles = makeStyles(() => ({
     root: {
         flexGrow: 1,
     },
+    wrapperTabs: {
+        alignItems:'start'
+    },
     indicator: {
-        display: "flex",
-        justifyContent: "center",
-        backgroundColor: "#ffc107",
+        display: "content",
+        justifyContent: "start",
+        backgroundColor: "transparent",
     },
     active_tab: {
         color: "#ffc107",
@@ -69,16 +72,41 @@ export const MagazinesPage = () => {
             <div className="justify-content">
                 <h2 style={{ padding: "20px 0 1px 12px", fontWeight:'bold' }}>Magazines</h2>
                 <div className="mgzTabs">
-                    <Tabs 
+                <Tabs 
                         value={value}
                         onChange={handleChange}
-                        classes={{ indicator: classes.indicator}}
+                        classes={{indicator: classes.indicator}}
                         variant="scrollable"
                         scrollButtons="auto"
                     >
-                        <Tab label="SUBMITMENT ALLOW" disableRipple style={{padding: '0', margin: '6px 12px 0 12px'}} className={value===0 ? classes.active_tab :classes.default_tabStyle}/>
-                        <Tab label="COMPLETE SUBMITMENT" disableRipple style={{padding: '0', margin: '6px 12px 0 12px'}} className={value===1 ? classes.active_tab :classes.default_tabStyle}/>
-                        <Tab label="PUBLISHED" disableRipple style={{padding: '0', margin: '6px 12px 0 12px'}} className={value===2 ? classes.active_tab :classes.default_tabStyle}/>
+                        <Tab label={
+                                <React.Fragment>
+                                    SUBMITMENT ALLOw
+                                    {value===0 ? <div style={{borderBottom:'2px solid #ffc107', width:'9rem'}}/> : null}
+                                </React.Fragment>
+                            } 
+                            classes={{wrapper: classes.wrapperTabs}}
+                            disableRipple style={{padding: '0', margin:'0 0.25rem 0 1rem'}} 
+                            className={value===0 ? classes.active_tab :classes.default_tabStyle}
+                        />
+                        <Tab label={
+                                <React.Fragment>
+                                    COMPLETE SUBMITMENT
+                                    {value===1 ? <div style={{borderBottom:'2px solid #ffc107', width:'12rem'}}/> : null}
+                                </React.Fragment>
+                            } 
+                            disableRipple style={{padding: '0', margin:'0 0.25rem 0 1rem'}} 
+                            className={value===1 ? classes.active_tab :classes.default_tabStyle}
+                        />
+                        <Tab label={
+                                <React.Fragment>
+                                    PUBLISHED
+                                    {value===2 ? <div style={{borderBottom:'2px solid #ffc107', width:'5rem'}}/> : null}
+                                </React.Fragment>
+                            } 
+                            disableRipple style={{padding: '0', margin:'0 0.25rem 0 1rem'}} 
+                            className={value===2 ? classes.active_tab :classes.default_tabStyle}
+                        />
                     </Tabs>
                 </div>
                 <Row className='mgzAdd d-flex justify-content-end'>

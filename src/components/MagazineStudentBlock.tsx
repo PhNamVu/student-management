@@ -80,7 +80,7 @@ export const MagazineStudentBlock = ({ id, label, closureTemp, closureFinal, tab
 
     let navigate = useNavigate();
     const handleSubmitBtn = (idMgz: string) => {
-        navigate(`/stu/submitContribute/${idMgz}`)
+        navigate(`/submitContribute/${idMgz}`)
     }
     
     return (

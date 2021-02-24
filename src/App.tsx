@@ -11,8 +11,10 @@ import { ToasterContainer } from 'baseui/toast'
 
 import MagazinesPage from './Pages/MagazinesAdmin'
 import MagazinesStudentPage from './Pages/MagazinesStudent'
-import ContributeMgzPage from './Pages/ContributeMgz'
-import SubmitContributePage from './Pages/EditContribute'
+import ContributeMgzPage from './Pages/AdminContributionByMagazine'
+import EditContributePage from './Pages/EditContribute'
+import SubmitContributePage from './Pages/SubmitContribution'
+import StudentContributionsList from './Pages/StudentContributionsList'
 
 import { AdminNav } from './components/AdminNav'
 import { StudentNav } from './components/StudenNav'
@@ -90,7 +92,6 @@ function App() {
                     <Route path="/magazine" element={<MagazinesPage />} /> 
                     <Route path='magazine/:id/edit'element={<EditMagazinePage />} />
                     <Route path="/contribute/:idMgz/:mgzTitle" element={<ContributeMgzPage/>} />
-                    <Route path="/stu/submitContribute/:idMgz" element={<SubmitContributePage userId={state.user.uid}/>} />
                   </Routes>
                 </Container>
               </ApolloProvider>
@@ -106,7 +107,10 @@ function App() {
                 style={{ backgroundColor: '#F8F8F8', minHeight: '100vh' }}
               >
                 <Routes>
-                  <Route path="/" element={<MagazinesStudentPage />} />
+                  <Route path="/" element={<MagazinesStudentPage />} /> {/* Navigation Magazine */}
+                  <Route path="/contributions" element={<StudentContributionsList userId={state.user.uid}/>} /> {/* Navigation My Contributions */}
+                  <Route path="/editContribute/:contributionId/:contributionTitle" element={<EditContributePage userId={state.user.uid}/>} />
+                  <Route path="/submitContribute/:idMgz" element={<SubmitContributePage userId={state.user.uid}/>} />
                 </Routes>
               </Container>  
             </ApolloProvider>

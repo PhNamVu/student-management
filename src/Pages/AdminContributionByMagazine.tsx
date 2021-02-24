@@ -120,8 +120,9 @@ const CustomTableHeader = (props: CustomTableHeaderProps) => {
                 {headCells.map((headCell) => (
                     <TableCell
                         key={headCell.id}
-                        align="left"
-                        padding="default"
+                        align='left'
+                        padding='default'
+                        style={{fontWeight:'bold', fontSize:'1.05rem'}}
                     >
                         {headCell.label}
                     </TableCell>
@@ -203,6 +204,7 @@ export const ContributeMgzPage = () => {
         setRowsPerPage(parseInt(event.target.value, 10));
         setPage(0);
     }
+
     return (
         <Container>
             <h2 style={{ padding: "20px 0 0 0", clear: 'both' }}>Contribution of {params.mgzTitle}</h2>
@@ -227,12 +229,12 @@ export const ContributeMgzPage = () => {
                                 const isItemSelected = isSelected(row.title);
                                 return (
                                     <TableRow
-                                        onClick={(event) => handleClick(event, row.title)}
                                         role="checkbox"
                                         aria-checked={isItemSelected}
                                         tabIndex={-1}
                                         key={row.title}
                                         selected={isItemSelected}
+                                        onClick={(event) => handleClick(event, row.title)}
                                     >
                                         <TableCell padding='checkbox' style={{padding:'0'}}>
                                             <Checkbox checked={isItemSelected} inputProps={{ "aria-labelledby": labelId }} />

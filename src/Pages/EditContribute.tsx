@@ -10,18 +10,18 @@ import 'semantic-ui-css/semantic.min.css'
 type Props = {
     userId: string,
 }
-export default function SubmitContributePage({ userId }: Props) {
+export default function EditContributePage({ userId }: Props) {
     const params = useParams()
     return (
         <Container>
-            <h2 style={{ padding: "20px 0", clear: 'both' }}>Submit Contribution {params.idMgz}</h2>
+            <h2 style={{ padding: "20px 0", clear: 'both' }}>Edit Contribution</h2>
             <Row>
                 <Col lg='6' sm='12'>
                     <Form>
                         <FormGroup row >
                             <Label for="title" sm='2'>Title</Label>
                             <Col lg='9' sm='10'>
-                                <Input id="title" />
+                                <Input id="title" value={params.contributionTitle}/>
                             </Col>
                         </FormGroup>
                         <FormGroup row>
@@ -39,7 +39,7 @@ export default function SubmitContributePage({ userId }: Props) {
                     </Form>
                 </Col>
                 <Col lg='6' sm='12'>
-                    <Comment userId={userId} contributionId={'035024ed-45c4-49f9-b985-130e1535613d'}/>
+                    <Comment userId={userId} contributionId={params.contributionId}/>
                 </Col>
             </Row>
         </Container>
