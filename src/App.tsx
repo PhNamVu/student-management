@@ -27,7 +27,7 @@ import {PageNotFound} from './Pages/PageNotFound'
 import { EditMagazinePage } from './Pages/EditMagazine'
 
 function App() {
-  const { state } = useAuth()
+  const { state } : any = useAuth()
 
   if (!state.user) {
     const unAuthClient = createUnAuthClient()
@@ -48,7 +48,7 @@ function App() {
     )
   } else {
     if (
-      !state?.customClaims?.claims.hasOwnProperty(
+      !state.customClaims.claims.hasOwnProperty(
         'https://hasura.io/jwt/claims'
       )
     ) {
