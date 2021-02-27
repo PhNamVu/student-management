@@ -25,9 +25,10 @@ import createAuthApolloClient from './apollo/auth-client'
 
 import {PageNotFound} from './Pages/PageNotFound'
 import { EditMagazinePage } from './Pages/EditMagazine'
+import { CreateUserPage } from './Pages/CreateUserPage'
 
 function App() {
-  const { state } = useAuth()
+  const { state } : any = useAuth()
 
   if (!state.user) {
     const unAuthClient = createUnAuthClient()
@@ -48,7 +49,7 @@ function App() {
     )
   } else {
     if (
-      !state?.customClaims?.claims.hasOwnProperty(
+      !state.customClaims.claims.hasOwnProperty(
         'https://hasura.io/jwt/claims'
       )
     ) {
@@ -88,6 +89,7 @@ function App() {
                   <Routes>
                     <Route path="/" element={<MagazinesPage />} />
                     <Route path="/magazine/add" element={<CreateMagazine />} />
+                    <Route path="/user/add" element={<CreateUserPage />} />
                     <Route path="*" element={<PageNotFound />} />
                     <Route path="/magazine" element={<MagazinesPage />} /> 
                     <Route path='magazine/:id/edit'element={<EditMagazinePage />} />
