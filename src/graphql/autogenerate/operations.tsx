@@ -19,11 +19,7 @@ export type GetCommentQuery = { __typename?: 'query_root' } & {
     { __typename?: 'comments' } & Pick<
       Types.Comments,
       'id' | 'content' | 'createAt'
-    > & {
-        user?: Types.Maybe<
-          { __typename?: 'users' } & Pick<Types.Users, 'fullName'>
-        >
-      }
+    > & { user: { __typename?: 'users' } & Pick<Types.Users, 'fullName'> }
   >
 }
 
@@ -44,22 +40,12 @@ export type GetContributeQuery = { __typename?: 'query_root' } & {
       | 'createdAt'
       | 'updatedAt'
     > & {
-        magazine?: Types.Maybe<
-          { __typename?: 'magazines' } & Pick<Types.Magazines, 'label'>
-        >
-        user?: Types.Maybe<
-          { __typename?: 'users' } & Pick<Types.Users, 'fullName'> & {
-              faculty?: Types.Maybe<
-                { __typename?: 'facultys' } & Pick<Types.Facultys, 'label'>
-              >
-            }
-        >
-        userByPublicBy?: Types.Maybe<
-          { __typename?: 'users' } & Pick<Types.Users, 'fullName'>
-        >
-        faculty?: Types.Maybe<
-          { __typename?: 'facultys' } & Pick<Types.Facultys, 'label'>
-        >
+        magazine: { __typename?: 'magazines' } & Pick<Types.Magazines, 'label'>
+        user: { __typename?: 'users' } & Pick<Types.Users, 'fullName'> & {
+            faculty: { __typename?: 'facultys' } & Pick<Types.Facultys, 'label'>
+          }
+        userByPublicBy: { __typename?: 'users' } & Pick<Types.Users, 'fullName'>
+        faculty: { __typename?: 'facultys' } & Pick<Types.Facultys, 'label'>
       }
   >
 }
@@ -81,23 +67,21 @@ export type GetContributeByUserIdQuery = { __typename?: 'query_root' } & {
       | 'createdAt'
       | 'updatedAt'
     > & {
-        magazine?: Types.Maybe<
-          { __typename?: 'magazines' } & Pick<Types.Magazines, 'label'>
-        >
-        user?: Types.Maybe<
-          { __typename?: 'users' } & {
-            faculty?: Types.Maybe<
-              { __typename?: 'facultys' } & Pick<Types.Facultys, 'label'>
-            >
-          }
-        >
-        userByPublicBy?: Types.Maybe<
-          { __typename?: 'users' } & Pick<Types.Users, 'fullName'>
-        >
-        faculty?: Types.Maybe<
-          { __typename?: 'facultys' } & Pick<Types.Facultys, 'label'>
-        >
+        magazine: { __typename?: 'magazines' } & Pick<Types.Magazines, 'label'>
+        user: { __typename?: 'users' } & {
+          faculty: { __typename?: 'facultys' } & Pick<Types.Facultys, 'label'>
+        }
+        userByPublicBy: { __typename?: 'users' } & Pick<Types.Users, 'fullName'>
+        faculty: { __typename?: 'facultys' } & Pick<Types.Facultys, 'label'>
       }
+  >
+}
+
+export type GetFacultyQueryVariables = Types.Exact<{ [key: string]: never }>
+
+export type GetFacultyQuery = { __typename?: 'query_root' } & {
+  facultys: Array<
+    { __typename?: 'facultys' } & Pick<Types.Facultys, 'id' | 'label'>
   >
 }
 

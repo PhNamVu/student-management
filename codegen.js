@@ -1,7 +1,7 @@
 module.exports = {
   schema: [
     {
-      'https://fun-whale-23.hasura.app/v1/graphql': {
+      'https://study-management.hasura.app/v1/graphql': {
         headers: {
           'x-hasura-admin-secret': 'godplan',
         },

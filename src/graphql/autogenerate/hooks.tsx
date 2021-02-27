@@ -268,6 +268,60 @@ export type GetContributeByUserIdQueryResult = Apollo.QueryResult<
   Types.GetContributeByUserIdQuery,
   Types.GetContributeByUserIdQueryVariables
 >
+export const GetFacultyDocument = gql`
+  query getFaculty {
+    facultys {
+      id
+      label
+    }
+  }
+`
+
+/**
+ * __useGetFacultyQuery__
+ *
+ * To run a query within a React component, call `useGetFacultyQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetFacultyQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetFacultyQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetFacultyQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    Types.GetFacultyQuery,
+    Types.GetFacultyQueryVariables
+  >
+) {
+  return Apollo.useQuery<Types.GetFacultyQuery, Types.GetFacultyQueryVariables>(
+    GetFacultyDocument,
+    baseOptions
+  )
+}
+export function useGetFacultyLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    Types.GetFacultyQuery,
+    Types.GetFacultyQueryVariables
+  >
+) {
+  return Apollo.useLazyQuery<
+    Types.GetFacultyQuery,
+    Types.GetFacultyQueryVariables
+  >(GetFacultyDocument, baseOptions)
+}
+export type GetFacultyQueryHookResult = ReturnType<typeof useGetFacultyQuery>
+export type GetFacultyLazyQueryHookResult = ReturnType<
+  typeof useGetFacultyLazyQuery
+>
+export type GetFacultyQueryResult = Apollo.QueryResult<
+  Types.GetFacultyQuery,
+  Types.GetFacultyQueryVariables
+>
 export const GetMagazineDocument = gql`
   query getMagazine($where: magazines_bool_exp) {
     magazines(where: $where) {

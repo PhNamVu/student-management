@@ -9,8 +9,8 @@ const local = {
     appId: '1:505026481233:web:60a676570c24965fbafc70',
     measurementId: 'G-014WFVYYER',
   },
-  httpGrapqlUri: 'https://fun-whale-23.hasura.app/v1/graphql',
-  wsGrapqlUri: 'ws://fun-whale-23.hasura.app/v1/graphql',
+  httpGrapqlUri: 'https://study-management.hasura.app/v1/graphql',
+  wsGrapqlUri: 'ws://study-management.hasura.app/v1/graphql',
 }
 
 const environment = local

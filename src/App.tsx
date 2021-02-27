@@ -25,6 +25,7 @@ import createAuthApolloClient from './apollo/auth-client'
 
 import {PageNotFound} from './Pages/PageNotFound'
 import { EditMagazinePage } from './Pages/EditMagazine'
+import { CreateUserPage } from './Pages/CreateUserPage'
 
 function App() {
   const { state } : any = useAuth()
@@ -88,6 +89,7 @@ function App() {
                   <Routes>
                     <Route path="/" element={<MagazinesPage />} />
                     <Route path="/magazine/add" element={<CreateMagazine />} />
+                    <Route path="/user/add" element={<CreateUserPage />} />
                     <Route path="*" element={<PageNotFound />} />
                     <Route path="/magazine" element={<MagazinesPage />} /> 
                     <Route path='magazine/:id/edit'element={<EditMagazinePage />} />
