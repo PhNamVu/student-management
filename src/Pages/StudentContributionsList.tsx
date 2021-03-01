@@ -8,6 +8,7 @@ import { TableBody, TableHead, TableRow, TableCell, Checkbox, TableContainer, Ty
 import IconButton from "@material-ui/core/IconButton";
 import GetAppIcon from '@material-ui/icons/GetApp';
 import { useNavigate } from "react-router-dom";
+import { useAuth } from '../hooks/use-auth';
 
 //Define for the header row
 interface HeadCell {
@@ -150,10 +151,13 @@ const useStyles = makeStyles((theme: Theme) =>
     })
 )
 
-type Props = {
-    userId: string,
-}
-export default function StudentContributionsList({ userId }: Props) {
+
+export default function StudentContributionsList() {
+    const { state }: any = useAuth()
+    const userId: any =
+    state.customClaims.claims['https://hasura.io/jwt/claims'][
+    'x-hasura-user-id'
+    ]
     const params = useParams();
     const customStyle = useStyles();
     const [selected, setSelected] = React.useState<string[]>([]);
@@ -181,7 +185,7 @@ export default function StudentContributionsList({ userId }: Props) {
     const dataDetail = data && data.contributions
     console.log(dataDetail);
 
-    const rows: any = dataDetail?.map((el: any, index) => {
+    const rows: any = dataDetail?.map((el: any) => {
         return createData(el.id, el.title, el.magazine?.label, el.user?.faculty?.label, el.isSelected, el.userByPublicBy?.fullName)
     })
     console.log(rows);

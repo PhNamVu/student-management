@@ -5,7 +5,6 @@ import React, { useState, useEffect } from 'react'
 import { Col, Form, FormGroup, Input, Label, Row } from 'reactstrap'
 import { makeStyles, createStyles, Backdrop, CircularProgress, Theme} from '@material-ui/core';
 import { TimePicker } from 'baseui/timepicker'
-import { useStyletron } from 'baseui'
 import PrimaryButton from '../components/shared/button/PrimaryBtn'
 import DatePicker from 'react-date-picker'
 import moment from 'moment'
@@ -14,7 +13,7 @@ import {
   useGetMagazineQuery,
 } from '../graphql/autogenerate/hooks'
 import { toaster } from 'baseui/toast'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 
 const loadingStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -28,7 +27,6 @@ const loadingStyles = makeStyles((theme: Theme) =>
 export const EditMagazinePage = () => {
   const { id } = useParams()
   const customStyle = loadingStyles()
-  const [css, theme] = useStyletron()
   const [name, setName] = useState('')
   const [closureTemp, setClosureTemp] = useState('')
   const [closureFinal, setClosureFinal] = useState('')

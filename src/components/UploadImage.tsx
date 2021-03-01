@@ -9,7 +9,7 @@ export default function UploadImage() {
         accept: 'image/jpeg, image/png',
         multiple: true,
         onDrop: file => {
-            file.map((el: any, index: any) => {
+            file.map((el: any) => {
                 setCurrentFiles(currentFiles.concat(el))
             })
         },
@@ -20,7 +20,7 @@ export default function UploadImage() {
         setCurrentFiles(currentFiles.filter(e => currentFiles.indexOf(e) != value))
         console.log(currentFiles);
     }
-    const fileRejectionItems = fileRejections.map(({ file, errors }, index) => (
+    const fileRejectionItems = fileRejections.map(({ file }, index) => (
         <UncontrolledAlert  key={index} color="danger">
             Cannot upload file {file.name}. Only accept .jpeg and .png
         </UncontrolledAlert >

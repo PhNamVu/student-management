@@ -3,7 +3,7 @@ import { Col, Form, FormGroup, Input, Label, Row } from 'reactstrap'
 import { useStyletron } from 'baseui'
 import PrimaryButton from '../components/shared/button/PrimaryBtn'
 import { toaster } from 'baseui/toast'
-import { useGetFacultyQuery } from '../graphql/autogenerate/hooks'
+import { useAddUserMutation, useGetFacultyQuery } from '../graphql/autogenerate/hooks'
 import { gql, useMutation } from '@apollo/client'
 
 export const CreateUserPage = () => {
@@ -13,7 +13,7 @@ export const CreateUserPage = () => {
   const [facultyId, setFacultyId] = React.useState('')
   const [roles, setRoles] = React.useState('')
   const [css, theme] = useStyletron()
-
+  const [addUser] = useAddUserMutation()
   const { data } = useGetFacultyQuery()
 
   const [studentSetup] = useMutation(gql`
@@ -37,14 +37,31 @@ export const CreateUserPage = () => {
               facultyId,
               fullName,
               password,
-              roles,
             },
           },
         })
         if (dataRes && dataRes.data.studentSetup.status === 'success') {
-          toaster.positive('Add user thanh cong', {
-            autoHideDuration: 3000,
-          })
+          try {
+            await addUser({
+              variables: {
+                object: {
+                  id: dataRes.data.studentSetup.message,
+                  email,
+                  facultyId,
+                  fullName,
+                  roles,
+                },
+              },
+            })
+            toaster.positive('Add student successful', {
+              autoHideDuration: 3000,
+            })
+          } catch (error) {
+            console.log(error)
+            toaster.negative('Add to database fail', {
+              autoHideDuration: 3000,
+            })
+          }
         }
       } catch (error) {
         console.log(error)

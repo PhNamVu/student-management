@@ -1,8 +1,9 @@
-import React, { useEffect, useReducer } from 'react'
+import React, { useEffect } from 'react'
 import { Container } from 'reactstrap'
 import { Button, Comment, Form, Header } from 'semantic-ui-react'
-import { Tabs, Tab, makeStyles, createStyles, Backdrop, CircularProgress, Theme} from '@material-ui/core';
+import { makeStyles, createStyles, Backdrop, CircularProgress, Theme} from '@material-ui/core';
 import { usePostCommentMutation, useGetCommentLazyQuery } from '../graphql/autogenerate/hooks'
+import { useAuth } from '../hooks/use-auth';
 
 const loadingStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -13,12 +14,13 @@ const loadingStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-type Props = {
-    userId: string,
-    contributionId: string
-}
 
-export default function Comments({ userId, contributionId }: Props) {
+export default function Comments(contributionId : any) {
+    const { state }: any = useAuth()
+    const userId: any =
+        state.customClaims.claims['https://hasura.io/jwt/claims'][
+        'x-hasura-user-id'
+    ]
     const [textComment, setTextComment] = React.useState('')
     const customStyle = loadingStyles()
     const changeTextComment = (event: React.ChangeEvent<HTMLTextAreaElement>) => {

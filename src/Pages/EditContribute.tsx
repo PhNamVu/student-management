@@ -5,12 +5,16 @@ import UploadArticle from '../components/UploadArticle'
 import UploadImage from '../components/UploadImage'
 import Comment from '../components/Comment'
 import 'semantic-ui-css/semantic.min.css'
+import { useAuth } from '../hooks/use-auth'
 
 
-type Props = {
-    userId: string,
-}
-export default function EditContributePage({ userId }: Props) {
+
+export default function EditContributePage() {
+    const { state }: any = useAuth()
+    const userId: any =
+    state.customClaims.claims['https://hasura.io/jwt/claims'][
+    'x-hasura-user-id'
+    ]
     const params = useParams()
     return (
         <Container>

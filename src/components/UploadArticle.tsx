@@ -9,7 +9,7 @@ export default function UploadArticle() {
         accept: 'application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document',
         multiple: true,
         onDrop: file => {
-            file.map((el: any, index: any) => {
+            file.map((el: any) => {
                 setCurrentFiles(currentFiles.concat(el))
             })
         },
@@ -21,7 +21,7 @@ export default function UploadArticle() {
         setCurrentFiles(currentFiles.filter(e => currentFiles.indexOf(e) != value))
         console.log(currentFiles);
     }
-    const fileRejectionItems = fileRejections.map(({ file, errors }, index) => (
+    const fileRejectionItems = fileRejections.map(({ file }, index) => (
         <UncontrolledAlert key={index} color="danger">
             Cannot upload file {file.name}. Only accept .pdf and .doc
         </UncontrolledAlert >

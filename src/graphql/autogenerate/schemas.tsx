@@ -47,16 +47,6 @@ export type Int_Comparison_Exp = {
   _nin?: Maybe<Array<Scalars['Int']>>
 }
 
-export type SampleInput = {
-  password: Scalars['String']
-  username: Scalars['String']
-}
-
-export type SampleOutput = {
-  __typename?: 'SampleOutput'
-  accessToken: Scalars['String']
-}
-
 /** Boolean expression to compare columns of type "String". All fields are combined with logical 'AND'. */
 export type String_Comparison_Exp = {
   _eq?: Maybe<Scalars['String']>
@@ -95,7 +85,6 @@ export type StudentSetupInput = {
   facultyId: Scalars['String']
   fullName: Scalars['String']
   password: Scalars['String']
-  roles: Scalars['String']
 }
 
 export type StudentSetupRes = {
@@ -1829,7 +1818,6 @@ export enum Magazines_Update_Column {
 /** mutation root */
 export type Mutation_Root = {
   __typename?: 'mutation_root'
-  actionName?: Maybe<SampleOutput>
   /** delete data from the table: "comments" */
   delete_comments?: Maybe<Comments_Mutation_Response>
   /** delete single row from the table: "comments" */
@@ -1935,11 +1923,6 @@ export type Mutation_Root = {
   update_users?: Maybe<Users_Mutation_Response>
   /** update single row of the table: "users" */
   update_users_by_pk?: Maybe<Users>
-}
-
-/** mutation root */
-export type Mutation_RootActionNameArgs = {
-  arg1: SampleInput
 }
 
 /** mutation root */

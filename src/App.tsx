@@ -110,9 +110,9 @@ function App() {
               >
                 <Routes>
                   <Route path="/" element={<MagazinesStudentPage />} /> {/* Navigation Magazine */}
-                  <Route path="/contributions" element={<StudentContributionsList userId={state.user.uid}/>} /> {/* Navigation My Contributions */}
-                  <Route path="/editContribute/:contributionId/:contributionTitle" element={<EditContributePage userId={state.user.uid}/>} />
-                  <Route path="/submitContribute/:idMgz" element={<SubmitContributePage userId={state.user.uid}/>} />
+                  <Route path="/contributions" element={<StudentContributionsList/>} /> {/* Navigation My Contributions */}
+                  <Route path="/editContribute/:contributionId/:contributionTitle" element={<EditContributePage />} />
+                  <Route path="/submitContribute/:idMgz" element={<SubmitContributePage />} />
                 </Routes>
               </Container>  
             </ApolloProvider>
