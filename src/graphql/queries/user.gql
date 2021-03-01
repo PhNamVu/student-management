@@ -3,3 +3,12 @@ query getUsers {
         id
     }
 }
+
+mutation addUser($object: users_insert_input!) {
+  insert_users(objects: [$object]) {
+    affected_rows
+    returning {
+      id
+    }
+  }
+}

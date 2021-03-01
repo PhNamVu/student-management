@@ -1,16 +1,11 @@
 import React from 'react'
-import { useParams } from 'react-router-dom'
-import { Container, Form, FormGroup, Label, Col, Input, Row, Button } from 'reactstrap'
+import { Container, Form, FormGroup, Label, Col, Input, Button } from 'reactstrap'
 import UploadArticle from '../components/UploadArticle'
 import UploadImage from '../components/UploadImage'
 import 'semantic-ui-css/semantic.min.css'
 
 
-type Props = {
-    userId: string,
-}
-export default function SubmitContributionPage({ userId }: Props) {
-    const params = useParams()
+export default function SubmitContributionPage() {
     return (
         <Container>
             <h2 style={{ padding: "3rem 0", clear: 'both' , }}>Submit Contribution</h2>

@@ -166,7 +166,7 @@ export const ContributeMgzPage = () => {
     )
     if (error) return <div> Error at Magazines component {console.log(error)}</div>
     const dataDetail = data && data.contributions
-    const rows: any = dataDetail?.map((el:any, index) => {
+    const rows: any = dataDetail?.map((el:any) => {
         return createData(el.title, el.user?.fullName, el.user?.faculty?.label, el.isSelected, el.userByPublicBy?.fullName)
     })
     // handle 'select all' button

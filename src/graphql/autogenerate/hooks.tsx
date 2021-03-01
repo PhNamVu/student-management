@@ -536,3 +536,52 @@ export type GetUsersQueryResult = Apollo.QueryResult<
   Types.GetUsersQuery,
   Types.GetUsersQueryVariables
 >
+export const AddUserDocument = gql`
+  mutation addUser($object: users_insert_input!) {
+    insert_users(objects: [$object]) {
+      affected_rows
+      returning {
+        id
+      }
+    }
+  }
+`
+export type AddUserMutationFn = Apollo.MutationFunction<
+  Types.AddUserMutation,
+  Types.AddUserMutationVariables
+>
+
+/**
+ * __useAddUserMutation__
+ *
+ * To run a mutation, you first call `useAddUserMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useAddUserMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [addUserMutation, { data, loading, error }] = useAddUserMutation({
+ *   variables: {
+ *      object: // value for 'object'
+ *   },
+ * });
+ */
+export function useAddUserMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    Types.AddUserMutation,
+    Types.AddUserMutationVariables
+  >
+) {
+  return Apollo.useMutation<
+    Types.AddUserMutation,
+    Types.AddUserMutationVariables
+  >(AddUserDocument, baseOptions)
+}
+export type AddUserMutationHookResult = ReturnType<typeof useAddUserMutation>
+export type AddUserMutationResult = Apollo.MutationResult<Types.AddUserMutation>
+export type AddUserMutationOptions = Apollo.BaseMutationOptions<
+  Types.AddUserMutation,
+  Types.AddUserMutationVariables
+>

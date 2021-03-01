@@ -138,3 +138,16 @@ export type GetUsersQueryVariables = Types.Exact<{ [key: string]: never }>
 export type GetUsersQuery = { __typename?: 'query_root' } & {
   users: Array<{ __typename?: 'users' } & Pick<Types.Users, 'id'>>
 }
+
+export type AddUserMutationVariables = Types.Exact<{
+  object: Types.Users_Insert_Input
+}>
+
+export type AddUserMutation = { __typename?: 'mutation_root' } & {
+  insert_users?: Types.Maybe<
+    { __typename?: 'users_mutation_response' } & Pick<
+      Types.Users_Mutation_Response,
+      'affected_rows'
+    > & { returning: Array<{ __typename?: 'users' } & Pick<Types.Users, 'id'>> }
+  >
+}

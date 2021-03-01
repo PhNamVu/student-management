@@ -1,10 +1,9 @@
 import React from 'react'
 import { useGetMagazineQuery } from '../graphql/autogenerate/hooks'
-import { Container, Row, Button } from 'reactstrap'
+import { Container, Row } from 'reactstrap'
 import { Tabs, Tab, makeStyles, createStyles, Backdrop, CircularProgress, Theme} from '@material-ui/core';
 import './magazine.css'
 import MagazineStudentBlock from '../components/MagazineStudentBlock'
-import { NONAME } from 'dns';
 
 
 //Style for Tabs
