@@ -18,6 +18,9 @@ import StudentContributionsList from './Pages/StudentContributionsList'
 
 import { AdminNav } from './components/AdminNav'
 import { StudentNav } from './components/StudenNav'
+import { GuestNav } from './components/GuestNav'
+import { ManagerNav } from './components/ManagerNav'
+import { McoNav } from './components/MCoNav'
 
 import { useAuth } from './hooks/use-auth'
 import createUnAuthClient from './apollo/unauth-client'
@@ -118,7 +121,59 @@ function App() {
             </ApolloProvider>
           </ToasterContainer>
       )
-      }else {
+      }
+      else if (role === 'coordinator') {
+        return (
+          <ToasterContainer>
+            <ApolloProvider client={client}>
+              <McoNav/>
+              <Container
+                fluid
+                style={{ backgroundColor: '#F8F8F8', minHeight: '100vh' }}
+              >
+                <Routes>
+                  <p>Coordinator</p>
+                </Routes>
+              </Container>  
+            </ApolloProvider>
+          </ToasterContainer>
+      )
+      }
+      else if (role === 'guest') {
+        return (
+          <ToasterContainer>
+            <ApolloProvider client={client}>
+              <GuestNav/>
+              <Container
+                fluid
+                style={{ backgroundColor: '#F8F8F8', minHeight: '100vh' }}
+              >
+                <Routes>
+                  <p>Guest</p>
+                </Routes>
+              </Container>  
+            </ApolloProvider>
+          </ToasterContainer>
+      )
+      }
+      else if (role === 'manager') {
+        return (
+          <ToasterContainer>
+            <ApolloProvider client={client}>
+              <ManagerNav/>
+              <Container
+                fluid
+                style={{ backgroundColor: '#F8F8F8', minHeight: '100vh' }}
+              >
+                <Routes>
+                  <p>Manager</p>
+                </Routes>
+              </Container>  
+            </ApolloProvider>
+          </ToasterContainer>
+      )
+      }              
+      else {
         return null
       }
     }

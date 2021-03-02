@@ -34,6 +34,34 @@ export type Boolean_Comparison_Exp = {
   _nin?: Maybe<Array<Scalars['Boolean']>>
 }
 
+export type CoordinatorSetupInput = {
+  email: Scalars['String']
+  facultyId: Scalars['String']
+  fullName: Scalars['String']
+  password: Scalars['String']
+}
+
+export type CoordinatorSetupRes = {
+  __typename?: 'CoordinatorSetupRes'
+  message: Scalars['String']
+  status: Scalars['String']
+  statusCode: Scalars['Int']
+}
+
+export type GuestSetupInput = {
+  email: Scalars['String']
+  facultyId: Scalars['String']
+  fullName: Scalars['String']
+  password: Scalars['String']
+}
+
+export type GuestSetupRes = {
+  __typename?: 'GuestSetupRes'
+  message: Scalars['String']
+  status: Scalars['String']
+  statusCode: Scalars['Int']
+}
+
 /** Boolean expression to compare columns of type "Int". All fields are combined with logical 'AND'. */
 export type Int_Comparison_Exp = {
   _eq?: Maybe<Scalars['Int']>
@@ -45,6 +73,19 @@ export type Int_Comparison_Exp = {
   _lte?: Maybe<Scalars['Int']>
   _neq?: Maybe<Scalars['Int']>
   _nin?: Maybe<Array<Scalars['Int']>>
+}
+
+export type ManagerSetupInput = {
+  email: Scalars['String']
+  fullName: Scalars['String']
+  password: Scalars['String']
+}
+
+export type ManagerSetupRes = {
+  __typename?: 'ManagerSetupRes'
+  message: Scalars['String']
+  status: Scalars['String']
+  statusCode: Scalars['Int']
 }
 
 /** Boolean expression to compare columns of type "String". All fields are combined with logical 'AND'. */
@@ -1818,6 +1859,7 @@ export enum Magazines_Update_Column {
 /** mutation root */
 export type Mutation_Root = {
   __typename?: 'mutation_root'
+  coordinatorSetup?: Maybe<CoordinatorSetupRes>
   /** delete data from the table: "comments" */
   delete_comments?: Maybe<Comments_Mutation_Response>
   /** delete single row from the table: "comments" */
@@ -1852,6 +1894,7 @@ export type Mutation_Root = {
   delete_users?: Maybe<Users_Mutation_Response>
   /** delete single row from the table: "users" */
   delete_users_by_pk?: Maybe<Users>
+  guestSetup?: Maybe<GuestSetupRes>
   /** insert data into the table: "comments" */
   insert_comments?: Maybe<Comments_Mutation_Response>
   /** insert a single row into the table: "comments" */
@@ -1888,6 +1931,7 @@ export type Mutation_Root = {
   insert_users?: Maybe<Users_Mutation_Response>
   /** insert a single row into the table: "users" */
   insert_users_one?: Maybe<Users>
+  managerSetup?: Maybe<ManagerSetupRes>
   studentSetup?: Maybe<StudentSetupRes>
   /** update data of the table: "comments" */
   update_comments?: Maybe<Comments_Mutation_Response>
@@ -1923,6 +1967,11 @@ export type Mutation_Root = {
   update_users?: Maybe<Users_Mutation_Response>
   /** update single row of the table: "users" */
   update_users_by_pk?: Maybe<Users>
+}
+
+/** mutation root */
+export type Mutation_RootCoordinatorSetupArgs = {
+  input: CoordinatorSetupInput
 }
 
 /** mutation root */
@@ -2008,6 +2057,11 @@ export type Mutation_RootDelete_UsersArgs = {
 /** mutation root */
 export type Mutation_RootDelete_Users_By_PkArgs = {
   id: Scalars['uuid']
+}
+
+/** mutation root */
+export type Mutation_RootGuestSetupArgs = {
+  input: GuestSetupInput
 }
 
 /** mutation root */
@@ -2114,6 +2168,11 @@ export type Mutation_RootInsert_UsersArgs = {
 export type Mutation_RootInsert_Users_OneArgs = {
   object: Users_Insert_Input
   on_conflict?: Maybe<Users_On_Conflict>
+}
+
+/** mutation root */
+export type Mutation_RootManagerSetupArgs = {
+  input: ManagerSetupInput
 }
 
 /** mutation root */
