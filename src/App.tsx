@@ -118,7 +118,59 @@ function App() {
             </ApolloProvider>
           </ToasterContainer>
       )
-      }else {
+      }
+      else if (role === 'coordinator') {
+        return (
+          <ToasterContainer>
+            <ApolloProvider client={client}>
+              <StudentNav/>
+              <Container
+                fluid
+                style={{ backgroundColor: '#F8F8F8', minHeight: '100vh' }}
+              >
+                <Routes>
+                  <p>Coordinator</p>
+                </Routes>
+              </Container>  
+            </ApolloProvider>
+          </ToasterContainer>
+      )
+      }
+      else if (role === 'guest') {
+        return (
+          <ToasterContainer>
+            <ApolloProvider client={client}>
+              <StudentNav/>
+              <Container
+                fluid
+                style={{ backgroundColor: '#F8F8F8', minHeight: '100vh' }}
+              >
+                <Routes>
+                  <p>Guest</p>
+                </Routes>
+              </Container>  
+            </ApolloProvider>
+          </ToasterContainer>
+      )
+      }
+      else if (role === 'manager') {
+        return (
+          <ToasterContainer>
+            <ApolloProvider client={client}>
+              <StudentNav/>
+              <Container
+                fluid
+                style={{ backgroundColor: '#F8F8F8', minHeight: '100vh' }}
+              >
+                <Routes>
+                  <p>Manager</p>
+                </Routes>
+              </Container>  
+            </ApolloProvider>
+          </ToasterContainer>
+      )
+      }              
+      else {
         return null
       }
     }

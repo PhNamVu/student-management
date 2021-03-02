@@ -10,8 +10,8 @@ export const CreateUserPage = () => {
   const [fullName, setFullName] = React.useState('')
   const [email, setEmail] = React.useState('@gmail.com')
   const [password, setPassWord] = React.useState('123456789')
-  const [facultyId, setFacultyId] = React.useState('')
-  const [roles, setRoles] = React.useState('')
+  const [facultyId, setFacultyId] = React.useState('a2774788-65ce-4018-9d76-5e989a7c479b')
+  const [roles, setRoles] = React.useState('MANAGER')
   const [css, theme] = useStyletron()
   const [addUser] = useAddUserMutation()
   const { data } = useGetFacultyQuery()
@@ -19,6 +19,36 @@ export const CreateUserPage = () => {
   const [studentSetup] = useMutation(gql`
     mutation StudentSetup($input: StudentSetupInput!) {
       studentSetup(input: $input) {
+        status
+        statusCode
+        message
+      }
+    }
+  `)
+
+  const [managerSetup] = useMutation(gql`
+    mutation ManagerSetup($input: ManagerSetupInput!) {
+      managerSetup(input: $input) {
+        status
+        statusCode
+        message
+      }
+    }
+  `)
+
+  const [coordinatorSetup] = useMutation(gql`
+  mutation CoordinatorSetup($input: CoordinatorSetupInput!) {
+    coordinatorSetup(input: $input) {
+      status
+      statusCode
+      message
+    }
+  }
+  `)
+
+  const [guestSetup] = useMutation(gql`
+    mutation GuestSetup($input: GuestSetupInput!) {
+      guestSetup(input: $input) {
         status
         statusCode
         message
@@ -69,7 +99,135 @@ export const CreateUserPage = () => {
           autoHideDuration: 3000,
         })
       }
-    } else {
+    }
+    // MANAGER
+    else if (roles === 'MANAGER') {
+      try {
+        const dataRes = await managerSetup({
+          variables: {
+            input: {
+              email,
+              fullName,
+              password,
+            },
+          },
+        })
+        if (dataRes && dataRes.data.managerSetup.status === 'success') {
+          try {
+            await addUser({
+              variables: {
+                object: {
+                  id: dataRes.data.managerSetup.message,
+                  email,
+                  fullName,
+                  roles,
+                },
+              },
+            })
+            toaster.positive('Add manager successful', {
+              autoHideDuration: 3000,
+            })
+          } catch (error) {
+            console.log(error)
+            toaster.negative('Add to database fail', {
+              autoHideDuration: 3000,
+            })
+          }
+        }
+      } catch (error) {
+        console.log(error)
+        toaster.negative('Add user fail', {
+          autoHideDuration: 3000,
+        })
+      }
+    }
+    // MCO
+    else if (roles === 'MCO') {
+      try {
+        const dataRes = await coordinatorSetup({
+          variables: {
+            input: {
+              email,
+              facultyId,
+              fullName,
+              password,
+            },
+          },
+        })
+        if (dataRes && dataRes.data.coordinatorSetup.status === 'success') {
+          try {
+            await addUser({
+              variables: {
+                object: {
+                  id: dataRes.data.coordinatorSetup.message,
+                  email,
+                  facultyId,
+                  fullName,
+                  roles,
+                },
+              },
+            })
+            toaster.positive('Add coordinator successful', {
+              autoHideDuration: 3000,
+            })
+          } catch (error) {
+            console.log(error)
+            toaster.negative('Add to database fail', {
+              autoHideDuration: 3000,
+            })
+          }
+        }
+      } catch (error) {
+        console.log(error)
+        toaster.negative('Add user fail', {
+          autoHideDuration: 3000,
+        })
+      }
+    }
+    // GUEST
+    else if (roles === 'GUEST') {
+      try {
+        const dataRes = await guestSetup({
+          variables: {
+            input: {
+              email,
+              facultyId,
+              fullName,
+              password,
+            },
+          },
+        })
+        if (dataRes && dataRes.data.guestSetup.status === 'success') {
+          try {
+            await addUser({
+              variables: {
+                object: {
+                  id: dataRes.data.guestSetup.message,
+                  email,
+                  facultyId,
+                  fullName,
+                  roles,
+                },
+              },
+            })
+            toaster.positive('Add guest successful', {
+              autoHideDuration: 3000,
+            })
+          } catch (error) {
+            console.log(error)
+            toaster.negative('Add to database fail', {
+              autoHideDuration: 3000,
+            })
+          }
+        }
+      } catch (error) {
+        console.log(error)
+        toaster.negative('Add user fail', {
+          autoHideDuration: 3000,
+        })
+      }
+    } 
+    else {
       console.log('submit')
     }
   }
