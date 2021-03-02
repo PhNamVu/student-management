@@ -18,6 +18,9 @@ import StudentContributionsList from './Pages/StudentContributionsList'
 
 import { AdminNav } from './components/AdminNav'
 import { StudentNav } from './components/StudenNav'
+import { GuestNav } from './components/GuestNav'
+import { ManagerNav } from './components/ManagerNav'
+import { McoNav } from './components/MCoNav'
 
 import { useAuth } from './hooks/use-auth'
 import createUnAuthClient from './apollo/unauth-client'
@@ -123,7 +126,7 @@ function App() {
         return (
           <ToasterContainer>
             <ApolloProvider client={client}>
-              <StudentNav/>
+              <McoNav/>
               <Container
                 fluid
                 style={{ backgroundColor: '#F8F8F8', minHeight: '100vh' }}
@@ -140,7 +143,7 @@ function App() {
         return (
           <ToasterContainer>
             <ApolloProvider client={client}>
-              <StudentNav/>
+              <GuestNav/>
               <Container
                 fluid
                 style={{ backgroundColor: '#F8F8F8', minHeight: '100vh' }}
@@ -157,7 +160,7 @@ function App() {
         return (
           <ToasterContainer>
             <ApolloProvider client={client}>
-              <StudentNav/>
+              <ManagerNav/>
               <Container
                 fluid
                 style={{ backgroundColor: '#F8F8F8', minHeight: '100vh' }}
