@@ -268,6 +268,57 @@ export type GetContributeByUserIdQueryResult = Apollo.QueryResult<
   Types.GetContributeByUserIdQuery,
   Types.GetContributeByUserIdQueryVariables
 >
+export const AddContributionDocument = gql`
+  mutation addContribution($object: contributions_insert_input!) {
+    insert_contributions(objects: [$object]) {
+      affected_rows
+      returning {
+        id
+      }
+    }
+  }
+`
+export type AddContributionMutationFn = Apollo.MutationFunction<
+  Types.AddContributionMutation,
+  Types.AddContributionMutationVariables
+>
+
+/**
+ * __useAddContributionMutation__
+ *
+ * To run a mutation, you first call `useAddContributionMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useAddContributionMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [addContributionMutation, { data, loading, error }] = useAddContributionMutation({
+ *   variables: {
+ *      object: // value for 'object'
+ *   },
+ * });
+ */
+export function useAddContributionMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    Types.AddContributionMutation,
+    Types.AddContributionMutationVariables
+  >
+) {
+  return Apollo.useMutation<
+    Types.AddContributionMutation,
+    Types.AddContributionMutationVariables
+  >(AddContributionDocument, baseOptions)
+}
+export type AddContributionMutationHookResult = ReturnType<
+  typeof useAddContributionMutation
+>
+export type AddContributionMutationResult = Apollo.MutationResult<Types.AddContributionMutation>
+export type AddContributionMutationOptions = Apollo.BaseMutationOptions<
+  Types.AddContributionMutation,
+  Types.AddContributionMutationVariables
+>
 export const GetFacultyDocument = gql`
   query getFaculty {
     facultys {

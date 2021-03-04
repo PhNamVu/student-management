@@ -53,3 +53,12 @@ query getContributeByUserId($idUser: uuid){
     updatedAt
   }
 }
+
+mutation addContribution($object: contributions_insert_input!) {
+  insert_contributions(objects: [$object]) {
+    affected_rows
+    returning {
+      id
+    }
+  }
+}
