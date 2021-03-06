@@ -6,7 +6,6 @@ import {
   Label,
   Col,
   Input,
-  Button,
 } from 'reactstrap'
 
 import 'semantic-ui-css/semantic.min.css'
@@ -18,8 +17,13 @@ import { v4 as uuidv4 } from 'uuid'
 import { useAuth } from '../hooks/use-auth'
 import { useAddContributionMutation } from '../graphql/autogenerate/hooks'
 import { Uploader } from '../components/Uploader'
+import { useStyletron } from 'baseui'
+import { Checkbox } from 'baseui/checkbox'
+import PrimaryButton from '../components/shared/button/PrimaryBtn'
+
 
 export default function SubmitContributionPage() {
+  const [css, theme] = useStyletron()
   const navigate = useNavigate()
   const { idMgz: magazineId } = useParams()
   const id = uuidv4()
@@ -34,11 +38,12 @@ export default function SubmitContributionPage() {
   const userId: any =
     state.customClaims.claims['https://hasura.io/jwt/claims'][
       'x-hasura-user-id'
-  ]
+    ]
 
   const [title, setTitle] = useState('')
   const [artical, setArtical] = useState([])
   const [image, setImage] = useState([])
+  const [checked, setChecked] = useState(false)
   const [addContribution] = useAddContributionMutation()
 
   const submitHandler = async (e: any) => {
@@ -131,15 +136,51 @@ export default function SubmitContributionPage() {
                 )
               }}
             />
+            <div
+              className={css({
+                display: 'flex',
+                justifyContent: 'flex-start',
+                paddingTop: theme.sizing.scale400,
+                alignItems: 'center',
+                width: '80%',
+              })}
+            >
+              <Checkbox
+                overrides={{
+                  Root: {
+                    style: () => ({
+                      marginTop: '12px',
+                    }),
+                  },
+                  Checkmark: {
+                    style: ({ $theme }) => ({
+                      backgroundColor: checked
+                        ? $theme.colors.positive300
+                        : 'white',
+                    }),
+                  },
+                }}
+                checked={checked}
+                onChange={() => setChecked(!checked)}
+              />
+              <div
+                className={css({
+                  ...theme.typography.font200,
+                  marginTop: '7px',
+                  lineHeight: 2,
+                })}
+              >
+                I agree to the Terms and Conditions
+              </div>
+            </div>
           </Col>
         </FormGroup>
         <div className="d-flex justify-content-center">
-          <Button
-            style={{ backgroundColor: '#ffc107', border: 'none' }}
-            type='submit'
-          >
-            Submit
-          </Button>
+          {checked ? (
+            <PrimaryButton type="submit">Submit</PrimaryButton>
+          ) : (
+            <PrimaryButton disabled>Submit</PrimaryButton>
+          )}
         </div>
       </Form>
     </Container>
