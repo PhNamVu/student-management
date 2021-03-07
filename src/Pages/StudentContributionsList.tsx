@@ -166,8 +166,8 @@ export default function StudentContributionsList() {
     const isSelected = (name: string) => selected.indexOf(name) !== -1;
 
     const navigate = useNavigate();
-    const handleOpenContribution = (contributionId:string, contributionTitle: string) => {
-        navigate(`/editContribute/${contributionId}/${contributionTitle}`)
+    const handleOpenContribution = (contributionId:string) => {
+        navigate(`/contribution/${contributionId}/edit`)
     }
 
     //Query get all contributions of this user
@@ -259,13 +259,13 @@ export default function StudentContributionsList() {
                                         <TableCell padding='checkbox' style={{ padding: '0' }}>
                                             <Checkbox checked={isItemSelected} inputProps={{ "aria-labelledby": labelId }} onClick={(event) => handleClick(event, row.title)}/>
                                         </TableCell>
-                                        <TableCell component="th" id={labelId} scope="row" onClick={() => handleOpenContribution(row.ctbId, row.title)}>
+                                        <TableCell component="th" id={labelId} scope="row" onClick={() => handleOpenContribution(row.ctbId)}>
                                             {row.title}
                                         </TableCell>
-                                        <TableCell align="left" onClick={() => handleOpenContribution(row.ctbId, row.title)}>{row.magazine}</TableCell>
-                                        <TableCell align="left" onClick={() => handleOpenContribution(row.ctbId, row.title)}>{row.faculty}</TableCell>
-                                        <TableCell align="left" onClick={() => handleOpenContribution(row.ctbId, row.title)} style={(row.status) ? { color: '#00CA39' } : { color: '#E44067' }}>{(row.status) ? 'SELECTED' : 'UNSELECT'}</TableCell>
-                                        <TableCell align="left"onClick={() => handleOpenContribution(row.ctbId, row.title)}>{row.selected_by}</TableCell>
+                                        <TableCell align="left" onClick={() => handleOpenContribution(row.ctbId)}>{row.magazine}</TableCell>
+                                        <TableCell align="left" onClick={() => handleOpenContribution(row.ctbId)}>{row.faculty}</TableCell>
+                                        <TableCell align="left" onClick={() => handleOpenContribution(row.ctbId)} style={(row.status) ? { color: '#00CA39' } : { color: '#E44067' }}>{(row.status) ? 'SELECTED' : 'UNSELECT'}</TableCell>
+                                        <TableCell align="left"onClick={() => handleOpenContribution(row.ctbId)}>{row.selected_by}</TableCell>
                                     </TableRow>
                                 )
                             }) : null}

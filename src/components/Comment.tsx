@@ -15,8 +15,9 @@ const loadingStyles = makeStyles((theme: Theme) =>
 );
 
 
-export default function Comments(contributionId : any) {
+export default function Comments({ contributionId }: any) {
     const { state }: any = useAuth()
+
     const userId: any =
         state.customClaims.claims['https://hasura.io/jwt/claims'][
         'x-hasura-user-id'

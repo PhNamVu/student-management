@@ -10,7 +10,6 @@ import { storage } from '../hooks/use-auth'
 import nanoid from 'nanoid'
 
 const StatusFileItem = ({ status, type }: any) => {
-  console.log('type ', type)
 
   const [, theme] = useStyletron()
 

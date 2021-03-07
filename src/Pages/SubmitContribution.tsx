@@ -73,6 +73,7 @@ export default function SubmitContributionPage() {
       })
     }
   }
+  
   return (
     <Container>
       <h2 style={{ padding: '3rem 0', clear: 'both' }}>Submit Contribution</h2>
@@ -99,7 +100,7 @@ export default function SubmitContributionPage() {
               acceptedFileExtensions={'.pdf,.docx,.doc,'}
               maxSizeFile={20}
               initFiles={artical}
-              refStorage={`magazines/${magazineId}/${id}`}
+              refStorage={`magazines/${magazineId}`}
               onChange={(files: any) => {
                 setArtical(
                   files.map((item: any) => ({
@@ -123,7 +124,7 @@ export default function SubmitContributionPage() {
               acceptedFileExtensions={'.png,.jpg,.jpeg,'}
               maxSizeFile={20}
               initFiles={image}
-              refStorage={`magazines/${magazineId}/${id}`}
+              refStorage={`magazines/${magazineId}`}
               onChange={(files: any) => {
                 setImage(
                   files.map((item: any) => ({
