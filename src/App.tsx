@@ -114,7 +114,7 @@ function App() {
                 <Routes>
                   <Route path="/" element={<MagazinesStudentPage />} /> {/* Navigation Magazine */}
                   <Route path="/contributions" element={<StudentContributionsList/>} /> {/* Navigation My Contributions */}
-                  <Route path="/editContribute/:contributionId/:contributionTitle" element={<EditContributePage />} />
+                  <Route path="/contribution/:id/edit" element={<EditContributePage />} />
                   <Route path="/submitContribute/:idMgz" element={<SubmitContributePage />} />
                 </Routes>
               </Container>  

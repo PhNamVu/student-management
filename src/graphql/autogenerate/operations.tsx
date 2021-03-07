@@ -77,12 +77,48 @@ export type GetContributeByUserIdQuery = { __typename?: 'query_root' } & {
   >
 }
 
+export type GetContributionQueryVariables = Types.Exact<{
+  id?: Types.Maybe<Types.Scalars['uuid']>
+}>
+
+export type GetContributionQuery = { __typename?: 'query_root' } & {
+  contributions: Array<
+    { __typename?: 'contributions' } & Pick<
+      Types.Contributions,
+      'title' | 'artical' | 'image'
+    > & {
+        magazine: { __typename?: 'magazines' } & Pick<
+          Types.Magazines,
+          'id' | 'closureTemp' | 'closureFinal'
+        >
+      }
+  >
+}
+
 export type AddContributionMutationVariables = Types.Exact<{
   object: Types.Contributions_Insert_Input
 }>
 
 export type AddContributionMutation = { __typename?: 'mutation_root' } & {
   insert_contributions?: Types.Maybe<
+    { __typename?: 'contributions_mutation_response' } & Pick<
+      Types.Contributions_Mutation_Response,
+      'affected_rows'
+    > & {
+        returning: Array<
+          { __typename?: 'contributions' } & Pick<Types.Contributions, 'id'>
+        >
+      }
+  >
+}
+
+export type UpdateContributionMutationVariables = Types.Exact<{
+  id?: Types.Maybe<Types.Scalars['uuid']>
+  object: Types.Contributions_Set_Input
+}>
+
+export type UpdateContributionMutation = { __typename?: 'mutation_root' } & {
+  update_contributions?: Types.Maybe<
     { __typename?: 'contributions_mutation_response' } & Pick<
       Types.Contributions_Mutation_Response,
       'affected_rows'

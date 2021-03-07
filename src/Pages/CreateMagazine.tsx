@@ -14,6 +14,7 @@ export const CreateMagazine = () => {
   const [closureTemp, setClosureTemp] = useState(new Date())
   const [closureFinal, setClosureFinal] = useState(new Date())
   const [addMagazine] = useAddMagazineMutation()
+
   const navigate = useNavigate();
   const submitHandler = async (e: any) => {
     e.preventDefault()

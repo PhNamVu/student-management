@@ -268,6 +268,69 @@ export type GetContributeByUserIdQueryResult = Apollo.QueryResult<
   Types.GetContributeByUserIdQuery,
   Types.GetContributeByUserIdQueryVariables
 >
+export const GetContributionDocument = gql`
+  query getContribution($id: uuid) {
+    contributions(where: { id: { _eq: $id } }) {
+      title
+      artical
+      image
+      magazine {
+        id
+        closureTemp
+        closureFinal
+      }
+    }
+  }
+`
+
+/**
+ * __useGetContributionQuery__
+ *
+ * To run a query within a React component, call `useGetContributionQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetContributionQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetContributionQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useGetContributionQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    Types.GetContributionQuery,
+    Types.GetContributionQueryVariables
+  >
+) {
+  return Apollo.useQuery<
+    Types.GetContributionQuery,
+    Types.GetContributionQueryVariables
+  >(GetContributionDocument, baseOptions)
+}
+export function useGetContributionLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    Types.GetContributionQuery,
+    Types.GetContributionQueryVariables
+  >
+) {
+  return Apollo.useLazyQuery<
+    Types.GetContributionQuery,
+    Types.GetContributionQueryVariables
+  >(GetContributionDocument, baseOptions)
+}
+export type GetContributionQueryHookResult = ReturnType<
+  typeof useGetContributionQuery
+>
+export type GetContributionLazyQueryHookResult = ReturnType<
+  typeof useGetContributionLazyQuery
+>
+export type GetContributionQueryResult = Apollo.QueryResult<
+  Types.GetContributionQuery,
+  Types.GetContributionQueryVariables
+>
 export const AddContributionDocument = gql`
   mutation addContribution($object: contributions_insert_input!) {
     insert_contributions(objects: [$object]) {
@@ -318,6 +381,58 @@ export type AddContributionMutationResult = Apollo.MutationResult<Types.AddContr
 export type AddContributionMutationOptions = Apollo.BaseMutationOptions<
   Types.AddContributionMutation,
   Types.AddContributionMutationVariables
+>
+export const UpdateContributionDocument = gql`
+  mutation updateContribution($id: uuid, $object: contributions_set_input!) {
+    update_contributions(where: { id: { _eq: $id } }, _set: $object) {
+      affected_rows
+      returning {
+        id
+      }
+    }
+  }
+`
+export type UpdateContributionMutationFn = Apollo.MutationFunction<
+  Types.UpdateContributionMutation,
+  Types.UpdateContributionMutationVariables
+>
+
+/**
+ * __useUpdateContributionMutation__
+ *
+ * To run a mutation, you first call `useUpdateContributionMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateContributionMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateContributionMutation, { data, loading, error }] = useUpdateContributionMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *      object: // value for 'object'
+ *   },
+ * });
+ */
+export function useUpdateContributionMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    Types.UpdateContributionMutation,
+    Types.UpdateContributionMutationVariables
+  >
+) {
+  return Apollo.useMutation<
+    Types.UpdateContributionMutation,
+    Types.UpdateContributionMutationVariables
+  >(UpdateContributionDocument, baseOptions)
+}
+export type UpdateContributionMutationHookResult = ReturnType<
+  typeof useUpdateContributionMutation
+>
+export type UpdateContributionMutationResult = Apollo.MutationResult<Types.UpdateContributionMutation>
+export type UpdateContributionMutationOptions = Apollo.BaseMutationOptions<
+  Types.UpdateContributionMutation,
+  Types.UpdateContributionMutationVariables
 >
 export const GetFacultyDocument = gql`
   query getFaculty {
