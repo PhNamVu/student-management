@@ -15,11 +15,23 @@ import { useNavigate } from 'react-router-dom'
 import { v4 as uuidv4 } from 'uuid'
 
 import { useAuth } from '../hooks/use-auth'
-import { useAddContributionMutation } from '../graphql/autogenerate/hooks'
+import { useAddContributionMutation, useGetMagazineQuery } from '../graphql/autogenerate/hooks'
 import { Uploader } from '../components/Uploader'
 import { useStyletron } from 'baseui'
 import { Checkbox } from 'baseui/checkbox'
 import PrimaryButton from '../components/shared/button/PrimaryBtn'
+import { Backdrop, CircularProgress, createStyles, makeStyles, Theme } from '@material-ui/core'
+import { isBefore } from 'date-fns'
+
+
+const loadingStyles = makeStyles((theme: Theme) =>
+    createStyles({
+        backdrop: {
+        zIndex: theme.zIndex.drawer + 1,
+        color: '#fff',
+        },
+    }),
+);
 
 
 export default function SubmitContributionPage() {
@@ -27,7 +39,7 @@ export default function SubmitContributionPage() {
   const navigate = useNavigate()
   const { idMgz: magazineId } = useParams()
   const id = uuidv4()
-
+  const customStyle = loadingStyles()
   const { state }: any = useAuth()
 
   const facultyId: any =
@@ -45,7 +57,23 @@ export default function SubmitContributionPage() {
   const [image, setImage] = useState([])
   const [checked, setChecked] = useState(false)
   const [addContribution] = useAddContributionMutation()
+  const { data, loading, error } = useGetMagazineQuery({
+    fetchPolicy: 'network-only',
+    variables: {
+      where: {
+        id: { _eq: magazineId },
+      },
+    },
+  })
+  const magazine = data && data?.magazines[0]
 
+  if (error) return <div>Error at Edit Magazine component {error}</div>
+  if (loading) return (
+    <Backdrop className={customStyle.backdrop} open={loading}>
+        <CircularProgress color="inherit"/>
+    </Backdrop>
+  )
+  
   const submitHandler = async (e: any) => {
     e.preventDefault()
     try {
@@ -76,7 +104,15 @@ export default function SubmitContributionPage() {
   
   return (
     <Container>
-      <h2 style={{ padding: '3rem 0', clear: 'both' }}>Submit Contribution</h2>
+      <h2 style={{ padding: '3rem 0', clear: 'both' }}>
+        Submit Contribution
+        { isBefore( new Date(magazine?.closureTemp), new Date()) &&
+          <span style={{ color: 'red', fontSize: '60%', marginLeft: '1em' }}>
+            (Close)
+          </span>
+        }
+      </h2>
+      
       <Form onSubmit={submitHandler}>
         <FormGroup row>
           <Label for="title" sm="2">
@@ -97,7 +133,7 @@ export default function SubmitContributionPage() {
           </Label>
           <Col lg="9" sm="10">
             <Uploader
-              acceptedFileExtensions={'.pdf,.docx,.doc,'}
+              acceptedFileExtensions={!isBefore( new Date(magazine?.closureTemp), new Date()) ? '.pdf,.docx,.doc,' : '.notexit'}
               maxSizeFile={20}
               initFiles={artical}
               refStorage={`magazines/${magazineId}`}
@@ -121,7 +157,7 @@ export default function SubmitContributionPage() {
           </Label>
           <Col lg="9" sm="10">
             <Uploader
-              acceptedFileExtensions={'.png,.jpg,.jpeg,'}
+              acceptedFileExtensions={!isBefore( new Date(magazine?.closureTemp), new Date()) ?'.png,.jpg,.jpeg,' : '.notexit'}
               maxSizeFile={20}
               initFiles={image}
               refStorage={`magazines/${magazineId}`}
@@ -137,7 +173,8 @@ export default function SubmitContributionPage() {
                 )
               }}
             />
-            <div
+            { !isBefore( new Date(magazine?.closureTemp), new Date()) &&
+              <div
               className={css({
                 display: 'flex',
                 justifyContent: 'flex-start',
@@ -173,11 +210,11 @@ export default function SubmitContributionPage() {
               >
                 I agree to the Terms and Conditions
               </div>
-            </div>
+            </div>}
           </Col>
         </FormGroup>
         <div className="d-flex justify-content-center">
-          {checked ? (
+          {checked  && !isBefore( new Date(magazine?.closureTemp), new Date()) ? (
             <PrimaryButton type="submit">Submit</PrimaryButton>
           ) : (
             <PrimaryButton disabled>Submit</PrimaryButton>
