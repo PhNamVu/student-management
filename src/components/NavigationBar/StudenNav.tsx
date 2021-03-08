@@ -8,10 +8,10 @@ import {
   NavItem,
 } from 'reactstrap'
 import { Avatar } from 'baseui/avatar'
-import { useAuth } from '../hooks/use-auth'
+import { useAuth } from '../../hooks/use-auth'
 import { Link } from 'react-router-dom'
 
-export const ManagerNav = () => {
+export const StudentNav = () => {
   const [collapsed, setCollapsed] = useState(true)
   const {
     state: { user },
@@ -27,10 +27,10 @@ export const ManagerNav = () => {
             <div className="mr-sm-auto">
               <Nav navbar >
                 <NavItem className="header-links btn">
-                  <Link to="/magazine">Magazine</Link>
+                  <Link to="/">Magazine</Link>
                 </NavItem>
                 <NavItem className="header-links btn">
-                  <Link to="/chart">Chart</Link>
+                  <Link to="/contributions">Contribution</Link>
                 </NavItem>
               </Nav>
             </div>

@@ -1,14 +1,14 @@
 import React, { useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { Container, Form, FormGroup, Label, Col, Input, Row } from 'reactstrap'
-import Comment from '../components/Comment'
+import Comment from '../../components/Comment'
 import 'semantic-ui-css/semantic.min.css'
 
-import { useGetContributionQuery, useUpdateContributionMutation } from '../graphql/autogenerate/hooks'
+import { useGetContributionQuery, useUpdateContributionMutation } from '../../graphql/autogenerate/hooks'
 import { StyledSpinnerNext } from 'baseui/spinner'
 import { toaster } from 'baseui/toast'
-import { Uploader } from '../components/Uploader'
-import PrimaryButton from '../components/shared/button/PrimaryBtn'
+import { Uploader } from '../../components/Uploader'
+import PrimaryButton from '../../components/shared/button/PrimaryBtn'
 import { isBefore } from 'date-fns'
 
 

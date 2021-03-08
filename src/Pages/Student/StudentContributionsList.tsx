@@ -1,5 +1,5 @@
 import React from 'react'
-import { useGetContributeByUserIdQuery } from '../graphql/autogenerate/hooks'
+import { useGetContributeByUserIdQuery } from '../../graphql/autogenerate/hooks'
 import { Container, Table } from 'reactstrap'
 import { useParams } from 'react-router-dom'
 import clsx from "clsx";
@@ -8,7 +8,7 @@ import { TableBody, TableHead, TableRow, TableCell, Checkbox, TableContainer, Ty
 import IconButton from "@material-ui/core/IconButton";
 import GetAppIcon from '@material-ui/icons/GetApp';
 import { useNavigate } from "react-router-dom";
-import { useAuth } from '../hooks/use-auth';
+import { useAuth } from '../../hooks/use-auth';
 
 //Define for the header row
 interface HeadCell {

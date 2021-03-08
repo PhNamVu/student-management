@@ -1,5 +1,5 @@
 import React from 'react'
-import { useGetContributeQuery } from '../graphql/autogenerate/hooks'
+import { useGetContributeQuery } from '../../graphql/autogenerate/hooks'
 import { Container, Table } from 'reactstrap'
 import { useParams } from 'react-router-dom'
 import clsx from "clsx";

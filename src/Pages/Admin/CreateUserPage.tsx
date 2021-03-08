@@ -1,9 +1,9 @@
 import React from 'react'
 import { Col, Form, FormGroup, Input, Label, Row } from 'reactstrap'
 import { useStyletron } from 'baseui'
-import PrimaryButton from '../components/shared/button/PrimaryBtn'
+import PrimaryButton from '../../components/shared/button/PrimaryBtn'
 import { toaster } from 'baseui/toast'
-import { useAddUserMutation, useGetFacultyQuery } from '../graphql/autogenerate/hooks'
+import { useAddUserMutation, useGetFacultyQuery } from '../../graphql/autogenerate/hooks'
 import { gql, useMutation } from '@apollo/client'
 
 export const CreateUserPage = () => {

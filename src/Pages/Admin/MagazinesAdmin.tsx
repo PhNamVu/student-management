@@ -4,7 +4,7 @@ import { Container, Row, Button } from 'reactstrap'
 import { Tabs, Tab, makeStyles, createStyles, Backdrop, CircularProgress, Theme} from '@material-ui/core';
 import './magazine.css'
 import { useNavigate } from "react-router-dom";
-import { MagazineBlock } from '../components/MagazineAdminBlock'
+import { MagazineBlock } from '../../components/MagazineBlock/MagazineAdminBlock'
 
 
 //Style for Tabs
