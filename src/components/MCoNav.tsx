@@ -25,11 +25,11 @@ export const McoNav = () => {
           <NavbarToggler onClick={toggleNavbar} />
           <Collapse isOpen={!collapsed} navbar>
             <div className="mr-sm-auto">
-              <Nav navbar className="header-links btn">
-                <NavItem>
+              <Nav navbar >
+                <NavItem className="header-links btn">
                   <Link to="/magazine">Magazine</Link>
                 </NavItem>
-                <NavItem>
+                <NavItem className="header-links btn">
                   <Link to="/contribution">Contribution</Link>
                 </NavItem>
               </Nav>

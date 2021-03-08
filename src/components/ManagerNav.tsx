@@ -6,7 +6,6 @@ import {
   Navbar,
   NavbarToggler,
   NavItem,
-  NavLink,
 } from 'reactstrap'
 import { Avatar } from 'baseui/avatar'
 import { useAuth } from '../hooks/use-auth'
@@ -26,11 +25,11 @@ export const ManagerNav = () => {
           <NavbarToggler onClick={toggleNavbar} />
           <Collapse isOpen={!collapsed} navbar>
             <div className="mr-sm-auto">
-              <Nav navbar className="header-links btn">
-                <NavItem>
+              <Nav navbar >
+                <NavItem className="header-links btn">
                   <Link to="/magazine">Magazine</Link>
                 </NavItem>
-                <NavItem>
+                <NavItem className="header-links btn">
                   <Link to="/chart">Chart</Link>
                 </NavItem>
               </Nav>
