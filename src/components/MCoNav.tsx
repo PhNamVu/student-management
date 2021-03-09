@@ -40,7 +40,12 @@ export const McoNav = () => {
                   name= {user.displayName}
                   size="scale1000"
                 />
-                  <Link to="/" onClick={signout}><img src="/icon/logout.svg" width={16} height={16} /></Link>
+                  <Link to="/" onClick={signout}>
+                    <img src="/icon/logout.svg" 
+                    className="ml-2"
+                    width={29} height={31} 
+                    />
+                  </Link>
               </NavItem>
             </Nav>
           </Collapse>
