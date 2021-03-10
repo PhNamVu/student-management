@@ -32,7 +32,7 @@ export default function EditContributePage() {
     const submitHandler = async (e: any) => {
         e.preventDefault()
         try {
-            console.log(title, artical, image)
+                    
             await updateContribution({
             variables: {
                 id,
@@ -64,7 +64,6 @@ export default function EditContributePage() {
         return <div>Error at EditContributePage</div>
     }
     
-    console.log(contribution,'aj')
     
     return (
         <Container>
