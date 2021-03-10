@@ -133,7 +133,7 @@ export default function SubmitContributionPage() {
           </Label>
           <Col lg="9" sm="10">
             <Uploader
-              acceptedFileExtensions={!isBefore( new Date(magazine?.closureTemp), new Date()) ? '.pdf,.docx,.doc,' : '.notexit'}
+              acceptedFileExtensions={!isBefore( new Date(magazine?.closureTemp), new Date()) ? '.docx,.doc,' : '.notexist'}
               maxSizeFile={20}
               initFiles={artical}
               refStorage={`magazines/${magazineId}`}
@@ -157,7 +157,7 @@ export default function SubmitContributionPage() {
           </Label>
           <Col lg="9" sm="10">
             <Uploader
-              acceptedFileExtensions={!isBefore( new Date(magazine?.closureTemp), new Date()) ?'.png,.jpg,.jpeg,' : '.notexit'}
+              acceptedFileExtensions={!isBefore( new Date(magazine?.closureTemp), new Date()) ?'.png,.jpg,.jpeg,' : '.notexist'}
               maxSizeFile={20}
               initFiles={image}
               refStorage={`magazines/${magazineId}`}
