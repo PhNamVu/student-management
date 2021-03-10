@@ -64,6 +64,7 @@ export default function EditContributePage() {
         return <div>Error at EditContributePage</div>
     }
     
+    console.log(contribution,'aj')
     
     return (
         <Container>
@@ -84,46 +85,64 @@ export default function EditContributePage() {
                         <FormGroup row>
                             <Label for="article" sm='2'>Article</Label>
                             <Col lg='9' sm='10'>
-                                <Uploader
-                                    acceptedFileExtensions={'.pdf,.docx,.doc,'}
-                                    maxSizeFile={20}
-                                    initFiles={contribution?.artical}
-                                    refStorage={`magazines/${contribution?.magazine.id}`}
-                                    onChange={(files: any) => {
-                                        console.log(files)
-                                        setArtical(
-                                            files.map((item: any) => ({
-                                                id: item.id,
-                                                name: item.name,
-                                                assetUrl: item.assetUrl,
-                                                size: item.size,
-                                                type: item.type,
-                                            }))
+                                { !isBefore(new Date(contribution?.magazine.closureFinal), new Date()) ?
+                                    <Uploader
+                                        acceptedFileExtensions={'.docx,.doc,'}
+                                        maxSizeFile={20}
+                                        initFiles={contribution?.artical}
+                                        refStorage={`magazines/${contribution?.magazine.id}`}
+                                        onChange={(files: any) => {
+                                            console.log(files)
+                                            setArtical(
+                                                files.map((item: any) => ({
+                                                    id: item.id,
+                                                    name: item.name,
+                                                    assetUrl: item.assetUrl,
+                                                    size: item.size,
+                                                    type: item.type,
+                                                }))
+                                            )
+                                        }}
+                                    />
+                                    : (
+                                        contribution?.artical.map((item: any) => 
+                                            <div key={item.id} style={{border: '2px solid #F8F8F8', backgroundColor: '#fff'}}>
+                                                <a href={item.assetUrl} target='_blank' rel="noreferrer">{item.name}</a>
+                                            </div>
                                         )
-                                    }}
-                                />
+                                    )
+                                }
                             </Col>
                         </FormGroup>
                         <FormGroup row>
                             <Label for="image" sm='2'>Image</Label>
                             <Col lg='9' sm='10'>
-                                <Uploader
-                                    acceptedFileExtensions={'.png,.jpg,.jpeg,'}
-                                    maxSizeFile={20}
-                                    initFiles={contribution?.image}
-                                    refStorage={`magazines/${contribution?.magazine.id}`}
-                                    onChange={(files: any) => {
-                                        setImage(
-                                            files.map((item: any) => ({
-                                                id: item.id,
-                                                name: item.name,
-                                                assetUrl: item.assetUrl,
-                                                size: item.size,
-                                                type: item.type,
-                                            }))
+                                {   !isBefore(new Date(contribution?.magazine.closureFinal), new Date()) ?
+                                    <Uploader
+                                        acceptedFileExtensions={'.png,.jpg,.jpeg,'}
+                                        maxSizeFile={20}
+                                        initFiles={contribution?.image}
+                                        refStorage={`magazines/${contribution?.magazine.id}`}
+                                        onChange={(files: any) => {
+                                            setImage(
+                                                files.map((item: any) => ({
+                                                    id: item.id,
+                                                    name: item.name,
+                                                    assetUrl: item.assetUrl,
+                                                    size: item.size,
+                                                    type: item.type,
+                                                }))
+                                            )
+                                        }}
+                                    />
+                                    : (
+                                        contribution?.image.map((item: any) => 
+                                            <div key={item.id} style={{border: '2px solid #F8F8F8', backgroundColor: '#fff'}}>
+                                                <a href={item.assetUrl} target='_blank' rel="noreferrer">{item.name}</a>
+                                            </div>
                                         )
-                                    }}
-                                />
+                                    )
+                                }
                             </Col>
                         </FormGroup>
                         <div className="d-flex justify-content-center">
