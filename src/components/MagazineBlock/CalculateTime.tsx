@@ -1,4 +1,3 @@
-import React from 'react'
 import moment from 'moment';
 
 //this function calculate how many days and time left base on closure timeStamp => return thepercent of the line

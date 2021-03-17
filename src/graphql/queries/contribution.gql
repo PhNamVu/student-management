@@ -27,32 +27,30 @@ query getContribute($idMgz: uuid){
   }
 },
 
-query getContributeByUserId($idUser: uuid){
-  contributions(where: {user: {id: {_eq: $idUser}}}){
-    title
-    magazine{
-      label
-    }
-    id
-    user{
-      faculty{
+query getContributeByConditions($where: contributions_bool_exp) {
+    contributions(where: $where) {
+      title
+      magazine {
         label
       }
+      id
+      user {
+        faculty {
+          label
+        }
+      }
+      userByPublicBy {
+        fullName
+      }
+      isSelected
+      faculty {
+        label
+      }
+      artical
+      image
+      updatedAt
     }
-    userByPublicBy{
-      fullName
-    }
-    isSelected
-    faculty{
-      label
-    }
-    artical
-    image
-    deleted
-    createdAt
-    updatedAt
   }
-}
 
 query getContribution($id: uuid){
   contributions(where: {id: {_eq: $id}}){
@@ -84,4 +82,6 @@ mutation updateContribution($id: uuid, $object: contributions_set_input!) {
     }
   }
 }
+
+
 

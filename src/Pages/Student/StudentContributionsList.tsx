@@ -1,5 +1,5 @@
 import React from 'react'
-import { useGetContributeByUserIdQuery } from '../../graphql/autogenerate/hooks'
+import { useGetContributeByConditionsQuery } from '../../graphql/autogenerate/hooks'
 import { Container, Table } from 'reactstrap'
 import { useParams } from 'react-router-dom'
 import clsx from "clsx";
@@ -151,13 +151,19 @@ const useStyles = makeStyles((theme: Theme) =>
     })
 )
 
+const queryCondition = (magazineId: string, userid: string) => {
+    if(magazineId) return {
+            _and: [
+                {user: {id: {_eq: userid}}}, 
+    			{magazine: {id: {_eq: magazineId}}},
+                {deleted: {_eq: false}}
+            ]}
+    else return {user: {id: {_eq: userid}}}
+}
 
 export default function StudentContributionsList() {
     const { state }: any = useAuth()
-    const userId: any =
-    state.customClaims.claims['https://hasura.io/jwt/claims'][
-    'x-hasura-user-id'
-    ]
+    const userId: any = state.customClaims.claims['https://hasura.io/jwt/claims']['x-hasura-user-id']
     const params = useParams();
     const customStyle = useStyles();
     const [selected, setSelected] = React.useState<string[]>([]);
@@ -171,10 +177,8 @@ export default function StudentContributionsList() {
     }
 
     //Query get all contributions of this user
-    const { data, loading, error } = useGetContributeByUserIdQuery({
-        variables: {
-            idUser: userId
-        },
+    const { data, loading, error } = useGetContributeByConditionsQuery({
+        variables: { where: queryCondition(params.idMgz, userId)}
     })
     if (loading) return (
         <Backdrop className={customStyle.backdrop} open={loading}>
@@ -189,6 +193,12 @@ export default function StudentContributionsList() {
         return createData(el.id, el.title, el.magazine?.label, el.user?.faculty?.label, el.isSelected, el.userByPublicBy?.fullName)
     })
     console.log(rows);
+
+    const renderTitle = () => {
+        if(params.mgzTitle) return `My Contributions of ${params.mgzTitle}`
+        else return `My Contributons List`
+    }
+
     // handle 'select all' button
     const handleSelectAllClick = (event: React.ChangeEvent<HTMLInputElement>) => {
         if (event.target.checked) {
@@ -224,10 +234,11 @@ export default function StudentContributionsList() {
         setRowsPerPage(parseInt(event.target.value, 10));
         setPage(0);
     }
+    
 
     return (
         <Container>
-            <h2 style={{ padding: "20px 0 0 0", clear: 'both' }}>Contribution of {params.mgzTitle}</h2>
+            <h2 style={{ padding: "20px 0 0 0", clear: 'both' }}>{renderTitle()}</h2>
             <div className={customStyle.root}>
                 <CustomTableHeaderToolbar numSelected={selected.length} />
                 <TableContainer>

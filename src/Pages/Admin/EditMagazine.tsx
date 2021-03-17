@@ -22,7 +22,7 @@ const loadingStyles = makeStyles((theme: Theme) =>
         color: '#fff',
         },
     }),
-);
+)
 
 export const EditMagazinePage = () => {
   const { id } = useParams()

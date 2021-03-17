@@ -4,7 +4,9 @@ import { Container, Row, Button } from 'reactstrap'
 import { Tabs, Tab, makeStyles, createStyles, Backdrop, CircularProgress, Theme} from '@material-ui/core';
 import './magazine.css'
 import { useNavigate } from "react-router-dom";
-import { MagazineBlock } from '../../components/MagazineBlock/MagazineAdminBlock'
+import { MagazineBlock } from '../components/MagazineBlock/MagazineBlock'
+
+import { useAuth } from '../hooks/use-auth';
 
 
 //Style for Tabs
@@ -39,7 +41,7 @@ const loadingStyles = makeStyles((theme: Theme) =>
   
 const handleQueryVariables = (value: any) => {
     if(value == 0) return {closureTemp: {_gt: "now()"}} 
-    else if (value == 1) return {closureFinal: {_gt: "now()"}}
+    else if (value == 1) return {closureFinal: {_gt: "now()"}, closureTemp: {_lt: "now()"}}
     else if (value == 2) return {closureFinal: {_lt: "now()"}}
 }
 
@@ -51,10 +53,17 @@ export const MagazinesPage = () => {
     const handleAddMgz = () => {
         navigate(`/magazine/add`)
     }
+
+    const { state }: any = useAuth()
+    const userRole : any= state.customClaims.claims['https://hasura.io/jwt/claims'][
+        'x-hasura-default-role'
+    ]
+
     const { data, loading, error } = useGetMagazineQuery({
         fetchPolicy: 'network-only',
         variables: { where: handleQueryVariables(value)}
     })
+
     if (loading) return (
         <Backdrop className={customStyle.backdrop} open={loading}>
             <CircularProgress color="inherit"/>
@@ -109,12 +118,12 @@ export const MagazinesPage = () => {
                         />
                     </Tabs>
                 </div>
-                <Row className='mgzAdd d-flex justify-content-end'>
+                {(userRole == 'admin')?<Row className='mgzAdd d-flex justify-content-end'>
                     <Button color="warning" onClick={handleAddMgz}>
                         <i className="fas fa-plus"></i>
                         <span>&nbsp;&nbsp;Add Magazine</span>
                     </Button>
-                </Row>
+                </Row>: null}
                 {showMgz(chunk(mgzDetail, 3), value)}
             </div>
         </Container>
@@ -137,8 +146,7 @@ const showMgz = (info: any, value:number) => {
     if(info) {
         return info.map( (subArr: any, index: any) => {
             const aMgzBlock = subArr.map( (el: any, i: any) => {
-                return <MagazineBlock key={i} id={el.id} label={el.label} closureTemp={el.closureTemp} closureFinal={el.closureFinal} tabStatus={value} createdAt={el.createdAt}/>
-            })
+                return <MagazineBlock key={i} id={el.id} label={el.label} closureTemp={el.closureTemp} closureFinal={el.closureFinal} tabStatus={value} createdAt={el.createdAt}/>})
             return <Row key={index} style={{margin: 0}}>{aMgzBlock}</Row>
         })
     }

@@ -191,9 +191,9 @@ export type GetContributeQueryResult = Apollo.QueryResult<
   Types.GetContributeQuery,
   Types.GetContributeQueryVariables
 >
-export const GetContributeByUserIdDocument = gql`
-  query getContributeByUserId($idUser: uuid) {
-    contributions(where: { user: { id: { _eq: $idUser } } }) {
+export const GetContributeByConditionsDocument = gql`
+  query getContributeByConditions($where: contributions_bool_exp) {
+    contributions(where: $where) {
       title
       magazine {
         label
@@ -213,60 +213,58 @@ export const GetContributeByUserIdDocument = gql`
       }
       artical
       image
-      deleted
-      createdAt
       updatedAt
     }
   }
 `
 
 /**
- * __useGetContributeByUserIdQuery__
+ * __useGetContributeByConditionsQuery__
  *
- * To run a query within a React component, call `useGetContributeByUserIdQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetContributeByUserIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useGetContributeByConditionsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetContributeByConditionsQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useGetContributeByUserIdQuery({
+ * const { data, loading, error } = useGetContributeByConditionsQuery({
  *   variables: {
- *      idUser: // value for 'idUser'
+ *      where: // value for 'where'
  *   },
  * });
  */
-export function useGetContributeByUserIdQuery(
+export function useGetContributeByConditionsQuery(
   baseOptions?: Apollo.QueryHookOptions<
-    Types.GetContributeByUserIdQuery,
-    Types.GetContributeByUserIdQueryVariables
+    Types.GetContributeByConditionsQuery,
+    Types.GetContributeByConditionsQueryVariables
   >
 ) {
   return Apollo.useQuery<
-    Types.GetContributeByUserIdQuery,
-    Types.GetContributeByUserIdQueryVariables
-  >(GetContributeByUserIdDocument, baseOptions)
+    Types.GetContributeByConditionsQuery,
+    Types.GetContributeByConditionsQueryVariables
+  >(GetContributeByConditionsDocument, baseOptions)
 }
-export function useGetContributeByUserIdLazyQuery(
+export function useGetContributeByConditionsLazyQuery(
   baseOptions?: Apollo.LazyQueryHookOptions<
-    Types.GetContributeByUserIdQuery,
-    Types.GetContributeByUserIdQueryVariables
+    Types.GetContributeByConditionsQuery,
+    Types.GetContributeByConditionsQueryVariables
   >
 ) {
   return Apollo.useLazyQuery<
-    Types.GetContributeByUserIdQuery,
-    Types.GetContributeByUserIdQueryVariables
-  >(GetContributeByUserIdDocument, baseOptions)
+    Types.GetContributeByConditionsQuery,
+    Types.GetContributeByConditionsQueryVariables
+  >(GetContributeByConditionsDocument, baseOptions)
 }
-export type GetContributeByUserIdQueryHookResult = ReturnType<
-  typeof useGetContributeByUserIdQuery
+export type GetContributeByConditionsQueryHookResult = ReturnType<
+  typeof useGetContributeByConditionsQuery
 >
-export type GetContributeByUserIdLazyQueryHookResult = ReturnType<
-  typeof useGetContributeByUserIdLazyQuery
+export type GetContributeByConditionsLazyQueryHookResult = ReturnType<
+  typeof useGetContributeByConditionsLazyQuery
 >
-export type GetContributeByUserIdQueryResult = Apollo.QueryResult<
-  Types.GetContributeByUserIdQuery,
-  Types.GetContributeByUserIdQueryVariables
+export type GetContributeByConditionsQueryResult = Apollo.QueryResult<
+  Types.GetContributeByConditionsQuery,
+  Types.GetContributeByConditionsQueryVariables
 >
 export const GetContributionDocument = gql`
   query getContribution($id: uuid) {
@@ -651,8 +649,15 @@ export type EditMagazineMutationOptions = Apollo.BaseMutationOptions<
 >
 export const GetUsersDocument = gql`
   query getUsers {
-    users(limit: 10) {
+    users(where: { is_delete: { _is_null: false } }) {
       id
+      email
+      fullName
+      roles
+      faculty {
+        id
+        label
+      }
     }
   }
 `

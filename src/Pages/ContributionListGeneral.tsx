@@ -1,5 +1,5 @@
 import React from 'react'
-import { useGetContributeQuery } from '../../graphql/autogenerate/hooks'
+import { useGetContributeQuery } from '../graphql/autogenerate/hooks'
 import { Container, Table } from 'reactstrap'
 import { useParams } from 'react-router-dom'
 import clsx from "clsx";
@@ -147,7 +147,7 @@ const useStyles = makeStyles((theme: Theme) =>
     })
 )
 
-export const ContributeMgzPage = () => {
+export const ContributionsPage = () => {
     const params = useParams();
     const customStyle = useStyles();
     const [selected, setSelected] = React.useState<string[]>([]);
@@ -265,6 +265,4 @@ export const ContributeMgzPage = () => {
         </Container>
     )
 }
-export default ContributeMgzPage
-
-
+export default ContributionsPage

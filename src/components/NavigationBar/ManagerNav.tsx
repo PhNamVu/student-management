@@ -27,10 +27,10 @@ export const ManagerNav = () => {
             <div className="mr-sm-auto">
               <Nav navbar >
                 <NavItem className="header-links btn">
-                  <Link to="/magazine">Magazine</Link>
+                  <Link to="/magazines">Magazine</Link>
                 </NavItem>
                 <NavItem className="header-links btn">
-                  <Link to="/chart">Chart</Link>
+                  <Link to="/">Chart</Link>
                 </NavItem>
               </Nav>
             </div>

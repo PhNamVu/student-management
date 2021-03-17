@@ -50,22 +50,15 @@ export type GetContributeQuery = { __typename?: 'query_root' } & {
   >
 }
 
-export type GetContributeByUserIdQueryVariables = Types.Exact<{
-  idUser?: Types.Maybe<Types.Scalars['uuid']>
+export type GetContributeByConditionsQueryVariables = Types.Exact<{
+  where?: Types.Maybe<Types.Contributions_Bool_Exp>
 }>
 
-export type GetContributeByUserIdQuery = { __typename?: 'query_root' } & {
+export type GetContributeByConditionsQuery = { __typename?: 'query_root' } & {
   contributions: Array<
     { __typename?: 'contributions' } & Pick<
       Types.Contributions,
-      | 'title'
-      | 'id'
-      | 'isSelected'
-      | 'artical'
-      | 'image'
-      | 'deleted'
-      | 'createdAt'
-      | 'updatedAt'
+      'title' | 'id' | 'isSelected' | 'artical' | 'image' | 'updatedAt'
     > & {
         magazine: { __typename?: 'magazines' } & Pick<Types.Magazines, 'label'>
         user: { __typename?: 'users' } & {
@@ -189,7 +182,17 @@ export type EditMagazineMutation = { __typename?: 'mutation_root' } & {
 export type GetUsersQueryVariables = Types.Exact<{ [key: string]: never }>
 
 export type GetUsersQuery = { __typename?: 'query_root' } & {
-  users: Array<{ __typename?: 'users' } & Pick<Types.Users, 'id'>>
+  users: Array<
+    { __typename?: 'users' } & Pick<
+      Types.Users,
+      'id' | 'email' | 'fullName' | 'roles'
+    > & {
+        faculty: { __typename?: 'facultys' } & Pick<
+          Types.Facultys,
+          'id' | 'label'
+        >
+      }
+  >
 }
 
 export type AddUserMutationVariables = Types.Exact<{
