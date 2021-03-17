@@ -1,6 +1,13 @@
 query getUsers {
-    users (limit: 10) {
+    users (where: {is_delete: {_is_null: false}}){
+      id
+      email
+      fullName
+      roles
+      faculty{
         id
+        label
+      }
     }
 }
 

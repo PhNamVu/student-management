@@ -8,10 +8,10 @@ import {
   NavItem,
 } from 'reactstrap'
 import { Avatar } from 'baseui/avatar'
-import { useAuth } from '../hooks/use-auth'
+import { useAuth } from '../../hooks/use-auth'
 import { Link } from 'react-router-dom'
 
-export const ManagerNav = () => {
+export const GuestNav = () => {
   const [collapsed, setCollapsed] = useState(true)
   const {
     state: { user },
@@ -25,12 +25,12 @@ export const ManagerNav = () => {
           <NavbarToggler onClick={toggleNavbar} />
           <Collapse isOpen={!collapsed} navbar>
             <div className="mr-sm-auto">
-              <Nav navbar >
+              <Nav navbar>
                 <NavItem className="header-links btn">
-                  <Link to="/magazine">Magazine</Link>
+                  <Link to="/magazines">Magazine</Link>
                 </NavItem>
                 <NavItem className="header-links btn">
-                  <Link to="/chart">Chart</Link>
+                  <Link to="/contribution">Contribution</Link>
                 </NavItem>
               </Nav>
             </div>

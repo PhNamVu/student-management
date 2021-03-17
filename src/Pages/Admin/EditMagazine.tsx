@@ -5,13 +5,13 @@ import React, { useState, useEffect } from 'react'
 import { Col, Form, FormGroup, Input, Label, Row } from 'reactstrap'
 import { makeStyles, createStyles, Backdrop, CircularProgress, Theme} from '@material-ui/core';
 import { TimePicker } from 'baseui/timepicker'
-import PrimaryButton from '../components/shared/button/PrimaryBtn'
+import PrimaryButton from '../../components/shared/button/PrimaryBtn'
 import DatePicker from 'react-date-picker'
 import moment from 'moment'
 import {
   useEditMagazineMutation,
   useGetMagazineQuery,
-} from '../graphql/autogenerate/hooks'
+} from '../../graphql/autogenerate/hooks'
 import { toaster } from 'baseui/toast'
 import { useParams } from 'react-router-dom'
 
@@ -22,7 +22,7 @@ const loadingStyles = makeStyles((theme: Theme) =>
         color: '#fff',
         },
     }),
-);
+)
 
 export const EditMagazinePage = () => {
   const { id } = useParams()

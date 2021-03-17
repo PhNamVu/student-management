@@ -8,7 +8,7 @@ import {
   NavItem,
 } from 'reactstrap'
 import { Avatar } from 'baseui/avatar'
-import { useAuth } from '../hooks/use-auth'
+import { useAuth } from '../../hooks/use-auth'
 import { Link } from 'react-router-dom'
 
 export const StudentNav = () => {

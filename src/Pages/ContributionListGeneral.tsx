@@ -147,7 +147,7 @@ const useStyles = makeStyles((theme: Theme) =>
     })
 )
 
-export const ContributeMgzPage = () => {
+export const ContributionsPage = () => {
     const params = useParams();
     const customStyle = useStyles();
     const [selected, setSelected] = React.useState<string[]>([]);
@@ -265,6 +265,4 @@ export const ContributeMgzPage = () => {
         </Container>
     )
 }
-export default ContributeMgzPage
-
-
+export default ContributionsPage

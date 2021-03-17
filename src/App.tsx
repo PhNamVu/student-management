@@ -6,29 +6,30 @@ import { ApolloProvider } from '@apollo/client'
 import { Route, Routes } from 'react-router-dom'
 import { Container } from 'reactstrap'
 import { LoginPage } from './Pages/LoginPage'
-import { CreateMagazine } from './Pages/CreateMagazine'
+import { CreateMagazine } from './Pages/Admin/CreateMagazine'
 import { ToasterContainer } from 'baseui/toast'
 
-import MagazinesPage from './Pages/MagazinesAdmin'
-import MagazinesStudentPage from './Pages/MagazinesStudent'
-import ContributeMgzPage from './Pages/AdminContributionByMagazine'
-import EditContributePage from './Pages/EditContribute'
-import SubmitContributePage from './Pages/SubmitContribution'
-import StudentContributionsList from './Pages/StudentContributionsList'
+import MagazinesListPage from './Pages/MagazinesList'
+import ContributionTable from './Pages/ContributionListGeneral'
+import EditContributePage from './Pages/Student/EditContribute'
+import SubmitContributePage from './Pages/Student/SubmitContribution'
+import StudentContributionsList from './Pages/Student/StudentContributionsList'
+import UserList from './Pages/Admin/UsersList'
+import ChartPage from './Pages/Chart'
 
-import { AdminNav } from './components/AdminNav'
-import { StudentNav } from './components/StudenNav'
-import { GuestNav } from './components/GuestNav'
-import { ManagerNav } from './components/ManagerNav'
-import { McoNav } from './components/MCoNav'
+import { AdminNav } from './components/NavigationBar/AdminNav'
+import { StudentNav } from './components/NavigationBar/StudenNav'
+import { GuestNav } from './components/NavigationBar/GuestNav'
+import { ManagerNav } from './components/NavigationBar/ManagerNav'
+import { McoNav } from './components/NavigationBar/MCoNav'
 
 import { useAuth } from './hooks/use-auth'
 import createUnAuthClient from './apollo/unauth-client'
 import createAuthApolloClient from './apollo/auth-client'
 
 import {PageNotFound} from './Pages/PageNotFound'
-import { EditMagazinePage } from './Pages/EditMagazine'
-import { CreateUserPage } from './Pages/CreateUserPage'
+import { EditMagazinePage } from './Pages/Admin/EditMagazine'
+import { CreateUserPage } from './Pages/Admin/CreateUserPage'
 
 function App() {
   const { state } : any = useAuth()
@@ -90,13 +91,16 @@ function App() {
                   style={{ backgroundColor: '#F8F8F8', minHeight: '100vh' }}
                 >
                   <Routes>
-                    <Route path="/" element={<MagazinesPage />} />
+                  
+                    <Route path="/" element={<ChartPage />} />
+                    <Route path="/magazines" element={<MagazinesListPage />} />
                     <Route path="/magazine/add" element={<CreateMagazine />} />
                     <Route path="/user/add" element={<CreateUserPage />} />
                     <Route path="*" element={<PageNotFound />} />
-                    <Route path="/magazine" element={<MagazinesPage />} /> 
                     <Route path='magazine/:id/edit'element={<EditMagazinePage />} />
-                    <Route path="/contribute/:idMgz/:mgzTitle" element={<ContributeMgzPage/>} />
+                    <Route path="/contribute/:idMgz/:mgzTitle" element={<ContributionTable/>} />
+                    <Route path="/users" element={<UserList />} />
+
                   </Routes>
                 </Container>
               </ApolloProvider>
@@ -112,7 +116,8 @@ function App() {
                 style={{ backgroundColor: '#F8F8F8', minHeight: '100vh' }}
               >
                 <Routes>
-                  <Route path="/" element={<MagazinesStudentPage />} /> {/* Navigation Magazine */}
+                  <Route path="/" element={<MagazinesListPage />} /> {/* Navigation Magazine */}
+                  <Route path="/contribute/:idMgz/:mgzTitle" element={<StudentContributionsList/>} />
                   <Route path="/contributions" element={<StudentContributionsList/>} /> {/* Navigation My Contributions */}
                   <Route path="/contribution/:id/edit" element={<EditContributePage />} />
                   <Route path="/submitContribute/:idMgz" element={<SubmitContributePage />} />
@@ -131,8 +136,12 @@ function App() {
                 fluid
                 style={{ backgroundColor: '#F8F8F8', minHeight: '100vh' }}
               >
+                
                 <Routes>
-                  <p>Coordinator</p>
+                
+                  <Route path="/" element={<ChartPage />} />
+                  <Route path="/magazines" element={<MagazinesListPage />} />
+                  <Route path="/contribute/:idMgz/:mgzTitle" element={<ContributionTable />} />
                 </Routes>
               </Container>  
             </ApolloProvider>
@@ -149,7 +158,7 @@ function App() {
                 style={{ backgroundColor: '#F8F8F8', minHeight: '100vh' }}
               >
                 <Routes>
-                  <p>Guest</p>
+                  <Route path="/" element={<MagazinesListPage />} />
                 </Routes>
               </Container>  
             </ApolloProvider>
@@ -166,7 +175,9 @@ function App() {
                 style={{ backgroundColor: '#F8F8F8', minHeight: '100vh' }}
               >
                 <Routes>
-                  <p>Manager</p>
+                  <Route path="/" element={<ChartPage />} />
+                  <Route path="/magazines" element={<MagazinesListPage />} />
+                  <Route path="/contribute/:idMgz/:mgzTitle" element={<ContributionTable/>} />
                 </Routes>
               </Container>  
             </ApolloProvider>

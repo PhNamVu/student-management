@@ -44,7 +44,7 @@ export default function Comments({ contributionId }: any) {
     })
     useEffect(() => {
         getCommentQuery()
-    }, [])
+    })
 
     if (loading) return (
         <Backdrop className={customStyle.backdrop} open={loading}>

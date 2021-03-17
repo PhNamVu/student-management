@@ -8,7 +8,7 @@ import {
   NavItem,
 } from 'reactstrap'
 import { Avatar } from 'baseui/avatar'
-import { useAuth } from '../hooks/use-auth'
+import { useAuth } from '../../hooks/use-auth'
 import { Link } from 'react-router-dom'
 
 export const McoNav = () => {
@@ -27,10 +27,13 @@ export const McoNav = () => {
             <div className="mr-sm-auto">
               <Nav navbar >
                 <NavItem className="header-links btn">
-                  <Link to="/magazine">Magazine</Link>
+                  <Link to="/magazines">Magazine</Link>
                 </NavItem>
                 <NavItem className="header-links btn">
                   <Link to="/contribution">Contribution</Link>
+                </NavItem>
+                <NavItem className="header-links btn">
+                  <Link to="/">Chart</Link>
                 </NavItem>
               </Nav>
             </div>
