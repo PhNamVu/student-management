@@ -32,6 +32,9 @@ export const StudentNav = () => {
                 <NavItem className="header-links btn">
                   <Link to="/contributions">Contribution</Link>
                 </NavItem>
+                <NavItem className="header-links btn">
+                  <Link to="/chat">Chat</Link>
+                </NavItem>
               </Nav>
             </div>
             <Nav navbar className="ml-sm-auto">

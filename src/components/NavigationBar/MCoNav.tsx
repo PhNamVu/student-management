@@ -35,6 +35,9 @@ export const McoNav = () => {
                 <NavItem className="header-links btn">
                   <Link to="/">Chart</Link>
                 </NavItem>
+                <NavItem className="header-links btn">
+                  <Link to="/chat">Chat</Link>
+                </NavItem>
               </Nav>
             </div>
             <Nav navbar className="ml-sm-auto">

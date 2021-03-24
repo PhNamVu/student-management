@@ -30,6 +30,8 @@ import createAuthApolloClient from './apollo/auth-client'
 import {PageNotFound} from './Pages/PageNotFound'
 import { EditMagazinePage } from './Pages/Admin/EditMagazine'
 import { CreateUserPage } from './Pages/Admin/CreateUserPage'
+import { ChatPage } from './Pages/Student/ChatPage'
+import { ChatDMPage } from './Pages/Student/ChatDmPage'
 
 function App() {
   const { state } : any = useAuth()
@@ -121,6 +123,9 @@ function App() {
                   <Route path="/contributions" element={<StudentContributionsList/>} /> {/* Navigation My Contributions */}
                   <Route path="/contribution/:id/edit" element={<EditContributePage />} />
                   <Route path="/submitContribute/:idMgz" element={<SubmitContributePage />} />
+                  <Route path="chat" element={<ChatPage />}>
+                    <Route path="p/:id" element={<ChatDMPage />} /> 
+                  </Route>
                 </Routes>
               </Container>  
             </ApolloProvider>
@@ -138,10 +143,13 @@ function App() {
               >
                 
                 <Routes>
-                
+
                   <Route path="/" element={<ChartPage />} />
                   <Route path="/magazines" element={<MagazinesListPage />} />
                   <Route path="/contribute/:idMgz/:mgzTitle" element={<ContributionTable />} />
+                  <Route path="chat" element={<ChatPage />}>
+                    <Route path="p/:id" element={<ChatDMPage />} /> 
+                  </Route>
                 </Routes>
               </Container>  
             </ApolloProvider>

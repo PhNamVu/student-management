@@ -153,13 +153,13 @@ export type Comments = {
   __typename?: 'comments'
   content?: Maybe<Scalars['String']>
   /** An object relationship */
-  contribution: Contributions
+  contribution?: Maybe<Contributions>
   contributionId?: Maybe<Scalars['uuid']>
   createAt?: Maybe<Scalars['timestamptz']>
   createBy?: Maybe<Scalars['uuid']>
   id: Scalars['uuid']
   /** An object relationship */
-  user: Users
+  user?: Maybe<Users>
 }
 
 /** aggregated selection of "comments" */
@@ -346,22 +346,22 @@ export type Contributions = {
   createdAt?: Maybe<Scalars['timestamptz']>
   deleted?: Maybe<Scalars['Boolean']>
   /** An object relationship */
-  faculty: Facultys
+  faculty?: Maybe<Facultys>
   facultyId?: Maybe<Scalars['String']>
   id: Scalars['uuid']
   image?: Maybe<Scalars['jsonb']>
   isSelected?: Maybe<Scalars['Boolean']>
   /** An object relationship */
-  magazine: Magazines
+  magazine?: Maybe<Magazines>
   magazineId?: Maybe<Scalars['uuid']>
   ownerId?: Maybe<Scalars['uuid']>
   public_by?: Maybe<Scalars['uuid']>
   title?: Maybe<Scalars['String']>
   updatedAt?: Maybe<Scalars['timestamptz']>
   /** An object relationship */
-  user: Users
+  user?: Maybe<Users>
   /** An object relationship */
-  userByPublicBy: Users
+  userByPublicBy?: Maybe<Users>
 }
 
 /** columns and relationships of "contributions" */
@@ -675,6 +675,274 @@ export enum Contributions_Update_Column {
   PublicBy = 'public_by',
   /** column name */
   Title = 'title',
+  /** column name */
+  UpdatedAt = 'updatedAt',
+}
+
+/** columns and relationships of "conversations" */
+export type Conversations = {
+  __typename?: 'conversations'
+  /** An array relationship */
+  chatWith: Array<Users>
+  /** An aggregate relationship */
+  chatWith_aggregate: Users_Aggregate
+  /** An object relationship */
+  createByUser?: Maybe<Users>
+  createdAt?: Maybe<Scalars['timestamptz']>
+  id: Scalars['uuid']
+  isGroup?: Maybe<Scalars['Boolean']>
+  /** An array relationship */
+  messages: Array<Messages>
+  /** An aggregate relationship */
+  messages_aggregate: Messages_Aggregate
+  name?: Maybe<Scalars['String']>
+  owner?: Maybe<Scalars['uuid']>
+  participants?: Maybe<Scalars['jsonb']>
+  participantsId?: Maybe<Scalars['uuid']>
+  updatedAt?: Maybe<Scalars['timestamptz']>
+}
+
+/** columns and relationships of "conversations" */
+export type ConversationsChatWithArgs = {
+  distinct_on?: Maybe<Array<Users_Select_Column>>
+  limit?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+  order_by?: Maybe<Array<Users_Order_By>>
+  where?: Maybe<Users_Bool_Exp>
+}
+
+/** columns and relationships of "conversations" */
+export type ConversationsChatWith_AggregateArgs = {
+  distinct_on?: Maybe<Array<Users_Select_Column>>
+  limit?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+  order_by?: Maybe<Array<Users_Order_By>>
+  where?: Maybe<Users_Bool_Exp>
+}
+
+/** columns and relationships of "conversations" */
+export type ConversationsMessagesArgs = {
+  distinct_on?: Maybe<Array<Messages_Select_Column>>
+  limit?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+  order_by?: Maybe<Array<Messages_Order_By>>
+  where?: Maybe<Messages_Bool_Exp>
+}
+
+/** columns and relationships of "conversations" */
+export type ConversationsMessages_AggregateArgs = {
+  distinct_on?: Maybe<Array<Messages_Select_Column>>
+  limit?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+  order_by?: Maybe<Array<Messages_Order_By>>
+  where?: Maybe<Messages_Bool_Exp>
+}
+
+/** columns and relationships of "conversations" */
+export type ConversationsParticipantsArgs = {
+  path?: Maybe<Scalars['String']>
+}
+
+/** aggregated selection of "conversations" */
+export type Conversations_Aggregate = {
+  __typename?: 'conversations_aggregate'
+  aggregate?: Maybe<Conversations_Aggregate_Fields>
+  nodes: Array<Conversations>
+}
+
+/** aggregate fields of "conversations" */
+export type Conversations_Aggregate_Fields = {
+  __typename?: 'conversations_aggregate_fields'
+  count: Scalars['Int']
+  max?: Maybe<Conversations_Max_Fields>
+  min?: Maybe<Conversations_Min_Fields>
+}
+
+/** aggregate fields of "conversations" */
+export type Conversations_Aggregate_FieldsCountArgs = {
+  columns?: Maybe<Array<Conversations_Select_Column>>
+  distinct?: Maybe<Scalars['Boolean']>
+}
+
+/** append existing jsonb value of filtered columns with new jsonb value */
+export type Conversations_Append_Input = {
+  participants?: Maybe<Scalars['jsonb']>
+}
+
+/** Boolean expression to filter rows from the table "conversations". All fields are combined with a logical 'AND'. */
+export type Conversations_Bool_Exp = {
+  _and?: Maybe<Array<Conversations_Bool_Exp>>
+  _not?: Maybe<Conversations_Bool_Exp>
+  _or?: Maybe<Array<Conversations_Bool_Exp>>
+  chatWith?: Maybe<Users_Bool_Exp>
+  createByUser?: Maybe<Users_Bool_Exp>
+  createdAt?: Maybe<Timestamptz_Comparison_Exp>
+  id?: Maybe<Uuid_Comparison_Exp>
+  isGroup?: Maybe<Boolean_Comparison_Exp>
+  messages?: Maybe<Messages_Bool_Exp>
+  name?: Maybe<String_Comparison_Exp>
+  owner?: Maybe<Uuid_Comparison_Exp>
+  participants?: Maybe<Jsonb_Comparison_Exp>
+  participantsId?: Maybe<Uuid_Comparison_Exp>
+  updatedAt?: Maybe<Timestamptz_Comparison_Exp>
+}
+
+/** unique or primary key constraints on table "conversations" */
+export enum Conversations_Constraint {
+  /** unique or primary key constraint */
+  ConversationsParticipantsKey = 'conversations_participants_key',
+  /** unique or primary key constraint */
+  ConversationsPkey = 'conversations_pkey',
+}
+
+/** delete the field or element with specified path (for JSON arrays, negative integers count from the end) */
+export type Conversations_Delete_At_Path_Input = {
+  participants?: Maybe<Array<Scalars['String']>>
+}
+
+/** delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array */
+export type Conversations_Delete_Elem_Input = {
+  participants?: Maybe<Scalars['Int']>
+}
+
+/** delete key/value pair or string element. key/value pairs are matched based on their key value */
+export type Conversations_Delete_Key_Input = {
+  participants?: Maybe<Scalars['String']>
+}
+
+/** input type for inserting data into table "conversations" */
+export type Conversations_Insert_Input = {
+  chatWith?: Maybe<Users_Arr_Rel_Insert_Input>
+  createByUser?: Maybe<Users_Obj_Rel_Insert_Input>
+  createdAt?: Maybe<Scalars['timestamptz']>
+  id?: Maybe<Scalars['uuid']>
+  isGroup?: Maybe<Scalars['Boolean']>
+  messages?: Maybe<Messages_Arr_Rel_Insert_Input>
+  name?: Maybe<Scalars['String']>
+  owner?: Maybe<Scalars['uuid']>
+  participants?: Maybe<Scalars['jsonb']>
+  participantsId?: Maybe<Scalars['uuid']>
+  updatedAt?: Maybe<Scalars['timestamptz']>
+}
+
+/** aggregate max on columns */
+export type Conversations_Max_Fields = {
+  __typename?: 'conversations_max_fields'
+  createdAt?: Maybe<Scalars['timestamptz']>
+  id?: Maybe<Scalars['uuid']>
+  name?: Maybe<Scalars['String']>
+  owner?: Maybe<Scalars['uuid']>
+  participantsId?: Maybe<Scalars['uuid']>
+  updatedAt?: Maybe<Scalars['timestamptz']>
+}
+
+/** aggregate min on columns */
+export type Conversations_Min_Fields = {
+  __typename?: 'conversations_min_fields'
+  createdAt?: Maybe<Scalars['timestamptz']>
+  id?: Maybe<Scalars['uuid']>
+  name?: Maybe<Scalars['String']>
+  owner?: Maybe<Scalars['uuid']>
+  participantsId?: Maybe<Scalars['uuid']>
+  updatedAt?: Maybe<Scalars['timestamptz']>
+}
+
+/** response of any mutation on the table "conversations" */
+export type Conversations_Mutation_Response = {
+  __typename?: 'conversations_mutation_response'
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int']
+  /** data from the rows affected by the mutation */
+  returning: Array<Conversations>
+}
+
+/** input type for inserting object relation for remote table "conversations" */
+export type Conversations_Obj_Rel_Insert_Input = {
+  data: Conversations_Insert_Input
+  /** on conflict condition */
+  on_conflict?: Maybe<Conversations_On_Conflict>
+}
+
+/** on conflict condition type for table "conversations" */
+export type Conversations_On_Conflict = {
+  constraint: Conversations_Constraint
+  update_columns: Array<Conversations_Update_Column>
+  where?: Maybe<Conversations_Bool_Exp>
+}
+
+/** Ordering options when selecting data from "conversations". */
+export type Conversations_Order_By = {
+  chatWith_aggregate?: Maybe<Users_Aggregate_Order_By>
+  createByUser?: Maybe<Users_Order_By>
+  createdAt?: Maybe<Order_By>
+  id?: Maybe<Order_By>
+  isGroup?: Maybe<Order_By>
+  messages_aggregate?: Maybe<Messages_Aggregate_Order_By>
+  name?: Maybe<Order_By>
+  owner?: Maybe<Order_By>
+  participants?: Maybe<Order_By>
+  participantsId?: Maybe<Order_By>
+  updatedAt?: Maybe<Order_By>
+}
+
+/** primary key columns input for table: conversations */
+export type Conversations_Pk_Columns_Input = {
+  id: Scalars['uuid']
+}
+
+/** prepend existing jsonb value of filtered columns with new jsonb value */
+export type Conversations_Prepend_Input = {
+  participants?: Maybe<Scalars['jsonb']>
+}
+
+/** select columns of table "conversations" */
+export enum Conversations_Select_Column {
+  /** column name */
+  CreatedAt = 'createdAt',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  IsGroup = 'isGroup',
+  /** column name */
+  Name = 'name',
+  /** column name */
+  Owner = 'owner',
+  /** column name */
+  Participants = 'participants',
+  /** column name */
+  ParticipantsId = 'participantsId',
+  /** column name */
+  UpdatedAt = 'updatedAt',
+}
+
+/** input type for updating data in table "conversations" */
+export type Conversations_Set_Input = {
+  createdAt?: Maybe<Scalars['timestamptz']>
+  id?: Maybe<Scalars['uuid']>
+  isGroup?: Maybe<Scalars['Boolean']>
+  name?: Maybe<Scalars['String']>
+  owner?: Maybe<Scalars['uuid']>
+  participants?: Maybe<Scalars['jsonb']>
+  participantsId?: Maybe<Scalars['uuid']>
+  updatedAt?: Maybe<Scalars['timestamptz']>
+}
+
+/** update columns of table "conversations" */
+export enum Conversations_Update_Column {
+  /** column name */
+  CreatedAt = 'createdAt',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  IsGroup = 'isGroup',
+  /** column name */
+  Name = 'name',
+  /** column name */
+  Owner = 'owner',
+  /** column name */
+  Participants = 'participants',
+  /** column name */
+  ParticipantsId = 'participantsId',
   /** column name */
   UpdatedAt = 'updatedAt',
 }
@@ -1641,7 +1909,7 @@ export type Magazines = {
   id: Scalars['uuid']
   label?: Maybe<Scalars['String']>
   /** An object relationship */
-  user: Users
+  user?: Maybe<Users>
 }
 
 /** columns and relationships of "magazines" */
@@ -1856,6 +2124,267 @@ export enum Magazines_Update_Column {
   Label = 'label',
 }
 
+/** columns and relationships of "messages" */
+export type Messages = {
+  __typename?: 'messages'
+  attachments?: Maybe<Scalars['jsonb']>
+  conv_id?: Maybe<Scalars['uuid']>
+  /** An object relationship */
+  conversation?: Maybe<Conversations>
+  createdAt: Scalars['timestamptz']
+  id: Scalars['uuid']
+  isSent: Scalars['Boolean']
+  /** An object relationship */
+  sender?: Maybe<Users>
+  sender_user_id?: Maybe<Scalars['uuid']>
+  text?: Maybe<Scalars['String']>
+  type: Scalars['String']
+  updatedAt: Scalars['timestamptz']
+}
+
+/** columns and relationships of "messages" */
+export type MessagesAttachmentsArgs = {
+  path?: Maybe<Scalars['String']>
+}
+
+/** aggregated selection of "messages" */
+export type Messages_Aggregate = {
+  __typename?: 'messages_aggregate'
+  aggregate?: Maybe<Messages_Aggregate_Fields>
+  nodes: Array<Messages>
+}
+
+/** aggregate fields of "messages" */
+export type Messages_Aggregate_Fields = {
+  __typename?: 'messages_aggregate_fields'
+  count: Scalars['Int']
+  max?: Maybe<Messages_Max_Fields>
+  min?: Maybe<Messages_Min_Fields>
+}
+
+/** aggregate fields of "messages" */
+export type Messages_Aggregate_FieldsCountArgs = {
+  columns?: Maybe<Array<Messages_Select_Column>>
+  distinct?: Maybe<Scalars['Boolean']>
+}
+
+/** order by aggregate values of table "messages" */
+export type Messages_Aggregate_Order_By = {
+  count?: Maybe<Order_By>
+  max?: Maybe<Messages_Max_Order_By>
+  min?: Maybe<Messages_Min_Order_By>
+}
+
+/** append existing jsonb value of filtered columns with new jsonb value */
+export type Messages_Append_Input = {
+  attachments?: Maybe<Scalars['jsonb']>
+}
+
+/** input type for inserting array relation for remote table "messages" */
+export type Messages_Arr_Rel_Insert_Input = {
+  data: Array<Messages_Insert_Input>
+  /** on conflict condition */
+  on_conflict?: Maybe<Messages_On_Conflict>
+}
+
+/** Boolean expression to filter rows from the table "messages". All fields are combined with a logical 'AND'. */
+export type Messages_Bool_Exp = {
+  _and?: Maybe<Array<Messages_Bool_Exp>>
+  _not?: Maybe<Messages_Bool_Exp>
+  _or?: Maybe<Array<Messages_Bool_Exp>>
+  attachments?: Maybe<Jsonb_Comparison_Exp>
+  conv_id?: Maybe<Uuid_Comparison_Exp>
+  conversation?: Maybe<Conversations_Bool_Exp>
+  createdAt?: Maybe<Timestamptz_Comparison_Exp>
+  id?: Maybe<Uuid_Comparison_Exp>
+  isSent?: Maybe<Boolean_Comparison_Exp>
+  sender?: Maybe<Users_Bool_Exp>
+  sender_user_id?: Maybe<Uuid_Comparison_Exp>
+  text?: Maybe<String_Comparison_Exp>
+  type?: Maybe<String_Comparison_Exp>
+  updatedAt?: Maybe<Timestamptz_Comparison_Exp>
+}
+
+/** unique or primary key constraints on table "messages" */
+export enum Messages_Constraint {
+  /** unique or primary key constraint */
+  MessagesPkey = 'messages_pkey',
+}
+
+/** delete the field or element with specified path (for JSON arrays, negative integers count from the end) */
+export type Messages_Delete_At_Path_Input = {
+  attachments?: Maybe<Array<Scalars['String']>>
+}
+
+/** delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array */
+export type Messages_Delete_Elem_Input = {
+  attachments?: Maybe<Scalars['Int']>
+}
+
+/** delete key/value pair or string element. key/value pairs are matched based on their key value */
+export type Messages_Delete_Key_Input = {
+  attachments?: Maybe<Scalars['String']>
+}
+
+/** input type for inserting data into table "messages" */
+export type Messages_Insert_Input = {
+  attachments?: Maybe<Scalars['jsonb']>
+  conv_id?: Maybe<Scalars['uuid']>
+  conversation?: Maybe<Conversations_Obj_Rel_Insert_Input>
+  createdAt?: Maybe<Scalars['timestamptz']>
+  id?: Maybe<Scalars['uuid']>
+  isSent?: Maybe<Scalars['Boolean']>
+  sender?: Maybe<Users_Obj_Rel_Insert_Input>
+  sender_user_id?: Maybe<Scalars['uuid']>
+  text?: Maybe<Scalars['String']>
+  type?: Maybe<Scalars['String']>
+  updatedAt?: Maybe<Scalars['timestamptz']>
+}
+
+/** aggregate max on columns */
+export type Messages_Max_Fields = {
+  __typename?: 'messages_max_fields'
+  conv_id?: Maybe<Scalars['uuid']>
+  createdAt?: Maybe<Scalars['timestamptz']>
+  id?: Maybe<Scalars['uuid']>
+  sender_user_id?: Maybe<Scalars['uuid']>
+  text?: Maybe<Scalars['String']>
+  type?: Maybe<Scalars['String']>
+  updatedAt?: Maybe<Scalars['timestamptz']>
+}
+
+/** order by max() on columns of table "messages" */
+export type Messages_Max_Order_By = {
+  conv_id?: Maybe<Order_By>
+  createdAt?: Maybe<Order_By>
+  id?: Maybe<Order_By>
+  sender_user_id?: Maybe<Order_By>
+  text?: Maybe<Order_By>
+  type?: Maybe<Order_By>
+  updatedAt?: Maybe<Order_By>
+}
+
+/** aggregate min on columns */
+export type Messages_Min_Fields = {
+  __typename?: 'messages_min_fields'
+  conv_id?: Maybe<Scalars['uuid']>
+  createdAt?: Maybe<Scalars['timestamptz']>
+  id?: Maybe<Scalars['uuid']>
+  sender_user_id?: Maybe<Scalars['uuid']>
+  text?: Maybe<Scalars['String']>
+  type?: Maybe<Scalars['String']>
+  updatedAt?: Maybe<Scalars['timestamptz']>
+}
+
+/** order by min() on columns of table "messages" */
+export type Messages_Min_Order_By = {
+  conv_id?: Maybe<Order_By>
+  createdAt?: Maybe<Order_By>
+  id?: Maybe<Order_By>
+  sender_user_id?: Maybe<Order_By>
+  text?: Maybe<Order_By>
+  type?: Maybe<Order_By>
+  updatedAt?: Maybe<Order_By>
+}
+
+/** response of any mutation on the table "messages" */
+export type Messages_Mutation_Response = {
+  __typename?: 'messages_mutation_response'
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int']
+  /** data from the rows affected by the mutation */
+  returning: Array<Messages>
+}
+
+/** on conflict condition type for table "messages" */
+export type Messages_On_Conflict = {
+  constraint: Messages_Constraint
+  update_columns: Array<Messages_Update_Column>
+  where?: Maybe<Messages_Bool_Exp>
+}
+
+/** Ordering options when selecting data from "messages". */
+export type Messages_Order_By = {
+  attachments?: Maybe<Order_By>
+  conv_id?: Maybe<Order_By>
+  conversation?: Maybe<Conversations_Order_By>
+  createdAt?: Maybe<Order_By>
+  id?: Maybe<Order_By>
+  isSent?: Maybe<Order_By>
+  sender?: Maybe<Users_Order_By>
+  sender_user_id?: Maybe<Order_By>
+  text?: Maybe<Order_By>
+  type?: Maybe<Order_By>
+  updatedAt?: Maybe<Order_By>
+}
+
+/** primary key columns input for table: messages */
+export type Messages_Pk_Columns_Input = {
+  id: Scalars['uuid']
+}
+
+/** prepend existing jsonb value of filtered columns with new jsonb value */
+export type Messages_Prepend_Input = {
+  attachments?: Maybe<Scalars['jsonb']>
+}
+
+/** select columns of table "messages" */
+export enum Messages_Select_Column {
+  /** column name */
+  Attachments = 'attachments',
+  /** column name */
+  ConvId = 'conv_id',
+  /** column name */
+  CreatedAt = 'createdAt',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  IsSent = 'isSent',
+  /** column name */
+  SenderUserId = 'sender_user_id',
+  /** column name */
+  Text = 'text',
+  /** column name */
+  Type = 'type',
+  /** column name */
+  UpdatedAt = 'updatedAt',
+}
+
+/** input type for updating data in table "messages" */
+export type Messages_Set_Input = {
+  attachments?: Maybe<Scalars['jsonb']>
+  conv_id?: Maybe<Scalars['uuid']>
+  createdAt?: Maybe<Scalars['timestamptz']>
+  id?: Maybe<Scalars['uuid']>
+  isSent?: Maybe<Scalars['Boolean']>
+  sender_user_id?: Maybe<Scalars['uuid']>
+  text?: Maybe<Scalars['String']>
+  type?: Maybe<Scalars['String']>
+  updatedAt?: Maybe<Scalars['timestamptz']>
+}
+
+/** update columns of table "messages" */
+export enum Messages_Update_Column {
+  /** column name */
+  Attachments = 'attachments',
+  /** column name */
+  ConvId = 'conv_id',
+  /** column name */
+  CreatedAt = 'createdAt',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  IsSent = 'isSent',
+  /** column name */
+  SenderUserId = 'sender_user_id',
+  /** column name */
+  Text = 'text',
+  /** column name */
+  Type = 'type',
+  /** column name */
+  UpdatedAt = 'updatedAt',
+}
+
 /** mutation root */
 export type Mutation_Root = {
   __typename?: 'mutation_root'
@@ -1868,6 +2397,10 @@ export type Mutation_Root = {
   delete_contributions?: Maybe<Contributions_Mutation_Response>
   /** delete single row from the table: "contributions" */
   delete_contributions_by_pk?: Maybe<Contributions>
+  /** delete data from the table: "conversations" */
+  delete_conversations?: Maybe<Conversations_Mutation_Response>
+  /** delete single row from the table: "conversations" */
+  delete_conversations_by_pk?: Maybe<Conversations>
   /** delete data from the table: "facultys" */
   delete_facultys?: Maybe<Facultys_Mutation_Response>
   /** delete single row from the table: "facultys" */
@@ -1890,6 +2423,10 @@ export type Mutation_Root = {
   delete_magazines?: Maybe<Magazines_Mutation_Response>
   /** delete single row from the table: "magazines" */
   delete_magazines_by_pk?: Maybe<Magazines>
+  /** delete data from the table: "messages" */
+  delete_messages?: Maybe<Messages_Mutation_Response>
+  /** delete single row from the table: "messages" */
+  delete_messages_by_pk?: Maybe<Messages>
   /** delete data from the table: "users" */
   delete_users?: Maybe<Users_Mutation_Response>
   /** delete single row from the table: "users" */
@@ -1903,6 +2440,10 @@ export type Mutation_Root = {
   insert_contributions?: Maybe<Contributions_Mutation_Response>
   /** insert a single row into the table: "contributions" */
   insert_contributions_one?: Maybe<Contributions>
+  /** insert data into the table: "conversations" */
+  insert_conversations?: Maybe<Conversations_Mutation_Response>
+  /** insert a single row into the table: "conversations" */
+  insert_conversations_one?: Maybe<Conversations>
   /** insert data into the table: "facultys" */
   insert_facultys?: Maybe<Facultys_Mutation_Response>
   /** insert a single row into the table: "facultys" */
@@ -1927,6 +2468,10 @@ export type Mutation_Root = {
   insert_magazines?: Maybe<Magazines_Mutation_Response>
   /** insert a single row into the table: "magazines" */
   insert_magazines_one?: Maybe<Magazines>
+  /** insert data into the table: "messages" */
+  insert_messages?: Maybe<Messages_Mutation_Response>
+  /** insert a single row into the table: "messages" */
+  insert_messages_one?: Maybe<Messages>
   /** insert data into the table: "users" */
   insert_users?: Maybe<Users_Mutation_Response>
   /** insert a single row into the table: "users" */
@@ -1941,6 +2486,10 @@ export type Mutation_Root = {
   update_contributions?: Maybe<Contributions_Mutation_Response>
   /** update single row of the table: "contributions" */
   update_contributions_by_pk?: Maybe<Contributions>
+  /** update data of the table: "conversations" */
+  update_conversations?: Maybe<Conversations_Mutation_Response>
+  /** update single row of the table: "conversations" */
+  update_conversations_by_pk?: Maybe<Conversations>
   /** update data of the table: "facultys" */
   update_facultys?: Maybe<Facultys_Mutation_Response>
   /** update single row of the table: "facultys" */
@@ -1963,6 +2512,10 @@ export type Mutation_Root = {
   update_magazines?: Maybe<Magazines_Mutation_Response>
   /** update single row of the table: "magazines" */
   update_magazines_by_pk?: Maybe<Magazines>
+  /** update data of the table: "messages" */
+  update_messages?: Maybe<Messages_Mutation_Response>
+  /** update single row of the table: "messages" */
+  update_messages_by_pk?: Maybe<Messages>
   /** update data of the table: "users" */
   update_users?: Maybe<Users_Mutation_Response>
   /** update single row of the table: "users" */
@@ -1991,6 +2544,16 @@ export type Mutation_RootDelete_ContributionsArgs = {
 
 /** mutation root */
 export type Mutation_RootDelete_Contributions_By_PkArgs = {
+  id: Scalars['uuid']
+}
+
+/** mutation root */
+export type Mutation_RootDelete_ConversationsArgs = {
+  where: Conversations_Bool_Exp
+}
+
+/** mutation root */
+export type Mutation_RootDelete_Conversations_By_PkArgs = {
   id: Scalars['uuid']
 }
 
@@ -2050,6 +2613,16 @@ export type Mutation_RootDelete_Magazines_By_PkArgs = {
 }
 
 /** mutation root */
+export type Mutation_RootDelete_MessagesArgs = {
+  where: Messages_Bool_Exp
+}
+
+/** mutation root */
+export type Mutation_RootDelete_Messages_By_PkArgs = {
+  id: Scalars['uuid']
+}
+
+/** mutation root */
 export type Mutation_RootDelete_UsersArgs = {
   where: Users_Bool_Exp
 }
@@ -2086,6 +2659,18 @@ export type Mutation_RootInsert_ContributionsArgs = {
 export type Mutation_RootInsert_Contributions_OneArgs = {
   object: Contributions_Insert_Input
   on_conflict?: Maybe<Contributions_On_Conflict>
+}
+
+/** mutation root */
+export type Mutation_RootInsert_ConversationsArgs = {
+  objects: Array<Conversations_Insert_Input>
+  on_conflict?: Maybe<Conversations_On_Conflict>
+}
+
+/** mutation root */
+export type Mutation_RootInsert_Conversations_OneArgs = {
+  object: Conversations_Insert_Input
+  on_conflict?: Maybe<Conversations_On_Conflict>
 }
 
 /** mutation root */
@@ -2159,6 +2744,18 @@ export type Mutation_RootInsert_Magazines_OneArgs = {
 }
 
 /** mutation root */
+export type Mutation_RootInsert_MessagesArgs = {
+  objects: Array<Messages_Insert_Input>
+  on_conflict?: Maybe<Messages_On_Conflict>
+}
+
+/** mutation root */
+export type Mutation_RootInsert_Messages_OneArgs = {
+  object: Messages_Insert_Input
+  on_conflict?: Maybe<Messages_On_Conflict>
+}
+
+/** mutation root */
 export type Mutation_RootInsert_UsersArgs = {
   objects: Array<Users_Insert_Input>
   on_conflict?: Maybe<Users_On_Conflict>
@@ -2212,6 +2809,28 @@ export type Mutation_RootUpdate_Contributions_By_PkArgs = {
   _prepend?: Maybe<Contributions_Prepend_Input>
   _set?: Maybe<Contributions_Set_Input>
   pk_columns: Contributions_Pk_Columns_Input
+}
+
+/** mutation root */
+export type Mutation_RootUpdate_ConversationsArgs = {
+  _append?: Maybe<Conversations_Append_Input>
+  _delete_at_path?: Maybe<Conversations_Delete_At_Path_Input>
+  _delete_elem?: Maybe<Conversations_Delete_Elem_Input>
+  _delete_key?: Maybe<Conversations_Delete_Key_Input>
+  _prepend?: Maybe<Conversations_Prepend_Input>
+  _set?: Maybe<Conversations_Set_Input>
+  where: Conversations_Bool_Exp
+}
+
+/** mutation root */
+export type Mutation_RootUpdate_Conversations_By_PkArgs = {
+  _append?: Maybe<Conversations_Append_Input>
+  _delete_at_path?: Maybe<Conversations_Delete_At_Path_Input>
+  _delete_elem?: Maybe<Conversations_Delete_Elem_Input>
+  _delete_key?: Maybe<Conversations_Delete_Key_Input>
+  _prepend?: Maybe<Conversations_Prepend_Input>
+  _set?: Maybe<Conversations_Set_Input>
+  pk_columns: Conversations_Pk_Columns_Input
 }
 
 /** mutation root */
@@ -2307,6 +2926,28 @@ export type Mutation_RootUpdate_Magazines_By_PkArgs = {
 }
 
 /** mutation root */
+export type Mutation_RootUpdate_MessagesArgs = {
+  _append?: Maybe<Messages_Append_Input>
+  _delete_at_path?: Maybe<Messages_Delete_At_Path_Input>
+  _delete_elem?: Maybe<Messages_Delete_Elem_Input>
+  _delete_key?: Maybe<Messages_Delete_Key_Input>
+  _prepend?: Maybe<Messages_Prepend_Input>
+  _set?: Maybe<Messages_Set_Input>
+  where: Messages_Bool_Exp
+}
+
+/** mutation root */
+export type Mutation_RootUpdate_Messages_By_PkArgs = {
+  _append?: Maybe<Messages_Append_Input>
+  _delete_at_path?: Maybe<Messages_Delete_At_Path_Input>
+  _delete_elem?: Maybe<Messages_Delete_Elem_Input>
+  _delete_key?: Maybe<Messages_Delete_Key_Input>
+  _prepend?: Maybe<Messages_Prepend_Input>
+  _set?: Maybe<Messages_Set_Input>
+  pk_columns: Messages_Pk_Columns_Input
+}
+
+/** mutation root */
 export type Mutation_RootUpdate_UsersArgs = {
   _set?: Maybe<Users_Set_Input>
   where: Users_Bool_Exp
@@ -2361,6 +3002,12 @@ export type Query_Root = {
   contributions_aggregate: Contributions_Aggregate
   /** fetch data from the table: "contributions" using primary key columns */
   contributions_by_pk?: Maybe<Contributions>
+  /** fetch data from the table: "conversations" */
+  conversations: Array<Conversations>
+  /** fetch aggregated fields from the table: "conversations" */
+  conversations_aggregate: Conversations_Aggregate
+  /** fetch data from the table: "conversations" using primary key columns */
+  conversations_by_pk?: Maybe<Conversations>
   /** fetch data from the table: "facultys" */
   facultys: Array<Facultys>
   /** fetch aggregated fields from the table: "facultys" */
@@ -2395,6 +3042,12 @@ export type Query_Root = {
   magazines_aggregate: Magazines_Aggregate
   /** fetch data from the table: "magazines" using primary key columns */
   magazines_by_pk?: Maybe<Magazines>
+  /** An array relationship */
+  messages: Array<Messages>
+  /** An aggregate relationship */
+  messages_aggregate: Messages_Aggregate
+  /** fetch data from the table: "messages" using primary key columns */
+  messages_by_pk?: Maybe<Messages>
   /** An array relationship */
   users: Array<Users>
   /** An aggregate relationship */
@@ -2440,6 +3093,26 @@ export type Query_RootContributions_AggregateArgs = {
 }
 
 export type Query_RootContributions_By_PkArgs = {
+  id: Scalars['uuid']
+}
+
+export type Query_RootConversationsArgs = {
+  distinct_on?: Maybe<Array<Conversations_Select_Column>>
+  limit?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+  order_by?: Maybe<Array<Conversations_Order_By>>
+  where?: Maybe<Conversations_Bool_Exp>
+}
+
+export type Query_RootConversations_AggregateArgs = {
+  distinct_on?: Maybe<Array<Conversations_Select_Column>>
+  limit?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+  order_by?: Maybe<Array<Conversations_Order_By>>
+  where?: Maybe<Conversations_Bool_Exp>
+}
+
+export type Query_RootConversations_By_PkArgs = {
   id: Scalars['uuid']
 }
 
@@ -2559,6 +3232,26 @@ export type Query_RootMagazines_By_PkArgs = {
   id: Scalars['uuid']
 }
 
+export type Query_RootMessagesArgs = {
+  distinct_on?: Maybe<Array<Messages_Select_Column>>
+  limit?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+  order_by?: Maybe<Array<Messages_Order_By>>
+  where?: Maybe<Messages_Bool_Exp>
+}
+
+export type Query_RootMessages_AggregateArgs = {
+  distinct_on?: Maybe<Array<Messages_Select_Column>>
+  limit?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+  order_by?: Maybe<Array<Messages_Order_By>>
+  where?: Maybe<Messages_Bool_Exp>
+}
+
+export type Query_RootMessages_By_PkArgs = {
+  id: Scalars['uuid']
+}
+
 export type Query_RootUsersArgs = {
   distinct_on?: Maybe<Array<Users_Select_Column>>
   limit?: Maybe<Scalars['Int']>
@@ -2593,6 +3286,12 @@ export type Subscription_Root = {
   contributions_aggregate: Contributions_Aggregate
   /** fetch data from the table: "contributions" using primary key columns */
   contributions_by_pk?: Maybe<Contributions>
+  /** fetch data from the table: "conversations" */
+  conversations: Array<Conversations>
+  /** fetch aggregated fields from the table: "conversations" */
+  conversations_aggregate: Conversations_Aggregate
+  /** fetch data from the table: "conversations" using primary key columns */
+  conversations_by_pk?: Maybe<Conversations>
   /** fetch data from the table: "facultys" */
   facultys: Array<Facultys>
   /** fetch aggregated fields from the table: "facultys" */
@@ -2627,6 +3326,12 @@ export type Subscription_Root = {
   magazines_aggregate: Magazines_Aggregate
   /** fetch data from the table: "magazines" using primary key columns */
   magazines_by_pk?: Maybe<Magazines>
+  /** An array relationship */
+  messages: Array<Messages>
+  /** An aggregate relationship */
+  messages_aggregate: Messages_Aggregate
+  /** fetch data from the table: "messages" using primary key columns */
+  messages_by_pk?: Maybe<Messages>
   /** An array relationship */
   users: Array<Users>
   /** An aggregate relationship */
@@ -2672,6 +3377,26 @@ export type Subscription_RootContributions_AggregateArgs = {
 }
 
 export type Subscription_RootContributions_By_PkArgs = {
+  id: Scalars['uuid']
+}
+
+export type Subscription_RootConversationsArgs = {
+  distinct_on?: Maybe<Array<Conversations_Select_Column>>
+  limit?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+  order_by?: Maybe<Array<Conversations_Order_By>>
+  where?: Maybe<Conversations_Bool_Exp>
+}
+
+export type Subscription_RootConversations_AggregateArgs = {
+  distinct_on?: Maybe<Array<Conversations_Select_Column>>
+  limit?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+  order_by?: Maybe<Array<Conversations_Order_By>>
+  where?: Maybe<Conversations_Bool_Exp>
+}
+
+export type Subscription_RootConversations_By_PkArgs = {
   id: Scalars['uuid']
 }
 
@@ -2791,6 +3516,26 @@ export type Subscription_RootMagazines_By_PkArgs = {
   id: Scalars['uuid']
 }
 
+export type Subscription_RootMessagesArgs = {
+  distinct_on?: Maybe<Array<Messages_Select_Column>>
+  limit?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+  order_by?: Maybe<Array<Messages_Order_By>>
+  where?: Maybe<Messages_Bool_Exp>
+}
+
+export type Subscription_RootMessages_AggregateArgs = {
+  distinct_on?: Maybe<Array<Messages_Select_Column>>
+  limit?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+  order_by?: Maybe<Array<Messages_Order_By>>
+  where?: Maybe<Messages_Bool_Exp>
+}
+
+export type Subscription_RootMessages_By_PkArgs = {
+  id: Scalars['uuid']
+}
+
 export type Subscription_RootUsersArgs = {
   distinct_on?: Maybe<Array<Users_Select_Column>>
   limit?: Maybe<Scalars['Int']>
@@ -2855,7 +3600,7 @@ export type Users = {
   createdAt?: Maybe<Scalars['timestamptz']>
   email?: Maybe<Scalars['String']>
   /** An object relationship */
-  faculty: Facultys
+  faculty?: Maybe<Facultys>
   facultyId?: Maybe<Scalars['String']>
   fullName?: Maybe<Scalars['String']>
   id: Scalars['uuid']
@@ -2864,6 +3609,10 @@ export type Users = {
   magazines: Array<Magazines>
   /** An aggregate relationship */
   magazines_aggregate: Magazines_Aggregate
+  /** An array relationship */
+  messages: Array<Messages>
+  /** An aggregate relationship */
+  messages_aggregate: Messages_Aggregate
   roles?: Maybe<Scalars['String']>
 }
 
@@ -2939,6 +3688,24 @@ export type UsersMagazines_AggregateArgs = {
   where?: Maybe<Magazines_Bool_Exp>
 }
 
+/** columns and relationships of "users" */
+export type UsersMessagesArgs = {
+  distinct_on?: Maybe<Array<Messages_Select_Column>>
+  limit?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+  order_by?: Maybe<Array<Messages_Order_By>>
+  where?: Maybe<Messages_Bool_Exp>
+}
+
+/** columns and relationships of "users" */
+export type UsersMessages_AggregateArgs = {
+  distinct_on?: Maybe<Array<Messages_Select_Column>>
+  limit?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+  order_by?: Maybe<Array<Messages_Order_By>>
+  where?: Maybe<Messages_Bool_Exp>
+}
+
 /** aggregated selection of "users" */
 export type Users_Aggregate = {
   __typename?: 'users_aggregate'
@@ -2990,6 +3757,7 @@ export type Users_Bool_Exp = {
   id?: Maybe<Uuid_Comparison_Exp>
   is_delete?: Maybe<Boolean_Comparison_Exp>
   magazines?: Maybe<Magazines_Bool_Exp>
+  messages?: Maybe<Messages_Bool_Exp>
   roles?: Maybe<String_Comparison_Exp>
 }
 
@@ -3014,6 +3782,7 @@ export type Users_Insert_Input = {
   id?: Maybe<Scalars['uuid']>
   is_delete?: Maybe<Scalars['Boolean']>
   magazines?: Maybe<Magazines_Arr_Rel_Insert_Input>
+  messages?: Maybe<Messages_Arr_Rel_Insert_Input>
   roles?: Maybe<Scalars['String']>
 }
 
@@ -3095,6 +3864,7 @@ export type Users_Order_By = {
   id?: Maybe<Order_By>
   is_delete?: Maybe<Order_By>
   magazines_aggregate?: Maybe<Magazines_Aggregate_Order_By>
+  messages_aggregate?: Maybe<Messages_Aggregate_Order_By>
   roles?: Maybe<Order_By>
 }
 
