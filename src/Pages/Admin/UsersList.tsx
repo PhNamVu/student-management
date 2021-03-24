@@ -1,9 +1,10 @@
 import React from 'react'
 import { useGetUsersQuery } from '../../graphql/autogenerate/hooks'
 import { Container, Table } from 'reactstrap'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import { TableBody, TableHead, TableRow, TableCell, TableContainer, TablePagination, CircularProgress, Backdrop  } from "@material-ui/core"
+import PrimaryButton from '../../components/shared/button/PrimaryBtn';
 
 //Define for the header row
 interface HeadCell {
@@ -68,6 +69,7 @@ const useStyles = makeStyles((theme: Theme) =>
 )
 
 export default function UserList() {
+    const navigate = useNavigate()
     const params = useParams();
     const customStyle = useStyles();
     const [page, setPage] = React.useState(0);
@@ -95,10 +97,15 @@ export default function UserList() {
         setRowsPerPage(parseInt(event.target.value, 10));
         setPage(0);
     }
-
+    
     return (
         <Container>
             <h2 style={{ padding: "20px 0 0 0", clear: 'both' }}>Users List {params.mgzTitle}</h2>
+            <PrimaryButton
+                onClick = { () => { navigate(`/user/add`)}}
+            >
+                Create
+            </PrimaryButton>
             <div className={customStyle.root}>
                 <TableContainer>
                     <Table

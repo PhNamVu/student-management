@@ -19,3 +19,27 @@ mutation addUser($object: users_insert_input!) {
     }
   }
 }
+
+query membersChatInfoByIds($userId1: uuid!,$userId2: uuid!) {
+  users(
+    where: {
+      id: {
+        _in: [$userId1, $userId2]
+      }
+    }
+  ) {
+    email
+    id
+    fullName
+    roles
+  }
+}
+
+query chatByFaculty( $where: users_bool_exp!) {
+  users(where: $where) {
+    email
+    id
+    fullName
+    roles
+  }
+}

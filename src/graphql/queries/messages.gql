@@ -1,0 +1,85 @@
+query countMessage($id: uuid) {
+  messages_aggregate(where: { conv_id: { _eq: $id } }) {
+    aggregate {
+      count
+    }
+  }
+}
+
+query messagesByConversation(
+  $id: uuid
+  $offset: Int
+  $limit: Int
+  $cursorMsgByCreatedAt: timestamptz
+  $orderBy: [messages_order_by!]
+) {
+  messages(
+    where: { conv_id: { _eq: $id }, createdAt: { _lt: $cursorMsgByCreatedAt } }
+    limit: $limit
+    offset: $offset
+    order_by: $orderBy
+  ) {
+    id
+    text
+    createdAt
+    type
+    attachments
+    sender {
+      id
+      fullName
+    }
+    isSent
+  }
+}
+
+mutation addMessage($object: messages_insert_input!) {
+  insert_messages(objects: [$object]) {
+    affected_rows
+    returning {
+      id
+      text
+      createdAt
+      type
+      attachments
+      sender {
+        id
+        fullName
+      }
+      isSent
+    }
+  }
+}
+
+subscription lastMessage($id: uuid) {
+  messages(
+    where: { conv_id: { _eq: $id } }
+    limit: 1
+    order_by: { createdAt: desc }
+  ) {
+    id
+    text
+    createdAt
+    type
+    attachments
+    sender {
+      id
+      fullName
+    }
+    isSent
+  }
+}
+
+mutation newOrGetIdConversation($object: conversations_insert_input!) {
+  insert_conversations(
+    objects: [$object]
+    on_conflict: {
+      constraint: conversations_participants_key
+      update_columns: [updatedAt]
+    }
+  ) {
+    affected_rows
+    returning {
+      id
+    }
+  }
+}

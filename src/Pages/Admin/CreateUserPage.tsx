@@ -291,17 +291,19 @@ export const CreateUserPage = () => {
             </Input>
           </FormGroup>
           {roles !== 'MANAGER' && roles !== '' && (
-            <FormGroup>
+            <FormGroup >
               <Label for="facultyId">Faculty</Label>
               <Input
                 id="facultyId"
                 required
                 type="select"
                 name="facultyId"
-                onChange={(e: any) => setFacultyId(e.target[0].id)}
+                onChange={(e: any) => 
+                  setFacultyId(e.target.value)
+                }
               >
                 {facultys?.map((item: any) => (
-                  <option id={item.id} key={item.id}>
+                  <option id={item.id} key={item.id} value={item.id}>
                     {' '}
                     {item.label}{' '}
                   </option>

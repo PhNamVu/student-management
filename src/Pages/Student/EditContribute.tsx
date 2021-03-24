@@ -84,12 +84,12 @@ export default function EditContributePage() {
                         <FormGroup row>
                             <Label for="article" sm='2'>Article</Label>
                             <Col lg='9' sm='10'>
-                                { !isBefore(new Date(contribution?.magazine.closureFinal), new Date()) ?
+                                { !isBefore(new Date(contribution?.magazine?.closureFinal), new Date()) ?
                                     <Uploader
                                         acceptedFileExtensions={'.docx,.doc,'}
                                         maxSizeFile={20}
                                         initFiles={contribution?.artical}
-                                        refStorage={`magazines/${contribution?.magazine.id}`}
+                                        refStorage={`magazines/${contribution?.magazine?.id}`}
                                         onChange={(files: any) => {
                                             console.log(files)
                                             setArtical(
@@ -116,12 +116,12 @@ export default function EditContributePage() {
                         <FormGroup row>
                             <Label for="image" sm='2'>Image</Label>
                             <Col lg='9' sm='10'>
-                                {   !isBefore(new Date(contribution?.magazine.closureFinal), new Date()) ?
+                                {   !isBefore(new Date(contribution?.magazine?.closureFinal), new Date()) ?
                                     <Uploader
                                         acceptedFileExtensions={'.png,.jpg,.jpeg,'}
                                         maxSizeFile={20}
                                         initFiles={contribution?.image}
-                                        refStorage={`magazines/${contribution?.magazine.id}`}
+                                        refStorage={`magazines/${contribution?.magazine?.id}`}
                                         onChange={(files: any) => {
                                             setImage(
                                                 files.map((item: any) => ({
@@ -147,7 +147,7 @@ export default function EditContributePage() {
                         <div className="d-flex justify-content-center">
                             <PrimaryButton 
                                 type="submit" 
-                                disabled={isBefore(new Date(contribution?.magazine.closureFinal), new Date())}
+                                disabled={isBefore(new Date(contribution?.magazine?.closureFinal), new Date())}
                             >
                                 Save
                             </PrimaryButton>
