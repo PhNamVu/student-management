@@ -1,12 +1,14 @@
 import React from 'react'
-import { useGetContributeQuery } from '../graphql/autogenerate/hooks'
+import { useGetContributeByConditionsQuery } from '../graphql/autogenerate/hooks'
 import { Container, Table } from 'reactstrap'
 import { useParams } from 'react-router-dom'
-import clsx from "clsx";
+import clsx from "clsx"
 import { createStyles, lighten, makeStyles, Theme } from "@material-ui/core/styles";
 import { TableBody, TableHead, TableRow, TableCell, Checkbox, TableContainer, Typography, Toolbar, Tooltip, TablePagination, CircularProgress, Backdrop  } from "@material-ui/core"
-import IconButton from "@material-ui/core/IconButton";
-import GetAppIcon from '@material-ui/icons/GetApp';
+import IconButton from "@material-ui/core/IconButton"
+import GetAppIcon from '@material-ui/icons/GetApp'
+import { downloadMultiFiles } from '../helper/download-multi-file'
+
 
 //Define for the header row
 interface HeadCell {
@@ -20,25 +22,7 @@ const headCells: HeadCell[] = [
     { id: "status", label: "Status" },
     { id: "selected_by", label: "Selected by" }
 ];
-
-//Define the table content rows
-interface Data {
-    title: string;
-    author: string;
-    faculty: string;
-    status: string;
-    selected_by: string;
-}
-function createData(
-    title: string,
-    author: string,
-    faculty: string,
-    status: string,
-    selected_by: string,
-): Data {
-    return { title, author, faculty, status, selected_by };
-}
-
+//Styling for header
 const useToolbarStyles = makeStyles((theme: Theme) =>
     createStyles({
         root: {
@@ -67,12 +51,12 @@ interface CustomTableHeaderProps {
     rowCount: number;
 }
 interface CustomTableHeaderToolbarProps {
-    numSelected: number;
+    numSelected: number
+    setActivity: any
 }
 const CustomTableHeaderToolbar = (props: CustomTableHeaderToolbarProps) => {
-    const classes = useToolbarStyles();
-    const { numSelected } = props;
-
+    const classes = useToolbarStyles()
+    const { numSelected, setActivity } = props
     return (
         <Toolbar
             className={clsx(classes.root, {
@@ -91,7 +75,7 @@ const CustomTableHeaderToolbar = (props: CustomTableHeaderToolbarProps) => {
             ) : null}
             {numSelected > 0 ? (
                 <Tooltip title="Download">
-                    <IconButton aria-label="download">
+                    <IconButton aria-label="download" onClick={() => setActivity()}>
                         <GetAppIcon />
                     </IconButton>
                 </Tooltip>
@@ -99,6 +83,7 @@ const CustomTableHeaderToolbar = (props: CustomTableHeaderToolbarProps) => {
         </Toolbar>
     );
 }
+
 const CustomTableHeader = (props: CustomTableHeaderProps) => {
     const {
         onSelectAllClick,
@@ -131,6 +116,28 @@ const CustomTableHeader = (props: CustomTableHeaderProps) => {
         </TableHead>
     )
 }
+//END region define header
+
+
+//Define the table content rows
+interface Data {
+    id: string;
+    title: string;
+    author: string;
+    faculty: string;
+    status: string;
+    selected_by: string;
+}
+function createData(
+    id: string,
+    title: string,
+    author: string,
+    faculty: string,
+    status: string,
+    selected_by: string,
+): Data {
+    return { id, title, author, faculty, status, selected_by };
+}
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -147,7 +154,9 @@ const useStyles = makeStyles((theme: Theme) =>
     })
 )
 
-export const ContributionsPage = () => {
+
+//this template apply for ADMIN, MANAGER, MCO
+export default function ContributionsPage(){
     const params = useParams();
     const customStyle = useStyles();
     const [selected, setSelected] = React.useState<string[]>([]);
@@ -155,9 +164,18 @@ export const ContributionsPage = () => {
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
     const isSelected = (name: string) => selected.indexOf(name) !== -1;
 
-    const { data, loading, error } = useGetContributeQuery({
+    // Get data from DB
+    const { data, loading, error } = useGetContributeByConditionsQuery({
         fetchPolicy: 'network-only',
-        variables: { idMgz: params.idMgz }
+        variables: { 
+            where: {
+                magazine: {
+                    id: {
+                        _eq: params.idMgz
+                    }
+                }
+            }
+        },
     })
     if (loading) return (
         <Backdrop className={customStyle.backdrop} open={loading}>
@@ -167,22 +185,23 @@ export const ContributionsPage = () => {
     if (error) return <div> Error at Magazines component {console.log(error)}</div>
     const dataDetail = data && data.contributions
     const rows: any = dataDetail?.map((el:any) => {
-        return createData(el.title, el.user?.fullName, el.user?.faculty?.label, el.isSelected, el.userByPublicBy?.fullName)
+        return createData(el.id, el.title, el.user?.fullName, el.user?.faculty?.label, el.isSelected, el.userByPublicBy?.fullName)
     })
+
     // handle 'select all' button
     const handleSelectAllClick = (event: React.ChangeEvent<HTMLInputElement>) => {
         if (event.target.checked) {
-            const newSelecteds = rows.map((n:any) => n.title)
+            const newSelecteds = rows.map((n:any) => n.id)
             setSelected(newSelecteds)
             return
         }
         setSelected([])
     }
-    const handleClick = (event: React.MouseEvent<unknown>, title: string) => {
-        const selectedIndex = selected.indexOf(title)
+    const handleClick = (event: React.MouseEvent<unknown>, id: string) => {
+        const selectedIndex = selected.indexOf(id)
         let newSelected: string[] = []
         if (selectedIndex === -1) {
-            newSelected = newSelected.concat(selected, title)
+            newSelected = newSelected.concat(selected, id)
         } else if (selectedIndex === 0) {
             newSelected = newSelected.concat(selected.slice(1))
         } else if (selectedIndex === selected.length - 1) {
@@ -204,12 +223,19 @@ export const ContributionsPage = () => {
         setRowsPerPage(parseInt(event.target.value, 10));
         setPage(0);
     }
-
+    const getZipFile = async () => {
+        const fileInfo = await dataDetail?.map((el:any) => {
+            if(selected.indexOf(el.id) > -1) return {info: el.artical.concat(el.image), name: el.title}
+        })
+        downloadMultiFiles(fileInfo, params.mgzTitle)
+        console.log(fileInfo)
+    }
+    console.log(selected);
     return (
         <Container>
             <h2 style={{ padding: "20px 0 0 0", clear: 'both' }}>Contribution of {params.mgzTitle}</h2>
             <div className={customStyle.root}>
-                <CustomTableHeaderToolbar numSelected={selected.length} />
+                <CustomTableHeaderToolbar numSelected={selected.length} setActivity={getZipFile} />
                 <TableContainer>
                     <Table
                         className={customStyle.table}
@@ -226,15 +252,15 @@ export const ContributionsPage = () => {
                         <TableBody>
                             {(rows)?rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row: any, index: any) => {
                                 const labelId = `enhanced-table-checkbox-${index}`
-                                const isItemSelected = isSelected(row.title);
+                                const isItemSelected = isSelected(row.id);
                                 return (
                                     <TableRow
                                         role="checkbox"
                                         aria-checked={isItemSelected}
                                         tabIndex={-1}
-                                        key={row.title}
+                                        key={row.id}
                                         selected={isItemSelected}
-                                        onClick={(event) => handleClick(event, row.title)}
+                                        onClick={(event) => handleClick(event, row.id)}
                                     >
                                         <TableCell padding='checkbox' style={{padding:'0'}}>
                                             <Checkbox checked={isItemSelected} inputProps={{ "aria-labelledby": labelId }} />
@@ -265,4 +291,4 @@ export const ContributionsPage = () => {
         </Container>
     )
 }
-export default ContributionsPage
+

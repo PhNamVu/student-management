@@ -1,32 +1,3 @@
-
-query getContribute($idMgz: uuid){
-  contributions(where: {magazine: {id: {_eq: $idMgz}}}){
-    title
-    magazine{
-      label
-    }
-    id
-    user{
-      fullName
-      faculty{
-        label
-      }
-    }
-    userByPublicBy{
-      fullName
-    }
-    isSelected
-    faculty{
-      label
-    }
-    artical
-    image
-    deleted
-    createdAt
-    updatedAt
-  }
-},
-
 query getContributeByConditions($where: contributions_bool_exp) {
     contributions(where: $where) {
       title
