@@ -10,10 +10,13 @@ import { CreateMagazine } from './Pages/Admin/CreateMagazine'
 import { ToasterContainer } from 'baseui/toast'
 
 import MagazinesListPage from './Pages/MagazinesList'
-import ContributionTable from './Pages/ContributionListGeneral'
 import EditContributePage from './Pages/Student/EditContribute'
 import SubmitContributePage from './Pages/Student/SubmitContribution'
-import StudentContributionsList from './Pages/Student/StudentContributionsList'
+
+import ContributionList from './Pages/ContributionListGeneral'
+import StudentContributionsList from './Pages/Student/ContributionsList'
+import GuestContributionsList from './Pages/Guest/ContributionsList'
+
 import UserList from './Pages/Admin/UsersList'
 import ChartPage from './Pages/Chart'
 
@@ -98,7 +101,7 @@ function App() {
                     <Route path="/user/add" element={<CreateUserPage />} />
                     <Route path="*" element={<PageNotFound />} />
                     <Route path='magazine/:id/edit'element={<EditMagazinePage />} />
-                    <Route path="/contribute/:idMgz/:mgzTitle" element={<ContributionTable/>} />
+                    <Route path="/contribute/:idMgz/:mgzTitle" element={<ContributionList/>} />
                     <Route path="/users" element={<UserList />} />
 
                   </Routes>
@@ -141,7 +144,7 @@ function App() {
                 
                   <Route path="/" element={<ChartPage />} />
                   <Route path="/magazines" element={<MagazinesListPage />} />
-                  <Route path="/contribute/:idMgz/:mgzTitle" element={<ContributionTable />} />
+                  <Route path="/contribute/:idMgz/:mgzTitle" element={<ContributionList />} />
                 </Routes>
               </Container>  
             </ApolloProvider>
@@ -159,6 +162,7 @@ function App() {
               >
                 <Routes>
                   <Route path="/" element={<MagazinesListPage />} />
+                  <Route path="/contribute/:idMgz/:mgzTitle" element={<GuestContributionsList />} />
                 </Routes>
               </Container>  
             </ApolloProvider>
@@ -177,7 +181,7 @@ function App() {
                 <Routes>
                   <Route path="/" element={<ChartPage />} />
                   <Route path="/magazines" element={<MagazinesListPage />} />
-                  <Route path="/contribute/:idMgz/:mgzTitle" element={<ContributionTable/>} />
+                  <Route path="/contribute/:idMgz/:mgzTitle" element={<ContributionList/>} />
                 </Routes>
               </Container>  
             </ApolloProvider>

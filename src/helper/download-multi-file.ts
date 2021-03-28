@@ -6,7 +6,7 @@ export const downloadMultiFiles = (urls: any, zipFileName: string) => {
   let count = 0
 
   urls.forEach(async (item: any) => {
-    let data = await fetch(item.url).then((r) => r.blob())
+    const data = await fetch(item.url).then((r) => r.blob())
     try {
       zip.file(item.name, data, { binary: true })
       count++
