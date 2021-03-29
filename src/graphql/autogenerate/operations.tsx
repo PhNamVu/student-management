@@ -19,33 +19,10 @@ export type GetCommentQuery = { __typename?: 'query_root' } & {
     { __typename?: 'comments' } & Pick<
       Types.Comments,
       'id' | 'content' | 'createAt'
-    > & { user: { __typename?: 'users' } & Pick<Types.Users, 'fullName'> }
-  >
-}
-
-export type GetContributeQueryVariables = Types.Exact<{
-  idMgz?: Types.Maybe<Types.Scalars['uuid']>
-}>
-
-export type GetContributeQuery = { __typename?: 'query_root' } & {
-  contributions: Array<
-    { __typename?: 'contributions' } & Pick<
-      Types.Contributions,
-      | 'title'
-      | 'id'
-      | 'isSelected'
-      | 'artical'
-      | 'image'
-      | 'deleted'
-      | 'createdAt'
-      | 'updatedAt'
     > & {
-        magazine: { __typename?: 'magazines' } & Pick<Types.Magazines, 'label'>
-        user: { __typename?: 'users' } & Pick<Types.Users, 'fullName'> & {
-            faculty: { __typename?: 'facultys' } & Pick<Types.Facultys, 'label'>
-          }
-        userByPublicBy: { __typename?: 'users' } & Pick<Types.Users, 'fullName'>
-        faculty: { __typename?: 'facultys' } & Pick<Types.Facultys, 'label'>
+        user?: Types.Maybe<
+          { __typename?: 'users' } & Pick<Types.Users, 'fullName'>
+        >
       }
   >
 }
@@ -60,12 +37,22 @@ export type GetContributeByConditionsQuery = { __typename?: 'query_root' } & {
       Types.Contributions,
       'title' | 'id' | 'isSelected' | 'artical' | 'image' | 'updatedAt'
     > & {
-        magazine: { __typename?: 'magazines' } & Pick<Types.Magazines, 'label'>
-        user: { __typename?: 'users' } & {
-          faculty: { __typename?: 'facultys' } & Pick<Types.Facultys, 'label'>
-        }
-        userByPublicBy: { __typename?: 'users' } & Pick<Types.Users, 'fullName'>
-        faculty: { __typename?: 'facultys' } & Pick<Types.Facultys, 'label'>
+        magazine?: Types.Maybe<
+          { __typename?: 'magazines' } & Pick<Types.Magazines, 'label'>
+        >
+        user?: Types.Maybe<
+          { __typename?: 'users' } & {
+            faculty?: Types.Maybe<
+              { __typename?: 'facultys' } & Pick<Types.Facultys, 'label'>
+            >
+          }
+        >
+        userByPublicBy?: Types.Maybe<
+          { __typename?: 'users' } & Pick<Types.Users, 'fullName'>
+        >
+        faculty?: Types.Maybe<
+          { __typename?: 'facultys' } & Pick<Types.Facultys, 'label'>
+        >
       }
   >
 }
@@ -80,9 +67,11 @@ export type GetContributionQuery = { __typename?: 'query_root' } & {
       Types.Contributions,
       'title' | 'artical' | 'image'
     > & {
-        magazine: { __typename?: 'magazines' } & Pick<
-          Types.Magazines,
-          'id' | 'closureTemp' | 'closureFinal'
+        magazine?: Types.Maybe<
+          { __typename?: 'magazines' } & Pick<
+            Types.Magazines,
+            'id' | 'closureTemp' | 'closureFinal'
+          >
         >
       }
   >
@@ -179,6 +168,104 @@ export type EditMagazineMutation = { __typename?: 'mutation_root' } & {
   >
 }
 
+export type CountMessageQueryVariables = Types.Exact<{
+  id?: Types.Maybe<Types.Scalars['uuid']>
+}>
+
+export type CountMessageQuery = { __typename?: 'query_root' } & {
+  messages_aggregate: { __typename?: 'messages_aggregate' } & {
+    aggregate?: Types.Maybe<
+      { __typename?: 'messages_aggregate_fields' } & Pick<
+        Types.Messages_Aggregate_Fields,
+        'count'
+      >
+    >
+  }
+}
+
+export type MessagesByConversationQueryVariables = Types.Exact<{
+  id?: Types.Maybe<Types.Scalars['uuid']>
+  offset?: Types.Maybe<Types.Scalars['Int']>
+  limit?: Types.Maybe<Types.Scalars['Int']>
+  cursorMsgByCreatedAt?: Types.Maybe<Types.Scalars['timestamptz']>
+  orderBy?: Types.Maybe<
+    Array<Types.Messages_Order_By> | Types.Messages_Order_By
+  >
+}>
+
+export type MessagesByConversationQuery = { __typename?: 'query_root' } & {
+  messages: Array<
+    { __typename?: 'messages' } & Pick<
+      Types.Messages,
+      'id' | 'text' | 'createdAt' | 'type' | 'attachments' | 'isSent'
+    > & {
+        sender?: Types.Maybe<
+          { __typename?: 'users' } & Pick<Types.Users, 'id' | 'fullName'>
+        >
+      }
+  >
+}
+
+export type AddMessageMutationVariables = Types.Exact<{
+  object: Types.Messages_Insert_Input
+}>
+
+export type AddMessageMutation = { __typename?: 'mutation_root' } & {
+  insert_messages?: Types.Maybe<
+    { __typename?: 'messages_mutation_response' } & Pick<
+      Types.Messages_Mutation_Response,
+      'affected_rows'
+    > & {
+        returning: Array<
+          { __typename?: 'messages' } & Pick<
+            Types.Messages,
+            'id' | 'text' | 'createdAt' | 'type' | 'attachments' | 'isSent'
+          > & {
+              sender?: Types.Maybe<
+                { __typename?: 'users' } & Pick<Types.Users, 'id' | 'fullName'>
+              >
+            }
+        >
+      }
+  >
+}
+
+export type LastMessageSubscriptionVariables = Types.Exact<{
+  id?: Types.Maybe<Types.Scalars['uuid']>
+}>
+
+export type LastMessageSubscription = { __typename?: 'subscription_root' } & {
+  messages: Array<
+    { __typename?: 'messages' } & Pick<
+      Types.Messages,
+      'id' | 'text' | 'createdAt' | 'type' | 'attachments' | 'isSent'
+    > & {
+        sender?: Types.Maybe<
+          { __typename?: 'users' } & Pick<Types.Users, 'id' | 'fullName'>
+        >
+      }
+  >
+}
+
+export type NewOrGetIdConversationMutationVariables = Types.Exact<{
+  object: Types.Conversations_Insert_Input
+}>
+
+export type NewOrGetIdConversationMutation = {
+  __typename?: 'mutation_root'
+} & {
+  insert_conversations?: Types.Maybe<
+    { __typename?: 'conversations_mutation_response' } & Pick<
+      Types.Conversations_Mutation_Response,
+      'affected_rows'
+    > & {
+        returning: Array<
+          { __typename?: 'conversations' } & Pick<Types.Conversations, 'id'>
+        >
+      }
+  >
+}
+
 export type GetUsersQueryVariables = Types.Exact<{ [key: string]: never }>
 
 export type GetUsersQuery = { __typename?: 'query_root' } & {
@@ -187,9 +274,8 @@ export type GetUsersQuery = { __typename?: 'query_root' } & {
       Types.Users,
       'id' | 'email' | 'fullName' | 'roles'
     > & {
-        faculty: { __typename?: 'facultys' } & Pick<
-          Types.Facultys,
-          'id' | 'label'
+        faculty?: Types.Maybe<
+          { __typename?: 'facultys' } & Pick<Types.Facultys, 'id' | 'label'>
         >
       }
   >
@@ -205,5 +291,32 @@ export type AddUserMutation = { __typename?: 'mutation_root' } & {
       Types.Users_Mutation_Response,
       'affected_rows'
     > & { returning: Array<{ __typename?: 'users' } & Pick<Types.Users, 'id'>> }
+  >
+}
+
+export type MembersChatInfoByIdsQueryVariables = Types.Exact<{
+  userId1: Types.Scalars['uuid']
+  userId2: Types.Scalars['uuid']
+}>
+
+export type MembersChatInfoByIdsQuery = { __typename?: 'query_root' } & {
+  users: Array<
+    { __typename?: 'users' } & Pick<
+      Types.Users,
+      'email' | 'id' | 'fullName' | 'roles'
+    >
+  >
+}
+
+export type ChatByFacultyQueryVariables = Types.Exact<{
+  where: Types.Users_Bool_Exp
+}>
+
+export type ChatByFacultyQuery = { __typename?: 'query_root' } & {
+  users: Array<
+    { __typename?: 'users' } & Pick<
+      Types.Users,
+      'email' | 'id' | 'fullName' | 'roles'
+    >
   >
 }

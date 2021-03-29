@@ -113,84 +113,6 @@ export type GetCommentQueryResult = Apollo.QueryResult<
   Types.GetCommentQuery,
   Types.GetCommentQueryVariables
 >
-export const GetContributeDocument = gql`
-  query getContribute($idMgz: uuid) {
-    contributions(where: { magazine: { id: { _eq: $idMgz } } }) {
-      title
-      magazine {
-        label
-      }
-      id
-      user {
-        fullName
-        faculty {
-          label
-        }
-      }
-      userByPublicBy {
-        fullName
-      }
-      isSelected
-      faculty {
-        label
-      }
-      artical
-      image
-      deleted
-      createdAt
-      updatedAt
-    }
-  }
-`
-
-/**
- * __useGetContributeQuery__
- *
- * To run a query within a React component, call `useGetContributeQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetContributeQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetContributeQuery({
- *   variables: {
- *      idMgz: // value for 'idMgz'
- *   },
- * });
- */
-export function useGetContributeQuery(
-  baseOptions?: Apollo.QueryHookOptions<
-    Types.GetContributeQuery,
-    Types.GetContributeQueryVariables
-  >
-) {
-  return Apollo.useQuery<
-    Types.GetContributeQuery,
-    Types.GetContributeQueryVariables
-  >(GetContributeDocument, baseOptions)
-}
-export function useGetContributeLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<
-    Types.GetContributeQuery,
-    Types.GetContributeQueryVariables
-  >
-) {
-  return Apollo.useLazyQuery<
-    Types.GetContributeQuery,
-    Types.GetContributeQueryVariables
-  >(GetContributeDocument, baseOptions)
-}
-export type GetContributeQueryHookResult = ReturnType<
-  typeof useGetContributeQuery
->
-export type GetContributeLazyQueryHookResult = ReturnType<
-  typeof useGetContributeLazyQuery
->
-export type GetContributeQueryResult = Apollo.QueryResult<
-  Types.GetContributeQuery,
-  Types.GetContributeQueryVariables
->
 export const GetContributeByConditionsDocument = gql`
   query getContributeByConditions($where: contributions_bool_exp) {
     contributions(where: $where) {
@@ -647,6 +569,316 @@ export type EditMagazineMutationOptions = Apollo.BaseMutationOptions<
   Types.EditMagazineMutation,
   Types.EditMagazineMutationVariables
 >
+export const CountMessageDocument = gql`
+  query countMessage($id: uuid) {
+    messages_aggregate(where: { conv_id: { _eq: $id } }) {
+      aggregate {
+        count
+      }
+    }
+  }
+`
+
+/**
+ * __useCountMessageQuery__
+ *
+ * To run a query within a React component, call `useCountMessageQuery` and pass it any options that fit your needs.
+ * When your component renders, `useCountMessageQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useCountMessageQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useCountMessageQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    Types.CountMessageQuery,
+    Types.CountMessageQueryVariables
+  >
+) {
+  return Apollo.useQuery<
+    Types.CountMessageQuery,
+    Types.CountMessageQueryVariables
+  >(CountMessageDocument, baseOptions)
+}
+export function useCountMessageLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    Types.CountMessageQuery,
+    Types.CountMessageQueryVariables
+  >
+) {
+  return Apollo.useLazyQuery<
+    Types.CountMessageQuery,
+    Types.CountMessageQueryVariables
+  >(CountMessageDocument, baseOptions)
+}
+export type CountMessageQueryHookResult = ReturnType<
+  typeof useCountMessageQuery
+>
+export type CountMessageLazyQueryHookResult = ReturnType<
+  typeof useCountMessageLazyQuery
+>
+export type CountMessageQueryResult = Apollo.QueryResult<
+  Types.CountMessageQuery,
+  Types.CountMessageQueryVariables
+>
+export const MessagesByConversationDocument = gql`
+  query messagesByConversation(
+    $id: uuid
+    $offset: Int
+    $limit: Int
+    $cursorMsgByCreatedAt: timestamptz
+    $orderBy: [messages_order_by!]
+  ) {
+    messages(
+      where: {
+        conv_id: { _eq: $id }
+        createdAt: { _lt: $cursorMsgByCreatedAt }
+      }
+      limit: $limit
+      offset: $offset
+      order_by: $orderBy
+    ) {
+      id
+      text
+      createdAt
+      type
+      attachments
+      sender {
+        id
+        fullName
+      }
+      isSent
+    }
+  }
+`
+
+/**
+ * __useMessagesByConversationQuery__
+ *
+ * To run a query within a React component, call `useMessagesByConversationQuery` and pass it any options that fit your needs.
+ * When your component renders, `useMessagesByConversationQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useMessagesByConversationQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *      offset: // value for 'offset'
+ *      limit: // value for 'limit'
+ *      cursorMsgByCreatedAt: // value for 'cursorMsgByCreatedAt'
+ *      orderBy: // value for 'orderBy'
+ *   },
+ * });
+ */
+export function useMessagesByConversationQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    Types.MessagesByConversationQuery,
+    Types.MessagesByConversationQueryVariables
+  >
+) {
+  return Apollo.useQuery<
+    Types.MessagesByConversationQuery,
+    Types.MessagesByConversationQueryVariables
+  >(MessagesByConversationDocument, baseOptions)
+}
+export function useMessagesByConversationLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    Types.MessagesByConversationQuery,
+    Types.MessagesByConversationQueryVariables
+  >
+) {
+  return Apollo.useLazyQuery<
+    Types.MessagesByConversationQuery,
+    Types.MessagesByConversationQueryVariables
+  >(MessagesByConversationDocument, baseOptions)
+}
+export type MessagesByConversationQueryHookResult = ReturnType<
+  typeof useMessagesByConversationQuery
+>
+export type MessagesByConversationLazyQueryHookResult = ReturnType<
+  typeof useMessagesByConversationLazyQuery
+>
+export type MessagesByConversationQueryResult = Apollo.QueryResult<
+  Types.MessagesByConversationQuery,
+  Types.MessagesByConversationQueryVariables
+>
+export const AddMessageDocument = gql`
+  mutation addMessage($object: messages_insert_input!) {
+    insert_messages(objects: [$object]) {
+      affected_rows
+      returning {
+        id
+        text
+        createdAt
+        type
+        attachments
+        sender {
+          id
+          fullName
+        }
+        isSent
+      }
+    }
+  }
+`
+export type AddMessageMutationFn = Apollo.MutationFunction<
+  Types.AddMessageMutation,
+  Types.AddMessageMutationVariables
+>
+
+/**
+ * __useAddMessageMutation__
+ *
+ * To run a mutation, you first call `useAddMessageMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useAddMessageMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [addMessageMutation, { data, loading, error }] = useAddMessageMutation({
+ *   variables: {
+ *      object: // value for 'object'
+ *   },
+ * });
+ */
+export function useAddMessageMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    Types.AddMessageMutation,
+    Types.AddMessageMutationVariables
+  >
+) {
+  return Apollo.useMutation<
+    Types.AddMessageMutation,
+    Types.AddMessageMutationVariables
+  >(AddMessageDocument, baseOptions)
+}
+export type AddMessageMutationHookResult = ReturnType<
+  typeof useAddMessageMutation
+>
+export type AddMessageMutationResult = Apollo.MutationResult<Types.AddMessageMutation>
+export type AddMessageMutationOptions = Apollo.BaseMutationOptions<
+  Types.AddMessageMutation,
+  Types.AddMessageMutationVariables
+>
+export const LastMessageDocument = gql`
+  subscription lastMessage($id: uuid) {
+    messages(
+      where: { conv_id: { _eq: $id } }
+      limit: 1
+      order_by: { createdAt: desc }
+    ) {
+      id
+      text
+      createdAt
+      type
+      attachments
+      sender {
+        id
+        fullName
+      }
+      isSent
+    }
+  }
+`
+
+/**
+ * __useLastMessageSubscription__
+ *
+ * To run a query within a React component, call `useLastMessageSubscription` and pass it any options that fit your needs.
+ * When your component renders, `useLastMessageSubscription` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the subscription, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useLastMessageSubscription({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useLastMessageSubscription(
+  baseOptions?: Apollo.SubscriptionHookOptions<
+    Types.LastMessageSubscription,
+    Types.LastMessageSubscriptionVariables
+  >
+) {
+  return Apollo.useSubscription<
+    Types.LastMessageSubscription,
+    Types.LastMessageSubscriptionVariables
+  >(LastMessageDocument, baseOptions)
+}
+export type LastMessageSubscriptionHookResult = ReturnType<
+  typeof useLastMessageSubscription
+>
+export type LastMessageSubscriptionResult = Apollo.SubscriptionResult<Types.LastMessageSubscription>
+export const NewOrGetIdConversationDocument = gql`
+  mutation newOrGetIdConversation($object: conversations_insert_input!) {
+    insert_conversations(
+      objects: [$object]
+      on_conflict: {
+        constraint: conversations_participants_key
+        update_columns: [updatedAt]
+      }
+    ) {
+      affected_rows
+      returning {
+        id
+      }
+    }
+  }
+`
+export type NewOrGetIdConversationMutationFn = Apollo.MutationFunction<
+  Types.NewOrGetIdConversationMutation,
+  Types.NewOrGetIdConversationMutationVariables
+>
+
+/**
+ * __useNewOrGetIdConversationMutation__
+ *
+ * To run a mutation, you first call `useNewOrGetIdConversationMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useNewOrGetIdConversationMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [newOrGetIdConversationMutation, { data, loading, error }] = useNewOrGetIdConversationMutation({
+ *   variables: {
+ *      object: // value for 'object'
+ *   },
+ * });
+ */
+export function useNewOrGetIdConversationMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    Types.NewOrGetIdConversationMutation,
+    Types.NewOrGetIdConversationMutationVariables
+  >
+) {
+  return Apollo.useMutation<
+    Types.NewOrGetIdConversationMutation,
+    Types.NewOrGetIdConversationMutationVariables
+  >(NewOrGetIdConversationDocument, baseOptions)
+}
+export type NewOrGetIdConversationMutationHookResult = ReturnType<
+  typeof useNewOrGetIdConversationMutation
+>
+export type NewOrGetIdConversationMutationResult = Apollo.MutationResult<Types.NewOrGetIdConversationMutation>
+export type NewOrGetIdConversationMutationOptions = Apollo.BaseMutationOptions<
+  Types.NewOrGetIdConversationMutation,
+  Types.NewOrGetIdConversationMutationVariables
+>
 export const GetUsersDocument = gql`
   query getUsers {
     users(where: { is_delete: { _is_null: false } }) {
@@ -755,4 +987,123 @@ export type AddUserMutationResult = Apollo.MutationResult<Types.AddUserMutation>
 export type AddUserMutationOptions = Apollo.BaseMutationOptions<
   Types.AddUserMutation,
   Types.AddUserMutationVariables
+>
+export const MembersChatInfoByIdsDocument = gql`
+  query membersChatInfoByIds($userId1: uuid!, $userId2: uuid!) {
+    users(where: { id: { _in: [$userId1, $userId2] } }) {
+      email
+      id
+      fullName
+      roles
+    }
+  }
+`
+
+/**
+ * __useMembersChatInfoByIdsQuery__
+ *
+ * To run a query within a React component, call `useMembersChatInfoByIdsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useMembersChatInfoByIdsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useMembersChatInfoByIdsQuery({
+ *   variables: {
+ *      userId1: // value for 'userId1'
+ *      userId2: // value for 'userId2'
+ *   },
+ * });
+ */
+export function useMembersChatInfoByIdsQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    Types.MembersChatInfoByIdsQuery,
+    Types.MembersChatInfoByIdsQueryVariables
+  >
+) {
+  return Apollo.useQuery<
+    Types.MembersChatInfoByIdsQuery,
+    Types.MembersChatInfoByIdsQueryVariables
+  >(MembersChatInfoByIdsDocument, baseOptions)
+}
+export function useMembersChatInfoByIdsLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    Types.MembersChatInfoByIdsQuery,
+    Types.MembersChatInfoByIdsQueryVariables
+  >
+) {
+  return Apollo.useLazyQuery<
+    Types.MembersChatInfoByIdsQuery,
+    Types.MembersChatInfoByIdsQueryVariables
+  >(MembersChatInfoByIdsDocument, baseOptions)
+}
+export type MembersChatInfoByIdsQueryHookResult = ReturnType<
+  typeof useMembersChatInfoByIdsQuery
+>
+export type MembersChatInfoByIdsLazyQueryHookResult = ReturnType<
+  typeof useMembersChatInfoByIdsLazyQuery
+>
+export type MembersChatInfoByIdsQueryResult = Apollo.QueryResult<
+  Types.MembersChatInfoByIdsQuery,
+  Types.MembersChatInfoByIdsQueryVariables
+>
+export const ChatByFacultyDocument = gql`
+  query chatByFaculty($where: users_bool_exp!) {
+    users(where: $where) {
+      email
+      id
+      fullName
+      roles
+    }
+  }
+`
+
+/**
+ * __useChatByFacultyQuery__
+ *
+ * To run a query within a React component, call `useChatByFacultyQuery` and pass it any options that fit your needs.
+ * When your component renders, `useChatByFacultyQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useChatByFacultyQuery({
+ *   variables: {
+ *      where: // value for 'where'
+ *   },
+ * });
+ */
+export function useChatByFacultyQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    Types.ChatByFacultyQuery,
+    Types.ChatByFacultyQueryVariables
+  >
+) {
+  return Apollo.useQuery<
+    Types.ChatByFacultyQuery,
+    Types.ChatByFacultyQueryVariables
+  >(ChatByFacultyDocument, baseOptions)
+}
+export function useChatByFacultyLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    Types.ChatByFacultyQuery,
+    Types.ChatByFacultyQueryVariables
+  >
+) {
+  return Apollo.useLazyQuery<
+    Types.ChatByFacultyQuery,
+    Types.ChatByFacultyQueryVariables
+  >(ChatByFacultyDocument, baseOptions)
+}
+export type ChatByFacultyQueryHookResult = ReturnType<
+  typeof useChatByFacultyQuery
+>
+export type ChatByFacultyLazyQueryHookResult = ReturnType<
+  typeof useChatByFacultyLazyQuery
+>
+export type ChatByFacultyQueryResult = Apollo.QueryResult<
+  Types.ChatByFacultyQuery,
+  Types.ChatByFacultyQueryVariables
 >
