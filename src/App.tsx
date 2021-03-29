@@ -150,7 +150,7 @@ function App() {
                   <Route path="/" element={<ChartPage />} />
                   <Route path="/magazines" element={<MagazinesListPage />} />
 
-                  <Route path="/contribute/:idMgz/:mgzTitle" element={<ContributionTable />} />
+                  <Route path="/contribute/:idMgz/:mgzTitle" element={<ContributionList />} />
                   <Route path="chat" element={<ChatPage />}>
                     <Route path="p/:id" element={<ChatDMPage />} /> 
                   </Route>

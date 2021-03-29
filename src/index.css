@@ -75,3 +75,8 @@ code {
   align-items: center;
 }
 
+.tnc:hover {
+  cursor: pointer;
+  text-decoration: underline;
+  color: #6EC267;
+}
