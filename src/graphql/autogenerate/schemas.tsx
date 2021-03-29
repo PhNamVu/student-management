@@ -3054,6 +3054,10 @@ export type Query_Root = {
   users_aggregate: Users_Aggregate
   /** fetch data from the table: "users" using primary key columns */
   users_by_pk?: Maybe<Users>
+  /** fetch data from the table: "view_contributions_facultys" */
+  view_contributions_facultys: Array<View_Contributions_Facultys>
+  /** fetch aggregated fields from the table: "view_contributions_facultys" */
+  view_contributions_facultys_aggregate: View_Contributions_Facultys_Aggregate
 }
 
 export type Query_RootCommentsArgs = {
@@ -3272,6 +3276,22 @@ export type Query_RootUsers_By_PkArgs = {
   id: Scalars['uuid']
 }
 
+export type Query_RootView_Contributions_FacultysArgs = {
+  distinct_on?: Maybe<Array<View_Contributions_Facultys_Select_Column>>
+  limit?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+  order_by?: Maybe<Array<View_Contributions_Facultys_Order_By>>
+  where?: Maybe<View_Contributions_Facultys_Bool_Exp>
+}
+
+export type Query_RootView_Contributions_Facultys_AggregateArgs = {
+  distinct_on?: Maybe<Array<View_Contributions_Facultys_Select_Column>>
+  limit?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+  order_by?: Maybe<Array<View_Contributions_Facultys_Order_By>>
+  where?: Maybe<View_Contributions_Facultys_Bool_Exp>
+}
+
 export type Subscription_Root = {
   __typename?: 'subscription_root'
   /** An array relationship */
@@ -3338,6 +3358,10 @@ export type Subscription_Root = {
   users_aggregate: Users_Aggregate
   /** fetch data from the table: "users" using primary key columns */
   users_by_pk?: Maybe<Users>
+  /** fetch data from the table: "view_contributions_facultys" */
+  view_contributions_facultys: Array<View_Contributions_Facultys>
+  /** fetch aggregated fields from the table: "view_contributions_facultys" */
+  view_contributions_facultys_aggregate: View_Contributions_Facultys_Aggregate
 }
 
 export type Subscription_RootCommentsArgs = {
@@ -3554,6 +3578,22 @@ export type Subscription_RootUsers_AggregateArgs = {
 
 export type Subscription_RootUsers_By_PkArgs = {
   id: Scalars['uuid']
+}
+
+export type Subscription_RootView_Contributions_FacultysArgs = {
+  distinct_on?: Maybe<Array<View_Contributions_Facultys_Select_Column>>
+  limit?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+  order_by?: Maybe<Array<View_Contributions_Facultys_Order_By>>
+  where?: Maybe<View_Contributions_Facultys_Bool_Exp>
+}
+
+export type Subscription_RootView_Contributions_Facultys_AggregateArgs = {
+  distinct_on?: Maybe<Array<View_Contributions_Facultys_Select_Column>>
+  limit?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+  order_by?: Maybe<Array<View_Contributions_Facultys_Order_By>>
+  where?: Maybe<View_Contributions_Facultys_Bool_Exp>
 }
 
 /** Boolean expression to compare columns of type "timestamp". All fields are combined with logical 'AND'. */
@@ -3931,4 +3971,132 @@ export type Uuid_Comparison_Exp = {
   _lte?: Maybe<Scalars['uuid']>
   _neq?: Maybe<Scalars['uuid']>
   _nin?: Maybe<Array<Scalars['uuid']>>
+}
+
+/** columns and relationships of "view_contributions_facultys" */
+export type View_Contributions_Facultys = {
+  __typename?: 'view_contributions_facultys'
+  count?: Maybe<Scalars['bigint']>
+  id?: Maybe<Scalars['String']>
+  label?: Maybe<Scalars['String']>
+}
+
+/** aggregated selection of "view_contributions_facultys" */
+export type View_Contributions_Facultys_Aggregate = {
+  __typename?: 'view_contributions_facultys_aggregate'
+  aggregate?: Maybe<View_Contributions_Facultys_Aggregate_Fields>
+  nodes: Array<View_Contributions_Facultys>
+}
+
+/** aggregate fields of "view_contributions_facultys" */
+export type View_Contributions_Facultys_Aggregate_Fields = {
+  __typename?: 'view_contributions_facultys_aggregate_fields'
+  avg?: Maybe<View_Contributions_Facultys_Avg_Fields>
+  count: Scalars['Int']
+  max?: Maybe<View_Contributions_Facultys_Max_Fields>
+  min?: Maybe<View_Contributions_Facultys_Min_Fields>
+  stddev?: Maybe<View_Contributions_Facultys_Stddev_Fields>
+  stddev_pop?: Maybe<View_Contributions_Facultys_Stddev_Pop_Fields>
+  stddev_samp?: Maybe<View_Contributions_Facultys_Stddev_Samp_Fields>
+  sum?: Maybe<View_Contributions_Facultys_Sum_Fields>
+  var_pop?: Maybe<View_Contributions_Facultys_Var_Pop_Fields>
+  var_samp?: Maybe<View_Contributions_Facultys_Var_Samp_Fields>
+  variance?: Maybe<View_Contributions_Facultys_Variance_Fields>
+}
+
+/** aggregate fields of "view_contributions_facultys" */
+export type View_Contributions_Facultys_Aggregate_FieldsCountArgs = {
+  columns?: Maybe<Array<View_Contributions_Facultys_Select_Column>>
+  distinct?: Maybe<Scalars['Boolean']>
+}
+
+/** aggregate avg on columns */
+export type View_Contributions_Facultys_Avg_Fields = {
+  __typename?: 'view_contributions_facultys_avg_fields'
+  count?: Maybe<Scalars['Float']>
+}
+
+/** Boolean expression to filter rows from the table "view_contributions_facultys". All fields are combined with a logical 'AND'. */
+export type View_Contributions_Facultys_Bool_Exp = {
+  _and?: Maybe<Array<View_Contributions_Facultys_Bool_Exp>>
+  _not?: Maybe<View_Contributions_Facultys_Bool_Exp>
+  _or?: Maybe<Array<View_Contributions_Facultys_Bool_Exp>>
+  count?: Maybe<Bigint_Comparison_Exp>
+  id?: Maybe<String_Comparison_Exp>
+  label?: Maybe<String_Comparison_Exp>
+}
+
+/** aggregate max on columns */
+export type View_Contributions_Facultys_Max_Fields = {
+  __typename?: 'view_contributions_facultys_max_fields'
+  count?: Maybe<Scalars['bigint']>
+  id?: Maybe<Scalars['String']>
+  label?: Maybe<Scalars['String']>
+}
+
+/** aggregate min on columns */
+export type View_Contributions_Facultys_Min_Fields = {
+  __typename?: 'view_contributions_facultys_min_fields'
+  count?: Maybe<Scalars['bigint']>
+  id?: Maybe<Scalars['String']>
+  label?: Maybe<Scalars['String']>
+}
+
+/** Ordering options when selecting data from "view_contributions_facultys". */
+export type View_Contributions_Facultys_Order_By = {
+  count?: Maybe<Order_By>
+  id?: Maybe<Order_By>
+  label?: Maybe<Order_By>
+}
+
+/** select columns of table "view_contributions_facultys" */
+export enum View_Contributions_Facultys_Select_Column {
+  /** column name */
+  Count = 'count',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  Label = 'label',
+}
+
+/** aggregate stddev on columns */
+export type View_Contributions_Facultys_Stddev_Fields = {
+  __typename?: 'view_contributions_facultys_stddev_fields'
+  count?: Maybe<Scalars['Float']>
+}
+
+/** aggregate stddev_pop on columns */
+export type View_Contributions_Facultys_Stddev_Pop_Fields = {
+  __typename?: 'view_contributions_facultys_stddev_pop_fields'
+  count?: Maybe<Scalars['Float']>
+}
+
+/** aggregate stddev_samp on columns */
+export type View_Contributions_Facultys_Stddev_Samp_Fields = {
+  __typename?: 'view_contributions_facultys_stddev_samp_fields'
+  count?: Maybe<Scalars['Float']>
+}
+
+/** aggregate sum on columns */
+export type View_Contributions_Facultys_Sum_Fields = {
+  __typename?: 'view_contributions_facultys_sum_fields'
+  count?: Maybe<Scalars['bigint']>
+}
+
+/** aggregate var_pop on columns */
+export type View_Contributions_Facultys_Var_Pop_Fields = {
+  __typename?: 'view_contributions_facultys_var_pop_fields'
+  count?: Maybe<Scalars['Float']>
+}
+
+/** aggregate var_samp on columns */
+export type View_Contributions_Facultys_Var_Samp_Fields = {
+  __typename?: 'view_contributions_facultys_var_samp_fields'
+  count?: Maybe<Scalars['Float']>
+}
+
+/** aggregate variance on columns */
+export type View_Contributions_Facultys_Variance_Fields = {
+  __typename?: 'view_contributions_facultys_variance_fields'
+  count?: Maybe<Scalars['Float']>
 }

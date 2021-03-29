@@ -266,6 +266,17 @@ export type NewOrGetIdConversationMutation = {
   >
 }
 
+export type StatisticChartQueryVariables = Types.Exact<{ [key: string]: never }>
+
+export type StatisticChartQuery = { __typename?: 'query_root' } & {
+  view_contributions_facultys: Array<
+    { __typename?: 'view_contributions_facultys' } & Pick<
+      Types.View_Contributions_Facultys,
+      'id' | 'label' | 'count'
+    >
+  >
+}
+
 export type GetUsersQueryVariables = Types.Exact<{ [key: string]: never }>
 
 export type GetUsersQuery = { __typename?: 'query_root' } & {

@@ -879,6 +879,63 @@ export type NewOrGetIdConversationMutationOptions = Apollo.BaseMutationOptions<
   Types.NewOrGetIdConversationMutation,
   Types.NewOrGetIdConversationMutationVariables
 >
+export const StatisticChartDocument = gql`
+  query statisticChart {
+    view_contributions_facultys {
+      id
+      label
+      count
+    }
+  }
+`
+
+/**
+ * __useStatisticChartQuery__
+ *
+ * To run a query within a React component, call `useStatisticChartQuery` and pass it any options that fit your needs.
+ * When your component renders, `useStatisticChartQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useStatisticChartQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useStatisticChartQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    Types.StatisticChartQuery,
+    Types.StatisticChartQueryVariables
+  >
+) {
+  return Apollo.useQuery<
+    Types.StatisticChartQuery,
+    Types.StatisticChartQueryVariables
+  >(StatisticChartDocument, baseOptions)
+}
+export function useStatisticChartLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    Types.StatisticChartQuery,
+    Types.StatisticChartQueryVariables
+  >
+) {
+  return Apollo.useLazyQuery<
+    Types.StatisticChartQuery,
+    Types.StatisticChartQueryVariables
+  >(StatisticChartDocument, baseOptions)
+}
+export type StatisticChartQueryHookResult = ReturnType<
+  typeof useStatisticChartQuery
+>
+export type StatisticChartLazyQueryHookResult = ReturnType<
+  typeof useStatisticChartLazyQuery
+>
+export type StatisticChartQueryResult = Apollo.QueryResult<
+  Types.StatisticChartQuery,
+  Types.StatisticChartQueryVariables
+>
 export const GetUsersDocument = gql`
   query getUsers {
     users(where: { is_delete: { _is_null: false } }) {
