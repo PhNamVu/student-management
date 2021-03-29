@@ -165,8 +165,7 @@ export default function ContributionsPage(){
     const isSelected = (name: string) => selected.indexOf(name) !== -1;
 
     // Get data from DB
-    const { data, loading, error } = useGetContributeQuery({
-
+    const { data, loading, error } = useGetContributeByConditionsQuery({
         fetchPolicy: 'network-only',
         variables: { 
             where: {
@@ -292,4 +291,3 @@ export default function ContributionsPage(){
         </Container>
     )
 }
-
