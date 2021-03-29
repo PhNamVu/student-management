@@ -5,6 +5,13 @@ export const downloadMultiFiles = (arr: any, zipFileName: string) => {
   const zip = new JSZip()
   let count = 0
 
+
+  urls.forEach(async (item: any) => {
+    const data = await fetch(item.url).then((r) => r.blob())
+    try {
+      zip.file(item.name, data, { binary: true })
+      count++
+      if (count === urls.length)
   arr.forEach((subArr: any) => {
     const folder = zip.folder(subArr.name)
     subArr.info.forEach( async (el: any) => {
@@ -15,6 +22,7 @@ export const downloadMultiFiles = (arr: any, zipFileName: string) => {
     })
     count++
       if (count === arr.length) {
+
         zip.generateAsync({ type: 'blob' }).then((content) => {
           FileSaver.saveAs(content, zipFileName)
         })
