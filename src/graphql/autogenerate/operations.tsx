@@ -27,43 +27,6 @@ export type GetCommentQuery = { __typename?: 'query_root' } & {
   >
 }
 
-export type GetContributeQueryVariables = Types.Exact<{
-  idMgz?: Types.Maybe<Types.Scalars['uuid']>
-}>
-
-export type GetContributeQuery = { __typename?: 'query_root' } & {
-  contributions: Array<
-    { __typename?: 'contributions' } & Pick<
-      Types.Contributions,
-      | 'title'
-      | 'id'
-      | 'isSelected'
-      | 'artical'
-      | 'image'
-      | 'deleted'
-      | 'createdAt'
-      | 'updatedAt'
-    > & {
-        magazine?: Types.Maybe<
-          { __typename?: 'magazines' } & Pick<Types.Magazines, 'label'>
-        >
-        user?: Types.Maybe<
-          { __typename?: 'users' } & Pick<Types.Users, 'fullName'> & {
-              faculty?: Types.Maybe<
-                { __typename?: 'facultys' } & Pick<Types.Facultys, 'label'>
-              >
-            }
-        >
-        userByPublicBy?: Types.Maybe<
-          { __typename?: 'users' } & Pick<Types.Users, 'fullName'>
-        >
-        faculty?: Types.Maybe<
-          { __typename?: 'facultys' } & Pick<Types.Facultys, 'label'>
-        >
-      }
-  >
-}
-
 export type GetContributeByConditionsQueryVariables = Types.Exact<{
   where?: Types.Maybe<Types.Contributions_Bool_Exp>
 }>
