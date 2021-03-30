@@ -15,7 +15,7 @@ function isDuplicateDocument(newDocument: any, existingDocuments: any) {
   )
 }
 
-const MessagesList: React.FC<{ numMsgCount: any; id: string }> = ({
+const MessagesList: React.FC<{ numMsgCount: any; id: string}> = ({
   numMsgCount,
   id,
 } : any ) => {
@@ -38,7 +38,7 @@ const MessagesList: React.FC<{ numMsgCount: any; id: string }> = ({
     variables: {
       id,
       offset: numMsgCount < 51 ? 0 : numMsgCount - 50,
-      orderBy: [{ createdAt: 'desc' }] as any,
+      orderBy: [{ createdAt: 'asc' }] as any,
     },
   })
   console.log('conv_id', id, data, numMsgCount )
