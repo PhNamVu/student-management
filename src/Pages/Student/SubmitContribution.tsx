@@ -225,48 +225,15 @@ export default function SubmitContributionPage() {
             </div>}
             <Modal onClose={close} isOpen={isOpen} 
             closeable={false}
-            overrides={{
-              Dialog: {
-                style: {
-                  width: '60vw',
-                  height: '60vh',
-                  display: 'flex',
-                  flexDirection: 'column',
-                },
-              },
-            }}>
+            size="auto"
+            >              
               <ModalHeader>Terms and Conditions</ModalHeader>
               <ModalBody>
-              <p>1.Introduction</p>
-              <p>
               These Terms will be applied fully and affect your use 
               of this system. By tick the checkbox, you agreed to accept
               all terms and conditions written here. You must not
               submit your contributions if you disagree with any of 
               these Website Standard Terms and Conditions.
-              </p>
-              <p>2.Your OWN Content</p>
-              <p>
-              Plagiarism is presenting somebody else work as your own.
-              It includes: copying information directly from the Web or
-              books without referencing the material; submitting joint 
-              coursework as an individual effort; copying another student 
-              coursework; stealing coursework from another student and 
-              submitting it as your own work.  Suspected plagiarism will be 
-              investigated and if found to have occurred will be dealt with 
-              according to the procedures set down by the University. 
-              Any attempt to bypass our plagiarism detection systems 
-              will be treated as a severe Assessment Offence.
-              </p>
-              <p>3.Privacy Policy</p>
-              <p>
-              In order to operate and provide the Services, we collect certain 
-              information about you. We use and protect that information as 
-              described in our Privacy Policy.  You acknowledge your use of 
-              the Services is subject to our Privacy Policy and understand 
-              that it identifies how the system collects, stores, and uses 
-              certain information.
-              </p>
               </ModalBody>
               <ModalFooter>
                 <PrimaryButton onClick={close} type="button">Okay</PrimaryButton>

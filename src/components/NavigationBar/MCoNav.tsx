@@ -33,9 +33,6 @@ export const McoNav = () => {
                   <Link to="/contribution">Contribution</Link>
                 </NavItem>
                 <NavItem className="header-links btn">
-                  <Link to="/">Chart</Link>
-                </NavItem>
-                <NavItem className="header-links btn">
                   <Link to="/chat">Chat</Link>
                 </NavItem>
               </Nav>
