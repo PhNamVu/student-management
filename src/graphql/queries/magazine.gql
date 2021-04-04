@@ -1,0 +1,28 @@
+query getMagazine($where: magazines_bool_exp){
+  magazines(where: $where) {
+    id
+    label
+    closureTemp
+    closureFinal
+    createdAt
+  }
+}
+
+mutation addMagazine($object: magazines_insert_input!) {
+  insert_magazines(objects: [$object]) {
+    affected_rows
+    returning {
+      id
+    }
+  }
+}
+
+mutation editMagazine($id: uuid, $object: magazines_set_input!) {
+  update_magazines(where: { id: { _eq: $id } }, _set: $object)
+  {
+    affected_rows
+    returning {
+      id
+    }
+  }
+}

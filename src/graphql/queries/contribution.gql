@@ -1,0 +1,58 @@
+query getContributeByConditions($where: contributions_bool_exp) {
+    contributions(where: $where) {
+      title
+      magazine {
+        label
+      }
+      id
+      user {
+        faculty {
+          label
+        }
+      }
+      userByPublicBy {
+        fullName
+      }
+      isSelected
+      faculty {
+        label
+      }
+      artical
+      image
+      updatedAt
+    }
+  }
+
+query getContribution($id: uuid){
+  contributions(where: {id: {_eq: $id}}){
+    title
+    artical
+    image
+    magazine {
+      id
+      closureTemp
+      closureFinal
+    }
+  }
+}
+
+mutation addContribution($object: contributions_insert_input!) {
+  insert_contributions(objects: [$object]) {
+    affected_rows
+    returning {
+      id
+    }
+  }
+}
+
+mutation updateContribution($id: uuid, $object: contributions_set_input!) {
+  update_contributions(where: { id: {_eq: $id } }, _set: $object) {
+    affected_rows
+    returning {
+      id
+    }
+  }
+}
+
+
+
