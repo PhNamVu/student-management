@@ -231,7 +231,7 @@ export default function SubmitContributionPage() {
               <ModalBody>
               These Terms will be applied fully and affect your use 
               of this system. By tick the checkbox, you agreed to accept
-              all terms and conditions written here. You must not
+              all terms and conditions written here. You can not
               submit your contributions if you disagree with any of 
               these Website Standard Terms and Conditions.
               </ModalBody>
