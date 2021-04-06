@@ -1,14 +1,16 @@
+/* eslint-disable prefer-const */
 import React from 'react'
-import { useGetContributeByConditionsQuery } from '../graphql/autogenerate/hooks'
+import { useGetContributeByConditionsQuery } from '../../graphql/autogenerate/hooks'
 import { Container, Table } from 'reactstrap'
 import { useParams } from 'react-router-dom'
+import { useNavigate } from "react-router-dom";
 import clsx from "clsx"
 import { createStyles, lighten, makeStyles, Theme } from "@material-ui/core/styles";
 import { TableBody, TableHead, TableRow, TableCell, Checkbox, TableContainer, Typography, Toolbar, Tooltip, TablePagination, CircularProgress, Backdrop  } from "@material-ui/core"
 import IconButton from "@material-ui/core/IconButton"
 import GetAppIcon from '@material-ui/icons/GetApp'
-import { downloadMultiFiles } from '../helper/download-multi-file'
-import { consoleTestResultsHandler } from 'tslint/lib/test'
+import { downloadMultiFiles } from '../../helper/download-multi-file'
+import { useAuth } from '../../hooks/use-auth'
 
 
 //Define for the header row
@@ -19,7 +21,7 @@ interface HeadCell {
 const headCells: HeadCell[] = [
     { id: "title", label: "Title" },
     { id: "author", label: "Author" },
-    { id: "faculty", label: "Faculty" },
+    { id: "magazine", label: "Magazine Title" },
     { id: "status", label: "Status" },
     { id: "selected_by", label: "Update Status by" }
 ];
@@ -125,7 +127,7 @@ interface Data {
     id: string;
     title: string;
     author: string;
-    faculty: string;
+    magazine: string;
     status: string;
     selected_by: string;
 }
@@ -133,11 +135,11 @@ function createData(
     id: string,
     title: string,
     author: string,
-    faculty: string,
+    magazine: string,
     status: string,
     selected_by: string,
 ): Data {
-    return { id, title, author, faculty, status, selected_by };
+    return { id, title, author, magazine, status, selected_by };
 }
 
 const checkStatus = {
@@ -180,14 +182,25 @@ export default function ContributionsPage(){
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
     const isSelected = (name: string) => selected.indexOf(name) !== -1;
 
+    const { state }: any = useAuth()
+    const facultyId : any=
+        state.customClaims.claims['https://hasura.io/jwt/claims'][
+            'x-hasura-faculty-id'
+    ]
+   
+    const navigate = useNavigate();
+    const handleOpenContribution = (contributionId:string) => {
+        navigate(`/contribution/${contributionId}/edit`)
+    }
+
     // Get data from DB
     const { data, loading, error } = useGetContributeByConditionsQuery({
         fetchPolicy: 'network-only',
         variables: { 
             where: {
-                magazine: {
+                faculty: {
                     id: {
-                        _eq: params.idMgz
+                        _eq: facultyId
                     }
                 }
             }
@@ -199,9 +212,9 @@ export default function ContributionsPage(){
         </Backdrop>
     )
     if (error) return <div> Error at Magazines component {console.log(error)}</div>
-    const dataDetail = data && data.contributions
+    const dataDetail = data && data?.contributions || []
     const rows: any = dataDetail?.map((el:any) => {
-        return createData(el.id, el.title, el.user?.fullName, el.user?.faculty?.label, el.isSelected, el.userByPublicBy?.fullName)
+        return createData(el.id, el.title, el.user?.fullName, el.magazine?.label, el.isSelected, el.userByPublicBy?.fullName)
     })
 
     // handle 'select all' button
@@ -241,16 +254,16 @@ export default function ContributionsPage(){
     }
     const getZipFile = async () => {
         const fileInfo = await dataDetail?.map((el:any) => {
-            if(selected.indexOf(el.id) > -1) return {info: el.artical.concat(el.image), name: el.title}
+            let fileArr = el.artical.concat(el.image)
+            if(selected.indexOf(el.id) > -1) return {info: fileArr, name: el.title}
         })
         console.log('fileInfo', fileInfo)
-        downloadMultiFiles(fileInfo, params.mgzTitle)
-        console.log(fileInfo)
+        downloadMultiFiles(fileInfo, dataDetail[0].faculty?.label || 'Contributions')
     }
-    console.log(selected);
+
     return (
         <Container>
-            <h2 style={{ padding: "20px 0 0 0", clear: 'both' }}>Contribution of {params.mgzTitle}</h2>
+            <h2 style={{ padding: "20px 0 0 0", clear: 'both' }}>Contribution of {dataDetail[0].faculty?.label} faculty</h2>
             <div className={customStyle.root}>
                 <CustomTableHeaderToolbar numSelected={selected.length} setActivity={getZipFile} />
                 <TableContainer>
@@ -280,15 +293,15 @@ export default function ContributionsPage(){
                                         onClick={(event) => handleClick(event, row.id)}
                                     >
                                         <TableCell padding='checkbox' style={{padding:'0'}}>
-                                            <Checkbox checked={isItemSelected} inputProps={{ "aria-labelledby": labelId }} />
+                                            <Checkbox checked={isItemSelected} inputProps={{ "aria-labelledby": labelId }} onClick={(event) => handleClick(event, row.title)} />
                                         </TableCell>
-                                        <TableCell component="th" id={labelId} scope="row">
+                                        <TableCell component="th" id={labelId} scope="row" onClick={() => handleOpenContribution(row.id)}>
                                             {row.title}
                                         </TableCell>
-                                        <TableCell align="left">{row.author}</TableCell>
-                                        <TableCell align="left">{row.faculty}</TableCell>
-                                        <TableCell align="left" style={checkStatus.style(row.status)}>{checkStatus.label(row.status)}</TableCell>
-                                        <TableCell align="left">{row.selected_by}</TableCell>
+                                        <TableCell align="left" onClick={() => handleOpenContribution(row.id)}>{row.author}</TableCell>
+                                        <TableCell align="left" onClick={() => handleOpenContribution(row.id)}>{row.magazine}</TableCell>
+                                        <TableCell align="left" onClick={() => handleOpenContribution(row.id)} style={checkStatus.style(row.status)}>{checkStatus.label(row.status)}</TableCell>
+                                        <TableCell align="left" onClick={() => handleOpenContribution(row.id)}>{row.selected_by}</TableCell>
                                     </TableRow>
                                 )
                             }): null}

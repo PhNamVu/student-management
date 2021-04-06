@@ -16,6 +16,8 @@ import SubmitContributePage from './Pages/Student/SubmitContribution'
 import ContributionList from './Pages/ContributionListGeneral'
 import StudentContributionsList from './Pages/Student/ContributionsList'
 import GuestContributionsList from './Pages/Guest/ContributionsList'
+import MCoContributionListFaculty from './Pages/MCo/ContributionListFalculty'
+import ViewContribution from './Pages/Student/EditContribute'
 
 import UserList from './Pages/Admin/UsersList'
 import ChartPage from './Pages/Chart'
@@ -149,7 +151,8 @@ function App() {
 
                   <Route path="/" element={<ChartPage />} />
                   <Route path="/magazines" element={<MagazinesListPage />} />
-
+                  <Route path="/contributes" element={<MCoContributionListFaculty />} />
+                  <Route path="/contribution/:id/edit" element={<ViewContribution />} />
                   <Route path="/contribute/:idMgz/:mgzTitle" element={<ContributionList />} />
                   <Route path="chat" element={<ChatPage />}>
                     <Route path="p/:id" element={<ChatDMPage />} /> 

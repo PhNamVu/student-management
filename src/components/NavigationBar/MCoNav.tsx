@@ -30,7 +30,7 @@ export const McoNav = () => {
                   <Link to="/magazines">Magazine</Link>
                 </NavItem>
                 <NavItem className="header-links btn">
-                  <Link to="/contribution">Contribution</Link>
+                  <Link to="/contributes">Contribution</Link>
                 </NavItem>
                 <NavItem className="header-links btn">
                   <Link to="/chat">Chat</Link>

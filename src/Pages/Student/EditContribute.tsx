@@ -1,25 +1,33 @@
 import React, { useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import { Container, Form, FormGroup, Label, Col, Input, Row } from 'reactstrap'
+import { Container, Form, FormGroup, Label, Col, Input, Row, Button } from 'reactstrap'
 import Comment from '../../components/Comment'
 import 'semantic-ui-css/semantic.min.css'
 
-import { useGetContributionQuery, useUpdateContributionMutation } from '../../graphql/autogenerate/hooks'
+import { useGetContributionQuery, useUpdateContributionMutation, useUpdateStatusMutation, GetContributionDocument } from '../../graphql/autogenerate/hooks'
 import { StyledSpinnerNext } from 'baseui/spinner'
 import { toaster } from 'baseui/toast'
 import { Uploader } from '../../components/Uploader'
 import PrimaryButton from '../../components/shared/button/PrimaryBtn'
 import { isBefore } from 'date-fns'
+import { useAuth } from '../../hooks/use-auth'
 
 
 
 export default function EditContributePage() {
     const navigate = useNavigate()
-   
     const [title, setTitle] = useState('')
     const [artical, setArtical] = useState([])
     const [image, setImage] = useState([])
     const {id} = useParams()
+
+    const { state }: any = useAuth()
+    const userRole : any= state.customClaims.claims['https://hasura.io/jwt/claims'][
+        'x-hasura-default-role'
+    ]
+    const userId: any = state.customClaims.claims['https://hasura.io/jwt/claims'][
+      'x-hasura-user-id'
+    ]
 
     const { data, loading, error } = useGetContributionQuery({
         variables: {
@@ -28,11 +36,11 @@ export default function EditContributePage() {
     })
     const contribution = data && data.contributions[0]
     const [updateContribution] = useUpdateContributionMutation()
+    const [updateStatus] = useUpdateStatusMutation()
 
     const submitHandler = async (e: any) => {
         e.preventDefault()
         try {
-                    
             await updateContribution({
             variables: {
                 id,
@@ -57,6 +65,7 @@ export default function EditContributePage() {
         }
 
     if(loading) {
+        console.log('load')
         return <StyledSpinnerNext/>
     }
 
@@ -64,10 +73,60 @@ export default function EditContributePage() {
         return <div>Error at EditContributePage</div>
     }
     
-    
+    const handleState = async (e: any, state: any) => {
+        e.preventDefault()
+        try {
+            updateStatus({
+                variables: {
+                    id: id,
+                    object: {
+                        isSelected: state,
+                        public_by: userId,
+                        updatedAt: new Date().toISOString
+                    }
+                },
+                refetchQueries: [
+                    {  query: GetContributionDocument,
+                        variables: {
+                            id,
+                        },
+                    }
+                  ]
+            })
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+
     return (
         <Container>
-            <h2 style={{ padding: "20px 0", clear: 'both' }}>Edit Contribution</h2>
+            <h2 style={{ padding: "20px 0", clear: 'both' }}>Contribution {contribution?.title}</h2>
+            {(userRole == 'coordinator' && contribution?.isSelected == null)?
+            <Row className='mb-4'>
+                <Col sm='1'>
+                    <Button style={{ backgroundColor: '#00CA39', borderColor: '#00CA39' }} onClick={(e) => handleState(e, true)}>
+                        <span>Accept</span>
+                    </Button>
+                </Col>
+                <Col sm='1' >
+                    <Button style={{ backgroundColor: '#E44067', borderColor: '#E44067' }} onClick={(e) => handleState(e, false)}>
+                        <span>Deny</span>
+                    </Button>
+                </Col>
+            </Row>: null}
+
+            {(contribution?.isSelected == true)? 
+                <Row className='mb-4 col-12'>
+                    <em style={{color:'#00CA39'}}>This contribution is <b>ACCEPTED</b> for publicising</em>
+                </Row>
+            :null}
+            {(contribution?.isSelected == false)? 
+                <Row className='mb-4 col-12'>
+                    <em style={{color:'#E44067'}}>This contribution is <b>DENIED</b> for publicising</em>
+                </Row>
+            :null}
+
             <Row>
                 <Col lg='6' sm='12'>
                     <Form onSubmit={submitHandler}>
@@ -153,6 +212,7 @@ export default function EditContributePage() {
                             </PrimaryButton>
                         </div>
                     </Form>
+                    
                 </Col>
                 <Col lg='6' sm='12'>
                     <Comment contributionId={id}/>

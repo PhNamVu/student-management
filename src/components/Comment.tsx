@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { Container } from 'reactstrap'
 import { Button, Comment, Form, Header } from 'semantic-ui-react'
 import { makeStyles, createStyles, Backdrop, CircularProgress, Theme} from '@material-ui/core';
-import { usePostCommentMutation, useGetCommentLazyQuery } from '../graphql/autogenerate/hooks'
+import { usePostCommentMutation, useGetCommentQuery, GetCommentDocument } from '../graphql/autogenerate/hooks'
 import { useAuth } from '../hooks/use-auth';
 
 const loadingStyles = makeStyles((theme: Theme) =>
@@ -27,11 +27,12 @@ export default function Comments({ contributionId }: any) {
     const changeTextComment = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
         setTextComment(event.target.value);
     }
-    const [getCommentQuery, { data, loading, error }] = useGetCommentLazyQuery({
+    const { data, loading, error } = useGetCommentQuery({
         fetchPolicy: 'network-only',
         variables: {
             contributionId: contributionId
         },
+       
     })
     const [postComment] = usePostCommentMutation({
         variables: {
@@ -40,12 +41,15 @@ export default function Comments({ contributionId }: any) {
                 content: textComment.trim(),
                 contributionId: contributionId
             },
-        }
+        },
+        refetchQueries: [
+          {  query: GetCommentDocument,
+            variables: {
+                contributionId: contributionId
+            },
+            }
+        ]
     })
-    useEffect(() => {
-        getCommentQuery()
-    })
-
     if (loading) return (
         <Backdrop className={customStyle.backdrop} open={loading}>
             <CircularProgress color="inherit"/>
@@ -60,11 +64,10 @@ export default function Comments({ contributionId }: any) {
             await postComment()
             e.preventDefault();
             setTextComment('')
-            getCommentQuery()
-            
         }
     }
 
+    console.log(commentArr)
     return (
         <Container style={{ backgroundColor: 'white' }}>
             <Comment.Group >

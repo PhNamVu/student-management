@@ -32,7 +32,8 @@ query getContribution($id: uuid){
       id
       closureTemp
       closureFinal
-    }
+    },
+    isSelected
   }
 }
 
@@ -51,6 +52,12 @@ mutation updateContribution($id: uuid, $object: contributions_set_input!) {
     returning {
       id
     }
+  }
+}
+
+mutation updateStatus($id: uuid, $object: contributions_set_input!) {
+  update_contributions(where: { id: {_eq: $id } }, _set: $object) {
+    affected_rows
   }
 }
 

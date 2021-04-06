@@ -199,6 +199,7 @@ export const GetContributionDocument = gql`
         closureTemp
         closureFinal
       }
+      isSelected
     }
   }
 `
@@ -353,6 +354,55 @@ export type UpdateContributionMutationResult = Apollo.MutationResult<Types.Updat
 export type UpdateContributionMutationOptions = Apollo.BaseMutationOptions<
   Types.UpdateContributionMutation,
   Types.UpdateContributionMutationVariables
+>
+export const UpdateStatusDocument = gql`
+  mutation updateStatus($id: uuid, $object: contributions_set_input!) {
+    update_contributions(where: { id: { _eq: $id } }, _set: $object) {
+      affected_rows
+    }
+  }
+`
+export type UpdateStatusMutationFn = Apollo.MutationFunction<
+  Types.UpdateStatusMutation,
+  Types.UpdateStatusMutationVariables
+>
+
+/**
+ * __useUpdateStatusMutation__
+ *
+ * To run a mutation, you first call `useUpdateStatusMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateStatusMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateStatusMutation, { data, loading, error }] = useUpdateStatusMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *      object: // value for 'object'
+ *   },
+ * });
+ */
+export function useUpdateStatusMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    Types.UpdateStatusMutation,
+    Types.UpdateStatusMutationVariables
+  >
+) {
+  return Apollo.useMutation<
+    Types.UpdateStatusMutation,
+    Types.UpdateStatusMutationVariables
+  >(UpdateStatusDocument, baseOptions)
+}
+export type UpdateStatusMutationHookResult = ReturnType<
+  typeof useUpdateStatusMutation
+>
+export type UpdateStatusMutationResult = Apollo.MutationResult<Types.UpdateStatusMutation>
+export type UpdateStatusMutationOptions = Apollo.BaseMutationOptions<
+  Types.UpdateStatusMutation,
+  Types.UpdateStatusMutationVariables
 >
 export const GetFacultyDocument = gql`
   query getFaculty {
