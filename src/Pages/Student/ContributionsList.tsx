@@ -1,3 +1,4 @@
+/* eslint-disable prefer-const */
 import React from 'react'
 import { useGetContributeByConditionsQuery } from '../../graphql/autogenerate/hooks'
 import { Container, Table } from 'reactstrap'
@@ -9,6 +10,7 @@ import IconButton from "@material-ui/core/IconButton";
 import GetAppIcon from '@material-ui/icons/GetApp';
 import { useNavigate } from "react-router-dom";
 import { useAuth } from '../../hooks/use-auth';
+import { downloadMultiFiles } from '../../helper/download-multi-file';
 
 //Define for the header row
 interface HeadCell {
@@ -20,7 +22,7 @@ const headCells: HeadCell[] = [
     { id: "magazine", label: "Magazine" },
     { id: "faculty", label: "Faculty" },
     { id: "status", label: "Status" },
-    { id: "selected_by", label: "Selected by" }
+    { id: "selected_by", label: "Update Status by" }
 ];
 
 //Define the table content rows
@@ -41,6 +43,21 @@ function createData(
     selected_by: string,
 ): Data {
     return { ctbId, title, magazine, faculty, status, selected_by };
+}
+
+const checkStatus = {
+    style: function(status: any) {
+        console.log('style', status)
+        if(status == true) return {color:'#00CA39'}
+        else if (status == false) return {color:'#E44067'}
+        else if (status == null) return {color:'#878787'}
+    },
+    label: function(status: any) {
+        console.log('label', status)
+        if(status == true) return 'ACCEPTED'
+        else if (status == false) return 'DENIED'
+        else if (status == null) return 'UNKNOW'
+    }
 }
 
 const useToolbarStyles = makeStyles((theme: Theme) =>
@@ -72,10 +89,11 @@ interface CustomTableHeaderProps {
 }
 interface CustomTableHeaderToolbarProps {
     numSelected: number;
+    setActivity: any
 }
 const CustomTableHeaderToolbar = (props: CustomTableHeaderToolbarProps) => {
     const classes = useToolbarStyles();
-    const { numSelected } = props;
+    const { numSelected, setActivity } = props;
 
     return (
         <Toolbar
@@ -95,7 +113,7 @@ const CustomTableHeaderToolbar = (props: CustomTableHeaderToolbarProps) => {
             ) : null}
             {numSelected > 0 ? (
                 <Tooltip title="Download">
-                    <IconButton aria-label="download">
+                    <IconButton aria-label="download" onClick={() => setActivity()} >
                         <GetAppIcon />
                     </IconButton>
                 </Tooltip>
@@ -186,7 +204,7 @@ export default function StudentContributionsList() {
         </Backdrop>
     )
     if (error) return <div> Error at StrudentContributionsList component {console.log(error)}</div>
-    const dataDetail = data && data.contributions
+    const dataDetail = data && data.contributions || []
     console.log(dataDetail);
 
     const rows: any = dataDetail?.map((el: any) => {
@@ -234,13 +252,19 @@ export default function StudentContributionsList() {
         setRowsPerPage(parseInt(event.target.value, 10));
         setPage(0);
     }
-    
+    const getZipFile = async () => {
+        const fileInfo = await dataDetail?.map((el:any) => {
+            let fileArr = el.artical.concat(el.image)
+            if(selected.indexOf(el.id) > -1) return {info: fileArr, name: el.title}
+        })
+        downloadMultiFiles(fileInfo, dataDetail[0].faculty?.label || 'Contributions')
+    }
 
     return (
         <Container>
             <h2 style={{ padding: "20px 0 0 0", clear: 'both' }}>{renderTitle()}</h2>
             <div className={customStyle.root}>
-                <CustomTableHeaderToolbar numSelected={selected.length} />
+                <CustomTableHeaderToolbar numSelected={selected.length} setActivity={getZipFile} />
                 <TableContainer>
                     <Table
                         className={customStyle.table}
@@ -275,7 +299,7 @@ export default function StudentContributionsList() {
                                         </TableCell>
                                         <TableCell align="left" onClick={() => handleOpenContribution(row.ctbId)}>{row.magazine}</TableCell>
                                         <TableCell align="left" onClick={() => handleOpenContribution(row.ctbId)}>{row.faculty}</TableCell>
-                                        <TableCell align="left" onClick={() => handleOpenContribution(row.ctbId)} style={(row.status) ? { color: '#00CA39' } : { color: '#E44067' }}>{(row.status) ? 'SELECTED' : 'UNSELECT'}</TableCell>
+                                        <TableCell align="left" onClick={() => handleOpenContribution(row.ctbId)} style={checkStatus.style(row.status)}>{checkStatus.label(row.status)}</TableCell>
                                         <TableCell align="left"onClick={() => handleOpenContribution(row.ctbId)}>{row.selected_by}</TableCell>
                                     </TableRow>
                                 )

@@ -4,7 +4,9 @@ import JSZip from 'jszip'
 export const downloadMultiFiles = (arr: any, zipFileName: string) => {
   const zip = new JSZip()
   let count = 0
-
+  arr = arr.filter(function( element:any ) {
+    return element !== undefined;
+ });
   arr.forEach((subArr: any) => {
     const folder = zip.folder(subArr.name)
     subArr.info.forEach( async (el: any) => {

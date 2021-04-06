@@ -20,7 +20,7 @@ const headCells: HeadCell[] = [
     { id: "magazine", label: "Magazine" },
     { id: "faculty", label: "Faculty" },
     { id: "status", label: "Status" },
-    { id: "selected_by", label: "Selected by" }
+    { id: "selected_by", label: "Update Status by" }
 ];
 
 //Define the table content rows
@@ -42,6 +42,22 @@ function createData(
 ): Data {
     return { ctbId, title, magazine, faculty, status, selected_by };
 }
+
+const checkStatus = {
+    style: function(status: any) {
+        console.log('style', status)
+        if(status == true) return {color:'#00CA39'}
+        else if (status == false) return {color:'#E44067'}
+        else if (status == null) return {color:'#878787'}
+    },
+    label: function(status: any) {
+        console.log('label', status)
+        if(status == true) return 'ACCEPTED'
+        else if (status == false) return 'DENIED'
+        else if (status == null) return 'UNKNOW'
+    }
+}
+
 //Styling for header
 const useToolbarStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -239,7 +255,6 @@ export default function GuestContributionsList() {
         setRowsPerPage(parseInt(event.target.value, 10));
         setPage(0);
     }
-    
 
     return (
         <Container>
@@ -280,7 +295,7 @@ export default function GuestContributionsList() {
                                         </TableCell>
                                         <TableCell align="left" onClick={() => handleOpenContribution(row.ctbId)}>{row.magazine}</TableCell>
                                         <TableCell align="left" onClick={() => handleOpenContribution(row.ctbId)}>{row.faculty}</TableCell>
-                                        <TableCell align="left" onClick={() => handleOpenContribution(row.ctbId)} style={(row.status) ? { color: '#00CA39' } : { color: '#E44067' }}>{(row.status) ? 'SELECTED' : 'UNSELECT'}</TableCell>
+                                        <TableCell align="left" onClick={() => handleOpenContribution(row.ctbId)} style={checkStatus.style(row.status)}>{checkStatus.label(row.status)}</TableCell>
                                         <TableCell align="left"onClick={() => handleOpenContribution(row.ctbId)}>{row.selected_by}</TableCell>
                                     </TableRow>
                                 )

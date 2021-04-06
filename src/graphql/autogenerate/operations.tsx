@@ -65,7 +65,7 @@ export type GetContributionQuery = { __typename?: 'query_root' } & {
   contributions: Array<
     { __typename?: 'contributions' } & Pick<
       Types.Contributions,
-      'title' | 'artical' | 'image'
+      'title' | 'artical' | 'image' | 'isSelected'
     > & {
         magazine?: Types.Maybe<
           { __typename?: 'magazines' } & Pick<
@@ -109,6 +109,20 @@ export type UpdateContributionMutation = { __typename?: 'mutation_root' } & {
           { __typename?: 'contributions' } & Pick<Types.Contributions, 'id'>
         >
       }
+  >
+}
+
+export type UpdateStatusMutationVariables = Types.Exact<{
+  id?: Types.Maybe<Types.Scalars['uuid']>
+  object: Types.Contributions_Set_Input
+}>
+
+export type UpdateStatusMutation = { __typename?: 'mutation_root' } & {
+  update_contributions?: Types.Maybe<
+    { __typename?: 'contributions_mutation_response' } & Pick<
+      Types.Contributions_Mutation_Response,
+      'affected_rows'
+    >
   >
 }
 

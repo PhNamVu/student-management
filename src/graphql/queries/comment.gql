@@ -5,13 +5,13 @@ mutation postComment($object: comments_insert_input!){
   }
 },
 
-query getComment($contributionId: uuid){
-  comments(where: {contribution:{id: {_eq: $contributionId}}}, order_by:{createAt: asc}){
-    id,
-    content,
-    createAt,
-    user{
-      fullName
+  query getComment($contributionId: uuid){
+    comments(where: {contribution:{id: {_eq: $contributionId}}}, order_by:{createAt: asc}){
+      id,
+      content,
+      createAt,
+      user{
+        fullName
+      }
     }
   }
-}
