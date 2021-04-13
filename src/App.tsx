@@ -148,9 +148,7 @@ function App() {
               >
                 
                 <Routes>
-
-                  <Route path="/" element={<ChartPage />} />
-                  <Route path="/magazines" element={<MagazinesListPage />} />
+                  <Route path="/" element={<MagazinesListPage />} />
                   <Route path="/contributes" element={<MCoContributionListFaculty />} />
                   <Route path="/contribution/:id/edit" element={<ViewContribution />} />
                   <Route path="/contribute/:idMgz/:mgzTitle" element={<ContributionList />} />
