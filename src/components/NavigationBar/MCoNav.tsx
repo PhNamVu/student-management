@@ -27,7 +27,7 @@ export const McoNav = () => {
             <div className="mr-sm-auto">
               <Nav navbar >
                 <NavItem className="header-links btn">
-                  <Link to="/magazines">Magazine</Link>
+                  <Link to="/">Magazine</Link>
                 </NavItem>
                 <NavItem className="header-links btn">
                   <Link to="/contributes">Contribution</Link>
