@@ -149,7 +149,7 @@ function App() {
                 
                 <Routes>
 
-                  <Route path="/" element={<ChartPage />} />
+                  <Route path="/" element={<MagazinesListPage />} />
                   <Route path="/magazines" element={<MagazinesListPage />} />
                   <Route path="/contributes" element={<MCoContributionListFaculty />} />
                   <Route path="/contribution/:id/edit" element={<ViewContribution />} />

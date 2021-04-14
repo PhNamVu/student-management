@@ -8,7 +8,6 @@ import { TableBody, TableHead, TableRow, TableCell, Checkbox, TableContainer, Ty
 import IconButton from "@material-ui/core/IconButton"
 import GetAppIcon from '@material-ui/icons/GetApp'
 import { downloadMultiFiles } from '../helper/download-multi-file'
-import { consoleTestResultsHandler } from 'tslint/lib/test'
 
 
 //Define for the header row

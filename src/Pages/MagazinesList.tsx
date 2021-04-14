@@ -90,7 +90,7 @@ export const MagazinesPage = () => {
                     >
                         <Tab label={
                                 <React.Fragment>
-                                    SUBMITMENT ALLOw
+                                    SUBMIT ALLOW
                                     {value===0 ? <div style={{borderBottom:'2px solid #ffc107', width:'9rem'}}/> : null}
                                 </React.Fragment>
                             } 
@@ -100,7 +100,7 @@ export const MagazinesPage = () => {
                         />
                         <Tab label={
                                 <React.Fragment>
-                                    COMPLETE SUBMITMENT
+                                    COMPLETE SUBMIT
                                     {value===1 ? <div style={{borderBottom:'2px solid #ffc107', width:'12rem'}}/> : null}
                                 </React.Fragment>
                             } 

@@ -1214,3 +1214,57 @@ export type ChatByFacultyQueryResult = Apollo.QueryResult<
   Types.ChatByFacultyQuery,
   Types.ChatByFacultyQueryVariables
 >
+export const YourMcoDocument = gql`
+  query yourMCO($facultyId: String!) {
+    users(
+      where: { _and: { facultyId: { _eq: $facultyId }, roles: { _eq: "MCO" } } }
+    ) {
+      email
+    }
+  }
+`
+
+/**
+ * __useYourMcoQuery__
+ *
+ * To run a query within a React component, call `useYourMcoQuery` and pass it any options that fit your needs.
+ * When your component renders, `useYourMcoQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useYourMcoQuery({
+ *   variables: {
+ *      facultyId: // value for 'facultyId'
+ *   },
+ * });
+ */
+export function useYourMcoQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    Types.YourMcoQuery,
+    Types.YourMcoQueryVariables
+  >
+) {
+  return Apollo.useQuery<Types.YourMcoQuery, Types.YourMcoQueryVariables>(
+    YourMcoDocument,
+    baseOptions
+  )
+}
+export function useYourMcoLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    Types.YourMcoQuery,
+    Types.YourMcoQueryVariables
+  >
+) {
+  return Apollo.useLazyQuery<Types.YourMcoQuery, Types.YourMcoQueryVariables>(
+    YourMcoDocument,
+    baseOptions
+  )
+}
+export type YourMcoQueryHookResult = ReturnType<typeof useYourMcoQuery>
+export type YourMcoLazyQueryHookResult = ReturnType<typeof useYourMcoLazyQuery>
+export type YourMcoQueryResult = Apollo.QueryResult<
+  Types.YourMcoQuery,
+  Types.YourMcoQueryVariables
+>

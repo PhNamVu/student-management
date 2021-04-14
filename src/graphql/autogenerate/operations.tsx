@@ -345,3 +345,11 @@ export type ChatByFacultyQuery = { __typename?: 'query_root' } & {
     >
   >
 }
+
+export type YourMcoQueryVariables = Types.Exact<{
+  facultyId: Types.Scalars['String']
+}>
+
+export type YourMcoQuery = { __typename?: 'query_root' } & {
+  users: Array<{ __typename?: 'users' } & Pick<Types.Users, 'email'>>
+}

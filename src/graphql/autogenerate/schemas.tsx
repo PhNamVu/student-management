@@ -15,7 +15,6 @@ export type Scalars = {
   Float: number
   bigint: any
   jsonb: any
-  numeric: any
   timestamp: any
   timestamptz: any
   uuid: any
@@ -130,6 +129,20 @@ export type StudentSetupInput = {
 
 export type StudentSetupRes = {
   __typename?: 'StudentSetupRes'
+  message: Scalars['String']
+  status: Scalars['String']
+  statusCode: Scalars['Int']
+}
+
+export type SubmitContributionInput = {
+  email: Scalars['String']
+  id: Scalars['String']
+  magazine: Scalars['String']
+  name: Scalars['String']
+}
+
+export type SubmitContributionRes = {
+  __typename?: 'SubmitContributionRes'
   message: Scalars['String']
   status: Scalars['String']
   statusCode: Scalars['Int']
@@ -1691,210 +1704,6 @@ export type Jsonb_Comparison_Exp = {
   _nin?: Maybe<Array<Scalars['jsonb']>>
 }
 
-/** columns and relationships of "logs" */
-export type Logs = {
-  __typename?: 'logs'
-  content?: Maybe<Scalars['String']>
-  create_at?: Maybe<Scalars['timestamptz']>
-  id: Scalars['numeric']
-  level?: Maybe<Scalars['numeric']>
-}
-
-/** aggregated selection of "logs" */
-export type Logs_Aggregate = {
-  __typename?: 'logs_aggregate'
-  aggregate?: Maybe<Logs_Aggregate_Fields>
-  nodes: Array<Logs>
-}
-
-/** aggregate fields of "logs" */
-export type Logs_Aggregate_Fields = {
-  __typename?: 'logs_aggregate_fields'
-  avg?: Maybe<Logs_Avg_Fields>
-  count: Scalars['Int']
-  max?: Maybe<Logs_Max_Fields>
-  min?: Maybe<Logs_Min_Fields>
-  stddev?: Maybe<Logs_Stddev_Fields>
-  stddev_pop?: Maybe<Logs_Stddev_Pop_Fields>
-  stddev_samp?: Maybe<Logs_Stddev_Samp_Fields>
-  sum?: Maybe<Logs_Sum_Fields>
-  var_pop?: Maybe<Logs_Var_Pop_Fields>
-  var_samp?: Maybe<Logs_Var_Samp_Fields>
-  variance?: Maybe<Logs_Variance_Fields>
-}
-
-/** aggregate fields of "logs" */
-export type Logs_Aggregate_FieldsCountArgs = {
-  columns?: Maybe<Array<Logs_Select_Column>>
-  distinct?: Maybe<Scalars['Boolean']>
-}
-
-/** aggregate avg on columns */
-export type Logs_Avg_Fields = {
-  __typename?: 'logs_avg_fields'
-  id?: Maybe<Scalars['Float']>
-  level?: Maybe<Scalars['Float']>
-}
-
-/** Boolean expression to filter rows from the table "logs". All fields are combined with a logical 'AND'. */
-export type Logs_Bool_Exp = {
-  _and?: Maybe<Array<Logs_Bool_Exp>>
-  _not?: Maybe<Logs_Bool_Exp>
-  _or?: Maybe<Array<Logs_Bool_Exp>>
-  content?: Maybe<String_Comparison_Exp>
-  create_at?: Maybe<Timestamptz_Comparison_Exp>
-  id?: Maybe<Numeric_Comparison_Exp>
-  level?: Maybe<Numeric_Comparison_Exp>
-}
-
-/** unique or primary key constraints on table "logs" */
-export enum Logs_Constraint {
-  /** unique or primary key constraint */
-  LogsPkey = 'logs_pkey',
-}
-
-/** input type for incrementing numeric columns in table "logs" */
-export type Logs_Inc_Input = {
-  id?: Maybe<Scalars['numeric']>
-  level?: Maybe<Scalars['numeric']>
-}
-
-/** input type for inserting data into table "logs" */
-export type Logs_Insert_Input = {
-  content?: Maybe<Scalars['String']>
-  create_at?: Maybe<Scalars['timestamptz']>
-  id?: Maybe<Scalars['numeric']>
-  level?: Maybe<Scalars['numeric']>
-}
-
-/** aggregate max on columns */
-export type Logs_Max_Fields = {
-  __typename?: 'logs_max_fields'
-  content?: Maybe<Scalars['String']>
-  create_at?: Maybe<Scalars['timestamptz']>
-  id?: Maybe<Scalars['numeric']>
-  level?: Maybe<Scalars['numeric']>
-}
-
-/** aggregate min on columns */
-export type Logs_Min_Fields = {
-  __typename?: 'logs_min_fields'
-  content?: Maybe<Scalars['String']>
-  create_at?: Maybe<Scalars['timestamptz']>
-  id?: Maybe<Scalars['numeric']>
-  level?: Maybe<Scalars['numeric']>
-}
-
-/** response of any mutation on the table "logs" */
-export type Logs_Mutation_Response = {
-  __typename?: 'logs_mutation_response'
-  /** number of rows affected by the mutation */
-  affected_rows: Scalars['Int']
-  /** data from the rows affected by the mutation */
-  returning: Array<Logs>
-}
-
-/** on conflict condition type for table "logs" */
-export type Logs_On_Conflict = {
-  constraint: Logs_Constraint
-  update_columns: Array<Logs_Update_Column>
-  where?: Maybe<Logs_Bool_Exp>
-}
-
-/** Ordering options when selecting data from "logs". */
-export type Logs_Order_By = {
-  content?: Maybe<Order_By>
-  create_at?: Maybe<Order_By>
-  id?: Maybe<Order_By>
-  level?: Maybe<Order_By>
-}
-
-/** primary key columns input for table: logs */
-export type Logs_Pk_Columns_Input = {
-  id: Scalars['numeric']
-}
-
-/** select columns of table "logs" */
-export enum Logs_Select_Column {
-  /** column name */
-  Content = 'content',
-  /** column name */
-  CreateAt = 'create_at',
-  /** column name */
-  Id = 'id',
-  /** column name */
-  Level = 'level',
-}
-
-/** input type for updating data in table "logs" */
-export type Logs_Set_Input = {
-  content?: Maybe<Scalars['String']>
-  create_at?: Maybe<Scalars['timestamptz']>
-  id?: Maybe<Scalars['numeric']>
-  level?: Maybe<Scalars['numeric']>
-}
-
-/** aggregate stddev on columns */
-export type Logs_Stddev_Fields = {
-  __typename?: 'logs_stddev_fields'
-  id?: Maybe<Scalars['Float']>
-  level?: Maybe<Scalars['Float']>
-}
-
-/** aggregate stddev_pop on columns */
-export type Logs_Stddev_Pop_Fields = {
-  __typename?: 'logs_stddev_pop_fields'
-  id?: Maybe<Scalars['Float']>
-  level?: Maybe<Scalars['Float']>
-}
-
-/** aggregate stddev_samp on columns */
-export type Logs_Stddev_Samp_Fields = {
-  __typename?: 'logs_stddev_samp_fields'
-  id?: Maybe<Scalars['Float']>
-  level?: Maybe<Scalars['Float']>
-}
-
-/** aggregate sum on columns */
-export type Logs_Sum_Fields = {
-  __typename?: 'logs_sum_fields'
-  id?: Maybe<Scalars['numeric']>
-  level?: Maybe<Scalars['numeric']>
-}
-
-/** update columns of table "logs" */
-export enum Logs_Update_Column {
-  /** column name */
-  Content = 'content',
-  /** column name */
-  CreateAt = 'create_at',
-  /** column name */
-  Id = 'id',
-  /** column name */
-  Level = 'level',
-}
-
-/** aggregate var_pop on columns */
-export type Logs_Var_Pop_Fields = {
-  __typename?: 'logs_var_pop_fields'
-  id?: Maybe<Scalars['Float']>
-  level?: Maybe<Scalars['Float']>
-}
-
-/** aggregate var_samp on columns */
-export type Logs_Var_Samp_Fields = {
-  __typename?: 'logs_var_samp_fields'
-  id?: Maybe<Scalars['Float']>
-  level?: Maybe<Scalars['Float']>
-}
-
-/** aggregate variance on columns */
-export type Logs_Variance_Fields = {
-  __typename?: 'logs_variance_fields'
-  id?: Maybe<Scalars['Float']>
-  level?: Maybe<Scalars['Float']>
-}
-
 /** columns and relationships of "magazines" */
 export type Magazines = {
   __typename?: 'magazines'
@@ -2415,10 +2224,6 @@ export type Mutation_Root = {
   delete_hdb_pro_catalog_hdb_pro_state?: Maybe<Hdb_Pro_Catalog_Hdb_Pro_State_Mutation_Response>
   /** delete single row from the table: "hdb_pro_catalog.hdb_pro_state" */
   delete_hdb_pro_catalog_hdb_pro_state_by_pk?: Maybe<Hdb_Pro_Catalog_Hdb_Pro_State>
-  /** delete data from the table: "logs" */
-  delete_logs?: Maybe<Logs_Mutation_Response>
-  /** delete single row from the table: "logs" */
-  delete_logs_by_pk?: Maybe<Logs>
   /** delete data from the table: "magazines" */
   delete_magazines?: Maybe<Magazines_Mutation_Response>
   /** delete single row from the table: "magazines" */
@@ -2460,10 +2265,6 @@ export type Mutation_Root = {
   insert_hdb_pro_catalog_hdb_pro_state?: Maybe<Hdb_Pro_Catalog_Hdb_Pro_State_Mutation_Response>
   /** insert a single row into the table: "hdb_pro_catalog.hdb_pro_state" */
   insert_hdb_pro_catalog_hdb_pro_state_one?: Maybe<Hdb_Pro_Catalog_Hdb_Pro_State>
-  /** insert data into the table: "logs" */
-  insert_logs?: Maybe<Logs_Mutation_Response>
-  /** insert a single row into the table: "logs" */
-  insert_logs_one?: Maybe<Logs>
   /** insert data into the table: "magazines" */
   insert_magazines?: Maybe<Magazines_Mutation_Response>
   /** insert a single row into the table: "magazines" */
@@ -2478,6 +2279,8 @@ export type Mutation_Root = {
   insert_users_one?: Maybe<Users>
   managerSetup?: Maybe<ManagerSetupRes>
   studentSetup?: Maybe<StudentSetupRes>
+  /** This action will automatically call when student submit a contribution */
+  submitContribution?: Maybe<SubmitContributionRes>
   /** update data of the table: "comments" */
   update_comments?: Maybe<Comments_Mutation_Response>
   /** update single row of the table: "comments" */
@@ -2504,10 +2307,6 @@ export type Mutation_Root = {
   update_hdb_pro_catalog_hdb_pro_state?: Maybe<Hdb_Pro_Catalog_Hdb_Pro_State_Mutation_Response>
   /** update single row of the table: "hdb_pro_catalog.hdb_pro_state" */
   update_hdb_pro_catalog_hdb_pro_state_by_pk?: Maybe<Hdb_Pro_Catalog_Hdb_Pro_State>
-  /** update data of the table: "logs" */
-  update_logs?: Maybe<Logs_Mutation_Response>
-  /** update single row of the table: "logs" */
-  update_logs_by_pk?: Maybe<Logs>
   /** update data of the table: "magazines" */
   update_magazines?: Maybe<Magazines_Mutation_Response>
   /** update single row of the table: "magazines" */
@@ -2590,16 +2389,6 @@ export type Mutation_RootDelete_Hdb_Pro_Catalog_Hdb_Pro_StateArgs = {
 /** mutation root */
 export type Mutation_RootDelete_Hdb_Pro_Catalog_Hdb_Pro_State_By_PkArgs = {
   id: Scalars['Int']
-}
-
-/** mutation root */
-export type Mutation_RootDelete_LogsArgs = {
-  where: Logs_Bool_Exp
-}
-
-/** mutation root */
-export type Mutation_RootDelete_Logs_By_PkArgs = {
-  id: Scalars['numeric']
 }
 
 /** mutation root */
@@ -2720,18 +2509,6 @@ export type Mutation_RootInsert_Hdb_Pro_Catalog_Hdb_Pro_State_OneArgs = {
 }
 
 /** mutation root */
-export type Mutation_RootInsert_LogsArgs = {
-  objects: Array<Logs_Insert_Input>
-  on_conflict?: Maybe<Logs_On_Conflict>
-}
-
-/** mutation root */
-export type Mutation_RootInsert_Logs_OneArgs = {
-  object: Logs_Insert_Input
-  on_conflict?: Maybe<Logs_On_Conflict>
-}
-
-/** mutation root */
 export type Mutation_RootInsert_MagazinesArgs = {
   objects: Array<Magazines_Insert_Input>
   on_conflict?: Maybe<Magazines_On_Conflict>
@@ -2775,6 +2552,11 @@ export type Mutation_RootManagerSetupArgs = {
 /** mutation root */
 export type Mutation_RootStudentSetupArgs = {
   input: StudentSetupInput
+}
+
+/** mutation root */
+export type Mutation_RootSubmitContributionArgs = {
+  input: SubmitContributionInput
 }
 
 /** mutation root */
@@ -2900,20 +2682,6 @@ export type Mutation_RootUpdate_Hdb_Pro_Catalog_Hdb_Pro_State_By_PkArgs = {
 }
 
 /** mutation root */
-export type Mutation_RootUpdate_LogsArgs = {
-  _inc?: Maybe<Logs_Inc_Input>
-  _set?: Maybe<Logs_Set_Input>
-  where: Logs_Bool_Exp
-}
-
-/** mutation root */
-export type Mutation_RootUpdate_Logs_By_PkArgs = {
-  _inc?: Maybe<Logs_Inc_Input>
-  _set?: Maybe<Logs_Set_Input>
-  pk_columns: Logs_Pk_Columns_Input
-}
-
-/** mutation root */
 export type Mutation_RootUpdate_MagazinesArgs = {
   _set?: Maybe<Magazines_Set_Input>
   where: Magazines_Bool_Exp
@@ -2957,19 +2725,6 @@ export type Mutation_RootUpdate_UsersArgs = {
 export type Mutation_RootUpdate_Users_By_PkArgs = {
   _set?: Maybe<Users_Set_Input>
   pk_columns: Users_Pk_Columns_Input
-}
-
-/** Boolean expression to compare columns of type "numeric". All fields are combined with logical 'AND'. */
-export type Numeric_Comparison_Exp = {
-  _eq?: Maybe<Scalars['numeric']>
-  _gt?: Maybe<Scalars['numeric']>
-  _gte?: Maybe<Scalars['numeric']>
-  _in?: Maybe<Array<Scalars['numeric']>>
-  _is_null?: Maybe<Scalars['Boolean']>
-  _lt?: Maybe<Scalars['numeric']>
-  _lte?: Maybe<Scalars['numeric']>
-  _neq?: Maybe<Scalars['numeric']>
-  _nin?: Maybe<Array<Scalars['numeric']>>
 }
 
 /** column ordering options */
@@ -3030,12 +2785,6 @@ export type Query_Root = {
   hdb_pro_catalog_hdb_pro_state_aggregate: Hdb_Pro_Catalog_Hdb_Pro_State_Aggregate
   /** fetch data from the table: "hdb_pro_catalog.hdb_pro_state" using primary key columns */
   hdb_pro_catalog_hdb_pro_state_by_pk?: Maybe<Hdb_Pro_Catalog_Hdb_Pro_State>
-  /** fetch data from the table: "logs" */
-  logs: Array<Logs>
-  /** fetch aggregated fields from the table: "logs" */
-  logs_aggregate: Logs_Aggregate
-  /** fetch data from the table: "logs" using primary key columns */
-  logs_by_pk?: Maybe<Logs>
   /** An array relationship */
   magazines: Array<Magazines>
   /** An aggregate relationship */
@@ -3196,26 +2945,6 @@ export type Query_RootHdb_Pro_Catalog_Hdb_Pro_State_By_PkArgs = {
   id: Scalars['Int']
 }
 
-export type Query_RootLogsArgs = {
-  distinct_on?: Maybe<Array<Logs_Select_Column>>
-  limit?: Maybe<Scalars['Int']>
-  offset?: Maybe<Scalars['Int']>
-  order_by?: Maybe<Array<Logs_Order_By>>
-  where?: Maybe<Logs_Bool_Exp>
-}
-
-export type Query_RootLogs_AggregateArgs = {
-  distinct_on?: Maybe<Array<Logs_Select_Column>>
-  limit?: Maybe<Scalars['Int']>
-  offset?: Maybe<Scalars['Int']>
-  order_by?: Maybe<Array<Logs_Order_By>>
-  where?: Maybe<Logs_Bool_Exp>
-}
-
-export type Query_RootLogs_By_PkArgs = {
-  id: Scalars['numeric']
-}
-
 export type Query_RootMagazinesArgs = {
   distinct_on?: Maybe<Array<Magazines_Select_Column>>
   limit?: Maybe<Scalars['Int']>
@@ -3334,12 +3063,6 @@ export type Subscription_Root = {
   hdb_pro_catalog_hdb_pro_state_aggregate: Hdb_Pro_Catalog_Hdb_Pro_State_Aggregate
   /** fetch data from the table: "hdb_pro_catalog.hdb_pro_state" using primary key columns */
   hdb_pro_catalog_hdb_pro_state_by_pk?: Maybe<Hdb_Pro_Catalog_Hdb_Pro_State>
-  /** fetch data from the table: "logs" */
-  logs: Array<Logs>
-  /** fetch aggregated fields from the table: "logs" */
-  logs_aggregate: Logs_Aggregate
-  /** fetch data from the table: "logs" using primary key columns */
-  logs_by_pk?: Maybe<Logs>
   /** An array relationship */
   magazines: Array<Magazines>
   /** An aggregate relationship */
@@ -3498,26 +3221,6 @@ export type Subscription_RootHdb_Pro_Catalog_Hdb_Pro_State_AggregateArgs = {
 
 export type Subscription_RootHdb_Pro_Catalog_Hdb_Pro_State_By_PkArgs = {
   id: Scalars['Int']
-}
-
-export type Subscription_RootLogsArgs = {
-  distinct_on?: Maybe<Array<Logs_Select_Column>>
-  limit?: Maybe<Scalars['Int']>
-  offset?: Maybe<Scalars['Int']>
-  order_by?: Maybe<Array<Logs_Order_By>>
-  where?: Maybe<Logs_Bool_Exp>
-}
-
-export type Subscription_RootLogs_AggregateArgs = {
-  distinct_on?: Maybe<Array<Logs_Select_Column>>
-  limit?: Maybe<Scalars['Int']>
-  offset?: Maybe<Scalars['Int']>
-  order_by?: Maybe<Array<Logs_Order_By>>
-  where?: Maybe<Logs_Bool_Exp>
-}
-
-export type Subscription_RootLogs_By_PkArgs = {
-  id: Scalars['numeric']
 }
 
 export type Subscription_RootMagazinesArgs = {
