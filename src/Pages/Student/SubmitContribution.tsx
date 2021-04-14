@@ -22,14 +22,14 @@ import { useNavigate } from 'react-router-dom'
 import { v4 as uuidv4 } from 'uuid'
 
 import { useAuth } from '../../hooks/use-auth'
-import { useAddContributionMutation, useGetMagazineQuery } from '../../graphql/autogenerate/hooks'
+import { useAddContributionMutation, useGetMagazineQuery, useYourMcoQuery } from '../../graphql/autogenerate/hooks'
 import { Uploader } from '../../components/Uploader'
 import { useStyletron } from 'baseui'
 import { Checkbox } from 'baseui/checkbox'
 import PrimaryButton from '../../components/shared/button/PrimaryBtn'
 import { Backdrop, CircularProgress, createStyles, makeStyles, Theme } from '@material-ui/core'
 import { isBefore } from 'date-fns'
-
+import { gql, useMutation } from '@apollo/client'
 
 const loadingStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -49,7 +49,17 @@ export default function SubmitContributionPage() {
   const customStyle = loadingStyles()
   const { state }: any = useAuth()
   const [isOpen, setIsOpen] = React.useState(false);
-  
+
+  const [submitContribution] = useMutation(gql`
+  mutation SubmitContribution($input: SubmitContribution!) {
+    submitContribution(input: $input) {
+      status
+      statusCode
+      message
+    }
+  }
+`)
+
   function close(){
     setIsOpen(false)
   }
@@ -77,19 +87,26 @@ export default function SubmitContributionPage() {
       },
     },
   })
+  const { data: data2, loading: loading2,error: error2 } = useYourMcoQuery({
+    fetchPolicy: 'network-only',
+    variables: {
+        facultyId,
+    },
+  })
   const magazine = data && data?.magazines[0]
 
-  if (error) return <div>Error at Edit Magazine component {error}</div>
-  if (loading) return (
+  if (error || error2) return <div>Error at Edit Magazine component {error}</div>
+  if (loading || loading2) return (
     <Backdrop className={customStyle.backdrop} open={loading}>
         <CircularProgress color="inherit"/>
     </Backdrop>
   )
   
+  const email = data2?.users[0].email
   const submitHandler = async (e: any) => {
     e.preventDefault()
     try {
-      await addContribution({
+      const idContribution = await addContribution({
         variables: {
           object: {
             magazineId,
@@ -99,6 +116,16 @@ export default function SubmitContributionPage() {
             title,
             artical,
             image,
+          },
+        },
+      })
+      await submitContribution({
+        variables: {
+          input: {
+            email,
+            name: state.user.displayName,
+            magazine: data?.magazines[0].label,
+            id: idContribution.data?.insert_contributions?.returning[0].id
           },
         },
       })

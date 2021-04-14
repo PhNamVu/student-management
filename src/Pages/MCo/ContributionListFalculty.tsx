@@ -2,7 +2,6 @@
 import React from 'react'
 import { useGetContributeByConditionsQuery } from '../../graphql/autogenerate/hooks'
 import { Container, Table } from 'reactstrap'
-import { useParams } from 'react-router-dom'
 import { useNavigate } from "react-router-dom";
 import clsx from "clsx"
 import { createStyles, lighten, makeStyles, Theme } from "@material-ui/core/styles";
@@ -175,7 +174,6 @@ const useStyles = makeStyles((theme: Theme) =>
 
 //this template apply for ADMIN, MANAGER, MCO
 export default function ContributionsPage(){
-    const params = useParams();
     const customStyle = useStyles();
     const [selected, setSelected] = React.useState<string[]>([]);
     const [page, setPage] = React.useState(0);

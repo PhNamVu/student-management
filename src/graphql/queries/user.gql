@@ -43,3 +43,19 @@ query chatByFaculty( $where: users_bool_exp!) {
     roles
   }
 }
+
+
+query yourMCO($facultyId: String!) {
+  users(
+    where: {
+      _and: {
+          facultyId: {
+          _eq: $facultyId
+        }
+        roles: {_eq: "MCO"}
+      }
+    }  
+  ) {
+    email
+  }
+}
