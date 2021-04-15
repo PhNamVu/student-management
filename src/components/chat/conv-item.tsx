@@ -31,8 +31,7 @@ const ConvItem: React.FC<{ conv: any } > = ({ conv } : any) => {
 
   return (
     <NavLink
-      to={`/chat/p/${conv.id}`}
-      className={css({
+      style={{
         display: 'flex',
         alignItems: 'center',
         paddingTop: theme.sizing.scale500,
@@ -42,7 +41,9 @@ const ConvItem: React.FC<{ conv: any } > = ({ conv } : any) => {
         borderBottom: `1px solid ${theme.colors.mono400}`,
         color: '#444444',
         textDecoration: 'none',
-
+      }}
+      to={`/chat/p/${conv.id}`}
+      className={css({
         ':hover': {
           backgroundColor: theme.colors.mono300,
         },
@@ -110,20 +111,20 @@ const ConvItem: React.FC<{ conv: any } > = ({ conv } : any) => {
       )}
 
       <div
-        className={css({
+        style={{
           width: '80%',
           marginLeft: theme.sizing.scale400,
-        })}
+        }}
       >
         {membersChatInfo && membersChatInfo[0].id === userId && (
           <div
-            className={css({
+            style={{
               display: 'flex',
               flexDirection: 'row',
               justifyContent: 'space-between',
               width:'100%'
 
-            })}
+            }}
           >
             <div className={css({ ...theme.typography.font250 })}>
               {membersChatInfo[1]?.fullName !== null &&
@@ -146,12 +147,12 @@ const ConvItem: React.FC<{ conv: any } > = ({ conv } : any) => {
 
         {membersChatInfo && membersChatInfo[0].id !== userId && (
           <div
-            className={css({
+            style={{
               display: 'flex',
               flexDirection: 'row',
               justifyContent: 'space-between',
               width:'100%'
-            })}
+            }}
           >
             <div className={css({ ...theme.typography.font250 })}>
               {membersChatInfo[0].fullName !== null &&
@@ -172,14 +173,14 @@ const ConvItem: React.FC<{ conv: any } > = ({ conv } : any) => {
         )}
 
         <div
-          className={css({
+          style={{
             display: 'flex',
             justifyContent: 'space-between',
             paddingTop: theme.sizing.scale100,
-          })}
+          }}
         >
           <div
-            className={css({
+            style={{
               ...theme.typography.font200,
               color: theme.colors.colorSecondary,
               overflow: 'hidden',
@@ -189,7 +190,7 @@ const ConvItem: React.FC<{ conv: any } > = ({ conv } : any) => {
               whiteSpace: 'nowrap',
               fontSize: '14px',
               maxWidth:'85%'
-            })}
+            }}
           >
             {conv.lastMsg}
           </div>

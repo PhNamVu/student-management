@@ -47,13 +47,13 @@ const HeaderNotMine: React.FC<{ conv: any }> = ({ conv }: any) => {
     <>
       {membersChatInfo && membersChatInfo[0].id === user?.uid && (
         <div
-          className={css({
+          style={{
             display: 'flex',
             alignItems: 'center',
-          })}
+          }}
         >
           <div
-            className={css({
+            style={{
               [theme.mediaQuery.small]: {
                 display: 'block',
                 marginRight: theme.sizing.scale400,
@@ -66,7 +66,7 @@ const HeaderNotMine: React.FC<{ conv: any }> = ({ conv }: any) => {
                 display: 'none',
                 marginRight: 0,
               },
-            })}
+            }}
           >
             <Button
               size="mini"
@@ -78,14 +78,15 @@ const HeaderNotMine: React.FC<{ conv: any }> = ({ conv }: any) => {
             </Button>
           </div>
 
-          <div className={css({ marginLeft: theme.sizing.scale400 })}>
-            <div className={css({ ...theme.typography.font350 })}>
+          <div style={{ marginLeft: theme.sizing.scale400 }}>
+            <div style={{ ...theme.typography.font350 }}>
               <div
-                className={css({
+                style={{
                   textDecoration: 'none',
                   color: 'black',
                   fontWeight: 500,
-
+                }}
+                className={css({
                   ':hover': {
                     textDecoration: 'underline',
                   },
@@ -99,14 +100,9 @@ const HeaderNotMine: React.FC<{ conv: any }> = ({ conv }: any) => {
       )}
 
       {membersChatInfo && membersChatInfo[0].id !== user.uid && (
-        <div
-          className={css({
-            display: 'flex',
-            alignItems: 'center',
-          })}
-        >
+        <div style={{ display: 'flex', alignItems: 'center' }}>
           <div
-            className={css({
+            style={{
               [theme.mediaQuery.small]: {
                 display: 'block',
                 marginRight: theme.sizing.scale400,
@@ -119,7 +115,7 @@ const HeaderNotMine: React.FC<{ conv: any }> = ({ conv }: any) => {
                 display: 'none',
                 marginRight: 0,
               },
-            })}
+            }}
           >
             <Button
               size="mini"
@@ -141,7 +137,7 @@ const HeaderNotMine: React.FC<{ conv: any }> = ({ conv }: any) => {
                 }
                 label={
                   <span
-                    className={css({
+                    style={{
                       content: '',
                       width: '6px',
                       height: '6px',
@@ -152,16 +148,17 @@ const HeaderNotMine: React.FC<{ conv: any }> = ({ conv }: any) => {
                       transform: ' translateY(-1px)',
                       marginRight: theme.sizing.scale300,
                       verticalAlign: 'middle',
-                    })}
+                    }}
                   />
                 }
               />
               <div
-                className={css({
+                style={{
                   textDecoration: 'none',
                   color: 'black',
                   fontWeight: 500,
-
+                }}
+                className={css({
                   ':hover': {
                     textDecoration: 'underline',
                   },

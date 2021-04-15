@@ -41,11 +41,11 @@ export type GetContributeByConditionsQuery = { __typename?: 'query_root' } & {
           { __typename?: 'magazines' } & Pick<Types.Magazines, 'label'>
         >
         user?: Types.Maybe<
-          { __typename?: 'users' } & {
-            faculty?: Types.Maybe<
-              { __typename?: 'facultys' } & Pick<Types.Facultys, 'label'>
-            >
-          }
+          { __typename?: 'users' } & Pick<Types.Users, 'fullName'> & {
+              faculty?: Types.Maybe<
+                { __typename?: 'facultys' } & Pick<Types.Facultys, 'label'>
+              >
+            }
         >
         userByPublicBy?: Types.Maybe<
           { __typename?: 'users' } & Pick<Types.Users, 'fullName'>

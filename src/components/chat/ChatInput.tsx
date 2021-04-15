@@ -146,24 +146,21 @@ const ChatInput: React.FC<{ id: string; onSendMessage: any }> = ({
 
   return (
     <div
-      className={css({
-        backgroundColor: 'white',
-        display: 'flex',
-        paddingTop: theme.sizing.scale400,
-        paddingBottom: theme.sizing.scale600,
-        paddingLeft: theme.sizing.scale400,
-        paddingRight: theme.sizing.scale800,
-        borderTop: `1px solid ${theme.colors.mono300}`,
-        bottom: 0,
-        position: 'sticky',
-      })}
+      style={{backgroundColor: 'white',
+      display: 'flex',
+      paddingTop: theme.sizing.scale400,
+      paddingBottom: theme.sizing.scale600,
+      paddingLeft: theme.sizing.scale400,
+      paddingRight: theme.sizing.scale800,
+      borderTop: `1px solid ${theme.colors.mono300}`,
+      bottom: 0,
+      position: 'sticky',}}
     >
       <div
-        className={css({
-          marginRight: theme.sizing.scale300,
+      style={{
+        marginRight: theme.sizing.scale300,
           alignSelf: 'flex-end',
-          paddingBottom: '10px',
-        })}
+          paddingBottom: '10px',}}
       >
         <label htmlFor="upload-button">
           <Paperclip
@@ -183,7 +180,7 @@ const ChatInput: React.FC<{ id: string; onSendMessage: any }> = ({
           hidden
         />
       </div>
-      <div className={css({ width: '100%', position: 'relative' })}>
+      <div style={{ width: '100%', position: 'relative' }}>
         <TextareaAutosize
           autoFocus
           // minRows={2}
@@ -216,10 +213,9 @@ const ChatInput: React.FC<{ id: string; onSendMessage: any }> = ({
                 [userId]: { lastReadMsg: new Date().toISOString() },
               })
           }}
-          className={css({
+          style={{
             ...theme.typography.font300,
             width: '100%',
-            height: 'auto',
             borderRadius: '24px',
             outline: 'none',
             border: !focusStyle
@@ -234,11 +230,11 @@ const ChatInput: React.FC<{ id: string; onSendMessage: any }> = ({
             lineHeight: '20px',
             boxSizing: 'border-box',
             resize: 'none',
-          })}
+          }}
         />
         {files.length > 0 && (
           <div
-            className={css({
+            style={{
               paddingLeft: theme.sizing.scale400,
               position: 'absolute',
               display: 'flex',
@@ -246,7 +242,7 @@ const ChatInput: React.FC<{ id: string; onSendMessage: any }> = ({
               overflow: 'auto',
               width: '100%',
               bottom: '8px',
-            })}
+            }}
           >
             {files.map((item: any) => (
               <Tag

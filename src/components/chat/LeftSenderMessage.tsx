@@ -13,14 +13,14 @@ export const LeftSenderMessage: React.FC<{ messages: any; showName: boolean }> =
   console.log('left sender message', messages)
   const [css, theme] = useStyletron()
   return (
-    <div className={css({ display: 'flex' })}>
+    <div style={{ display: 'flex'}}>
       {showName && (
         <div
-          className={css({
+          style={{
             alignSelf: 'flex-end',
             marginRight: theme.sizing.scale400,
             marginBottom: '10px',
-          })}
+          }}
         >
           <Avatar
             name={messages?.sender?.fullName}
@@ -29,16 +29,16 @@ export const LeftSenderMessage: React.FC<{ messages: any; showName: boolean }> =
           />
         </div>
       )}
-      <div className={css({ maxWidth: '80%' })}>
+      <div style={{maxWidth: '80%'}}>
         <div
-          className={css({
+          style={{
             display: 'flex',
             flexDirection: 'column',
             marginTop: theme.sizing.scale400,
-          })}
+          }}
         >
           <div
-            className={css({
+            style={{
               flex: 1,
               alignSelf: 'baseline',
               ...theme.typography.font300,
@@ -69,7 +69,7 @@ export const LeftSenderMessage: React.FC<{ messages: any; showName: boolean }> =
               borderTopRightRadius: '15px',
               borderBottomLeftRadius: '2px',
               borderBottomRightRadius: '15px',
-            })}
+            }}
           >
             <AutoLink text={messages.text} />
 
@@ -83,18 +83,16 @@ export const LeftSenderMessage: React.FC<{ messages: any; showName: boolean }> =
                   })}
                 >
                   <div
-                    className={css({ display: 'flex', alignItems: 'center' })}
+                    style={{display: 'flex', alignItems: 'center'}}
                   >
                     <Paperclip size={16} color={theme.colors.mono800} />{' '}
                     <a
+                      style={{paddingLeft: theme.sizing.scale300,
+                        ...theme.typography.font200,
+                        color: theme.colors.accent,}}
                       target="_blank"
                       rel="noopener noreferrer"
                       href={file.assetUrl}
-                      className={css({
-                        paddingLeft: theme.sizing.scale300,
-                        ...theme.typography.font200,
-                        color: theme.colors.accent,
-                      })}
                     >
                       {file.name}
                     </a>

@@ -1,5 +1,4 @@
 import React from 'react'
-import { Helmet } from 'react-helmet'
 
 import { useStyletron } from 'baseui'
 import { Outlet } from 'react-router-dom'
@@ -11,9 +10,6 @@ export const ChatIndex = () => {
 
   return (
     <ChatProvider>
-      <Helmet>
-        <title>Chat</title>
-      </Helmet>
       <div
         className={css({
           [theme.mediaQuery.small]: {

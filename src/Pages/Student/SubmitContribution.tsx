@@ -1,19 +1,7 @@
 import React, { useState } from 'react'
-import {
-  Container,
-  Form,
-  FormGroup,
-  Label,
-  Col,
-  Input,
-} from 'reactstrap'
+import { Container, Form, FormGroup, Label, Col, Input } from 'reactstrap'
 
-import {
-  Modal,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
-} from 'baseui/modal';
+import { Modal, ModalHeader, ModalBody, ModalFooter } from 'baseui/modal'
 
 import 'semantic-ui-css/semantic.min.css'
 import { useParams } from 'react-router'
@@ -22,24 +10,33 @@ import { useNavigate } from 'react-router-dom'
 import { v4 as uuidv4 } from 'uuid'
 
 import { useAuth } from '../../hooks/use-auth'
-import { useAddContributionMutation, useGetMagazineQuery, useYourMcoQuery } from '../../graphql/autogenerate/hooks'
+import {
+  useAddContributionMutation,
+  useGetMagazineQuery,
+  useYourMcoQuery,
+} from '../../graphql/autogenerate/hooks'
 import { Uploader } from '../../components/Uploader'
 import { useStyletron } from 'baseui'
 import { Checkbox } from 'baseui/checkbox'
 import PrimaryButton from '../../components/shared/button/PrimaryBtn'
-import { Backdrop, CircularProgress, createStyles, makeStyles, Theme } from '@material-ui/core'
+import {
+  Backdrop,
+  CircularProgress,
+  createStyles,
+  makeStyles,
+  Theme,
+} from '@material-ui/core'
 import { isBefore } from 'date-fns'
 import { gql, useMutation } from '@apollo/client'
 
 const loadingStyles = makeStyles((theme: Theme) =>
-    createStyles({
-        backdrop: {
-        zIndex: theme.zIndex.drawer + 1,
-        color: '#fff',
-        },
-    }),
-);
-
+  createStyles({
+    backdrop: {
+      zIndex: theme.zIndex.drawer + 1,
+      color: '#fff',
+    },
+  })
+)
 
 export default function SubmitContributionPage() {
   const [css, theme] = useStyletron()
@@ -48,19 +45,19 @@ export default function SubmitContributionPage() {
   const id = uuidv4()
   const customStyle = loadingStyles()
   const { state }: any = useAuth()
-  const [isOpen, setIsOpen] = React.useState(false);
+  const [isOpen, setIsOpen] = React.useState(false)
 
   const [submitContribution] = useMutation(gql`
-  mutation SubmitContribution($input: SubmitContribution!) {
-    submitContribution(input: $input) {
-      status
-      statusCode
-      message
+    mutation SubmitContribution($input: SubmitContributionInput!) {
+      submitContribution(input: $input) {
+        status
+        statusCode
+        message
+      }
     }
-  }
-`)
+  `)
 
-  function close(){
+  function close() {
     setIsOpen(false)
   }
 
@@ -87,21 +84,23 @@ export default function SubmitContributionPage() {
       },
     },
   })
-  const { data: data2, loading: loading2,error: error2 } = useYourMcoQuery({
+  const { data: data2, loading: loading2, error: error2 } = useYourMcoQuery({
     fetchPolicy: 'network-only',
     variables: {
-        facultyId,
+      facultyId,
     },
   })
   const magazine = data && data?.magazines[0]
 
-  if (error || error2) return <div>Error at Edit Magazine component {error}</div>
-  if (loading || loading2) return (
-    <Backdrop className={customStyle.backdrop} open={loading}>
-        <CircularProgress color="inherit"/>
-    </Backdrop>
-  )
-  
+  if (error || error2)
+    return <div>Error at Edit Magazine component {error}</div>
+  if (loading || loading2)
+    return (
+      <Backdrop className={customStyle.backdrop} open={loading}>
+        <CircularProgress color="inherit" />
+      </Backdrop>
+    )
+
   const email = data2?.users[0].email
   const submitHandler = async (e: any) => {
     e.preventDefault()
@@ -119,13 +118,14 @@ export default function SubmitContributionPage() {
           },
         },
       })
+      console.log('send to your coordinator', email)
       await submitContribution({
         variables: {
           input: {
             email,
             name: state.user.displayName,
             magazine: data?.magazines[0].label,
-            id: idContribution.data?.insert_contributions?.returning[0].id
+            id: idContribution.data?.insert_contributions?.returning[0].id,
           },
         },
       })
@@ -140,18 +140,18 @@ export default function SubmitContributionPage() {
       })
     }
   }
-  
+
   return (
     <Container>
       <h2 style={{ padding: '3rem 0', clear: 'both' }}>
         Submit Contribution
-        { isBefore( new Date(magazine?.closureTemp), new Date()) &&
+        {isBefore(new Date(magazine?.closureTemp), new Date()) && (
           <span style={{ color: 'red', fontSize: '60%', marginLeft: '1em' }}>
             (Close)
           </span>
-        }
+        )}
       </h2>
-      
+
       <Form onSubmit={submitHandler}>
         <FormGroup row>
           <Label for="title" sm="2">
@@ -172,7 +172,11 @@ export default function SubmitContributionPage() {
           </Label>
           <Col lg="9" sm="10">
             <Uploader
-              acceptedFileExtensions={!isBefore( new Date(magazine?.closureTemp), new Date()) ? '.docx,.doc,' : '.notexist'}
+              acceptedFileExtensions={
+                !isBefore(new Date(magazine?.closureTemp), new Date())
+                  ? '.docx,.doc,'
+                  : '.notexist'
+              }
               maxSizeFile={20}
               initFiles={artical}
               refStorage={`magazines/${magazineId}`}
@@ -196,7 +200,11 @@ export default function SubmitContributionPage() {
           </Label>
           <Col lg="9" sm="10">
             <Uploader
-              acceptedFileExtensions={!isBefore( new Date(magazine?.closureTemp), new Date()) ?'.png,.jpg,.jpeg,' : '.notexist'}
+              acceptedFileExtensions={
+                !isBefore(new Date(magazine?.closureTemp), new Date())
+                  ? '.png,.jpg,.jpeg,'
+                  : '.notexist'
+              }
               maxSizeFile={20}
               initFiles={image}
               refStorage={`magazines/${magazineId}`}
@@ -212,64 +220,72 @@ export default function SubmitContributionPage() {
                 )
               }}
             />
-            { !isBefore( new Date(magazine?.closureTemp), new Date()) &&
+            {!isBefore(new Date(magazine?.closureTemp), new Date()) && (
               <div
-              className={css({
-                display: 'flex',
-                justifyContent: 'flex-start',
-                paddingTop: theme.sizing.scale400,
-                alignItems: 'center',
-                width: '80%',
-              })}
-            >
-              <Checkbox
-                overrides={{
-                  Root: {
-                    style: () => ({
-                      marginTop: '12px',
-                    }),
-                  },
-                  Checkmark: {
-                    style: ({ $theme }) => ({
-                      backgroundColor: checked
-                        ? $theme.colors.positive300
-                        : 'white',
-                    }),
-                  },
+                style={{
+                  display: 'flex',
+                  justifyContent: 'flex-start',
+                  paddingTop: theme.sizing.scale400,
+                  alignItems: 'center',
+                  width: '80%',
                 }}
-                checked={checked}
-                onChange={() => setChecked(!checked)}
-              />
-              <div
-                className={css({
-                  ...theme.typography.font200,
-                  marginTop: '7px',
-                  lineHeight: 2,
-                })}
               >
-                I agree to the <span className="tnc" onClick={() => setIsOpen(true)}>Terms and Conditions</span>
+                <Checkbox
+                  overrides={{
+                    Root: {
+                      style: () => ({
+                        marginTop: '12px',
+                      }),
+                    },
+                    Checkmark: {
+                      style: ({ $theme }) => ({
+                        backgroundColor: checked
+                          ? $theme.colors.positive300
+                          : 'white',
+                      }),
+                    },
+                  }}
+                  checked={checked}
+                  onChange={() => setChecked(!checked)}
+                />
+                <div
+                  className={css({
+                    ...theme.typography.font200,
+                    marginTop: '7px',
+                    lineHeight: 2,
+                  })}
+                >
+                  I agree to the{' '}
+                  <span className="tnc" onClick={() => setIsOpen(true)}>
+                    Terms and Conditions
+                  </span>
+                </div>
               </div>
-            </div>}
-            <Modal onClose={close} isOpen={isOpen} 
-            closeable={false}
-            size="auto"
-            >              
+            )}
+            <Modal
+              onClose={close}
+              isOpen={isOpen}
+              closeable={false}
+              size="auto"
+            >
               <ModalHeader>Terms and Conditions</ModalHeader>
               <ModalBody>
-              These Terms will be applied fully and affect your use 
-              of this system. By tick the checkbox, you agreed to accept
-              all terms and conditions written here. You can not
-              submit your contributions if you disagree with any of 
-              these Website Standard Terms and Conditions.
+                These Terms will be applied fully and affect your use of this
+                system. By tick the checkbox, you agreed to accept all terms and
+                conditions written here. You can not submit your contributions
+                if you disagree with any of these Website Standard Terms and
+                Conditions.
               </ModalBody>
               <ModalFooter>
-                <PrimaryButton onClick={close} type="button">Okay</PrimaryButton>
+                <PrimaryButton onClick={close} type="button">
+                  Okay
+                </PrimaryButton>
               </ModalFooter>
             </Modal>
           </Col>
         </FormGroup>
         <div className="d-flex justify-content-center">
-          {checked  && !isBefore( new Date(magazine?.closureTemp), new Date()) ? (
+          {checked && !isBefore(new Date(magazine?.closureTemp), new Date()) ? (
             <PrimaryButton type="submit">Submit</PrimaryButton>
           ) : (
             <PrimaryButton disabled>Submit</PrimaryButton>
