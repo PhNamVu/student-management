@@ -10,7 +10,7 @@ import { useNavigate } from 'react-router-dom'
 const ChatBox: React.FC<{ participant: any }> = ({ participant }: any) => {
   const history = useNavigate()
   const { state }: any = useAuth()
-  const [css, theme] = useStyletron()
+  const [, theme] = useStyletron()
 
   const [newOrGetIdConver] = useNewOrGetIdConversationMutation()
 
@@ -77,8 +77,7 @@ const ChatBox: React.FC<{ participant: any }> = ({ participant }: any) => {
   }
   return (
     <div
-      onClick={handleGetOrAddIdConversation}
-      className={css({
+      style={{
         display: 'flex',
         justifyContent: 'flex-start',
         alignItems: 'center',
@@ -86,21 +85,19 @@ const ChatBox: React.FC<{ participant: any }> = ({ participant }: any) => {
         paddingBottom: theme.sizing.scale600,
         paddingRight: theme.sizing.scale800,
         borderBottom: `1px solid ${theme.colors.mono400}`,
-        ':hover': {
-          textDecoration: 'underline'
-        },
-      })}
+      }}
+      onClick={handleGetOrAddIdConversation}
     >
       <Avatar
         name={participant?.fullName}
-        size={theme.sizing.scale900}
+        size={'2em'}
         src={''}
       />
       <div
-        className={css({
+        style={{
           ...theme.typography.font200,
-          paddingLeft: theme.sizing.scale100,
-        })}
+          paddingLeft: '12px',
+        }}
       >
         {participant?.fullName}
       </div>

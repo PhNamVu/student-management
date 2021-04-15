@@ -2279,7 +2279,6 @@ export type Mutation_Root = {
   insert_users_one?: Maybe<Users>
   managerSetup?: Maybe<ManagerSetupRes>
   studentSetup?: Maybe<StudentSetupRes>
-  /** This action will automatically call when student submit a contribution */
   submitContribution?: Maybe<SubmitContributionRes>
   /** update data of the table: "comments" */
   update_comments?: Maybe<Comments_Mutation_Response>

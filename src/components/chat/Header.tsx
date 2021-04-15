@@ -42,19 +42,15 @@ const ChatSidebarHeader: React.FC<{}> = () => {
 
   return (
     <div
-      className={css({
-        flexDirection: 'column',
-        display: 'flex',
-      })}
+      style={{flexDirection: 'column',
+      display: 'flex',}}
     >
       <div
-        className={css({
-          flexDirection: 'column',
-          display: 'flex',
-          borderTop: `1px solid ${theme.colors.mono400}`,
-          paddingLeft: theme.sizing.scale800,
-          paddingTop: theme.sizing.scale200,
-        })}
+        style={{flexDirection: 'column',
+        display: 'flex',
+        borderTop: `1px solid ${theme.colors.mono400}`,
+        paddingLeft: theme.sizing.scale800,
+        paddingTop: theme.sizing.scale200,}}
       >
         <div className={css({ ...theme.typography.font250 })}>
           Your {roles === 'student' ? 'Coordinator' : 'Student'}
@@ -65,16 +61,14 @@ const ChatSidebarHeader: React.FC<{}> = () => {
         ))}
       </div>
       <div
-        className={css({
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          paddingTop: theme.sizing.scale600,
-          paddingBottom: theme.sizing.scale600,
-          paddingLeft: theme.sizing.scale800,
-          paddingRight: theme.sizing.scale800,
-          borderBottom: `1px solid ${theme.colors.mono400}`,
-        })}
+        style={{display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        paddingTop: theme.sizing.scale600,
+        paddingBottom: theme.sizing.scale600,
+        paddingLeft: theme.sizing.scale800,
+        paddingRight: theme.sizing.scale800,
+        borderBottom: `1px solid ${theme.colors.mono400}`,}}
       >
         <div className={css({ ...theme.typography.font250 })}>Recent Chats</div>
       </div>

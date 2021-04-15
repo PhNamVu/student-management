@@ -6,7 +6,7 @@ import { fdb } from '../../hooks/use-auth'
 import ChatContent from './ChatContent'
 
 const ChatWindow: React.FC<{ id: string }> = ({ id } : any ) => {
-  const [css, theme] = useStyletron()
+  const [, theme] = useStyletron()
   const [conv, setConv] = useState<any>(null)
 
   useEffect(() => {
@@ -25,10 +25,10 @@ const ChatWindow: React.FC<{ id: string }> = ({ id } : any ) => {
   return (
     <>
       <div
-        className={css({
+        style={{
           backgroundColor: theme.colors.mono100,
           width: '100%',
-        })}
+        }}
       >
         <ChatHeader conv={conv} />
         <ChatContent id={id} />

@@ -122,6 +122,7 @@ export const GetContributeByConditionsDocument = gql`
       }
       id
       user {
+        fullName
         faculty {
           label
         }

@@ -7,7 +7,7 @@ import { useCountMessageQuery } from '../../graphql/autogenerate/hooks'
 
 
 const ChatContent: React.FC<{ id: string }> = ({ id } : any) => {
-  const [css, theme] = useStyletron()
+  const [, theme] = useStyletron()
   const { data, loading, error } = useCountMessageQuery({
     variables: {
       id,
@@ -16,7 +16,7 @@ const ChatContent: React.FC<{ id: string }> = ({ id } : any) => {
   if (loading)
     return (
       <div
-        className={css({
+        style={{
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
@@ -27,7 +27,7 @@ const ChatContent: React.FC<{ id: string }> = ({ id } : any) => {
           overflow: 'hidden scroll',
           boxShadow: '0 3px 2px -2px rgba(0, 0, 0, 0.1)',
           height: `calc((100vh - 119px) - 62px)`,
-        })}
+        }}
       >
         <StyledSpinnerNext />
       </div>

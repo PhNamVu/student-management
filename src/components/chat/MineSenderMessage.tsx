@@ -13,21 +13,12 @@ const MineSenderMessage: React.FC<{ messages: any; showName: boolean }> = ({
   const [css, theme] = useStyletron()
 
   return (
-    <div className={css({ display: 'flex', flexDirection: 'column' })}>
+    <div style={{ display: 'flex', flexDirection: 'column' }}>
       <div
-        className={css({
+        style={{
           ...theme.typography.font300,
           whiteSpace: 'pre-line',
           alignSelf: 'flex-end',
-          // [theme.mediaQuery.small]: {
-          //   maxWidth: 'calc(100% - 20%)',
-          // },
-          // [theme.mediaQuery.medium]: {
-          //   maxWidth: 'calc(100% - 40%)',
-          // },
-          // [theme.mediaQuery.large]: {
-          //   maxWidth: 'calc(100% - 40%)',
-          // },
           [theme.mediaQuery.small]: {
             maxWidth: 'calc(100vw - 20%)',
           },
@@ -53,7 +44,7 @@ const MineSenderMessage: React.FC<{ messages: any; showName: boolean }> = ({
           borderTopRightRadius: '15px',
           borderBottomRightRadius: '2px',
           borderBottomLeftRadius: '15px',
-        })}
+        }}
       >
         <AutoLink text={messages.text} />
 
@@ -66,17 +57,17 @@ const MineSenderMessage: React.FC<{ messages: any; showName: boolean }> = ({
                 paddingBottom: theme.sizing.scale100,
               })}
             >
-              <div className={css({ display: 'flex', alignItems: 'center' })}>
+              <div style={{ display: 'flex', alignItems: 'center' }}>
                 <Paperclip size={16} color={theme.colors.mono800} />{' '}
                 <a
                   target="_blank"
                   rel="noopener noreferrer"
                   href={file.assetUrl}
-                  className={css({
+                  style={{
                     paddingLeft: theme.sizing.scale300,
                     ...theme.typography.font200,
                     color: theme.colors.accent,
-                  })}
+                  }}
                 >
                   {file.name}
                 </a>
@@ -86,11 +77,9 @@ const MineSenderMessage: React.FC<{ messages: any; showName: boolean }> = ({
       </div>
       {showName && (
         <div
-          className={css({
-            display: 'flex',
-            alignItems: 'center',
-            alignSelf: 'flex-end',
-          })}
+          style={{display: 'flex',
+          alignItems: 'center',
+          alignSelf: 'flex-end',}}
         >
           <div
             className={css({
