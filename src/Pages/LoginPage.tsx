@@ -4,6 +4,7 @@ import { toaster } from 'baseui/toast'
 
 import { Row, Col, Form, FormGroup, Label, Input, Button } from 'reactstrap'
 import { fbase } from '../hooks/use-auth'
+import { DownloadBtn } from '../components/DownloadBtn'
 
 export const LoginPage = () => {
   const [email, setEmail] = useState('')
@@ -84,6 +85,7 @@ export const LoginPage = () => {
             </Button>
           </div>
         </Form>
+        <DownloadBtn/>
       </Col>
     </Row>
   )
