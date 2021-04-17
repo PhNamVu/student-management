@@ -74,7 +74,7 @@ export default function ChartPage() {
                 <h2 className='title'>Contributions by Faculty Chart</h2>
             </Row>
             <Row className='d-flex justify-content-center'>
-                <Col sm='5'>
+                <Col sm='8'>
                     <Bar data={chartData} options={options} />
                 </Col>
             </Row>
