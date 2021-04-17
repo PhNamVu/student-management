@@ -27,7 +27,7 @@ export const GuestNav = () => {
             <div className="mr-sm-auto">
               <Nav navbar>
                 <NavItem className="header-links btn">
-                  <Link to="/">Magazine</Link>
+                  <Link to="/magazines">Magazine</Link>
                 </NavItem>
                 {/* <NavItem className="header-links btn">
                   <Link to="/contribution">Contribution</Link>
