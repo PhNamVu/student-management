@@ -21,6 +21,7 @@ import ViewContribution from './Pages/Student/EditContribute'
 
 import UserList from './Pages/Admin/UsersList'
 import ChartPage from './Pages/Chart'
+import GuestChartPage from './Pages/Guest/Chart'
 
 import { AdminNav } from './components/NavigationBar/AdminNav'
 import { StudentNav } from './components/NavigationBar/StudenNav'
@@ -107,7 +108,6 @@ function App() {
                     <Route path='magazine/:id/edit'element={<EditMagazinePage />} />
                     <Route path="/contribute/:idMgz/:mgzTitle" element={<ContributionList/>} />
                     <Route path="/users" element={<UserList />} />
-
                   </Routes>
                 </Container>
               </ApolloProvider>
@@ -173,8 +173,10 @@ function App() {
                 style={{ backgroundColor: '#F8F8F8', minHeight: '100vh' }}
               >
                 <Routes>
-                  <Route path="/" element={<MagazinesListPage />} />
+                  <Route path="/" element={<GuestChartPage />} />
+                  <Route path="/magazines" element={<MagazinesListPage />} />
                   <Route path="/contribute/:idMgz/:mgzTitle" element={<GuestContributionsList />} />
+                  <Route path="/contribution" element={<GuestContributionsList />} />
                 </Routes>
               </Container>  
             </ApolloProvider>

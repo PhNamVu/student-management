@@ -170,7 +170,7 @@ const useStyles = makeStyles((theme: Theme) =>
 )
 
 const queryCondition = (magazineId: string, facultyId: string) => {
-    if(facultyId) return {
+    if(magazineId == '') return {
         _and: [
             {
                 user: {
@@ -178,6 +178,21 @@ const queryCondition = (magazineId: string, facultyId: string) => {
                     id: {
                         _eq: facultyId
                     }
+                    }
+                }
+            },
+            {deleted: {_eq: false}},
+            {isSelected: {_eq: true}}
+        ]
+    }
+    else return {
+        _and: [
+            {
+                user: {
+                    faculty: {
+                        id: {
+                            _eq: facultyId
+                        }
                     }
                 }
             }, 
@@ -203,16 +218,18 @@ export default function GuestContributionsList() {
         navigate(`/contribution/${contributionId}/edit`)
     }
 
-    //Query get all contributions of this user
+    const whereVar = (params.idMgz)?queryCondition(params.idMgz, facultyId): queryCondition('', facultyId)
+    console.log('whereVar', whereVar)
+
     const { data, loading, error } = useGetContributeByConditionsQuery({
-        variables: { where: queryCondition(params.idMgz, facultyId)}
+        variables: { where: whereVar}
     })
     if (loading) return (
         <Backdrop className={customStyle.backdrop} open={loading}>
             <CircularProgress color="inherit" />
         </Backdrop>
     )
-    if (error) return <div> Error at StrudentContributionsList component {console.log(error)}</div>
+    if (error) return <div> Error at GuestContributionsList component {console.log(error)}</div>
     const dataDetail = data && data.contributions
     console.log(dataDetail);
 
@@ -255,6 +272,7 @@ export default function GuestContributionsList() {
         setRowsPerPage(parseInt(event.target.value, 10));
         setPage(0);
     }
+    console.log('zo Student guest contribution List')
 
     return (
         <Container>

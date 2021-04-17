@@ -1,28 +1,32 @@
+/* eslint-disable no-unused-vars */
 import FileSaver from 'file-saver'
 import JSZip from 'jszip'
 
-export const downloadMultiFiles = (arr: any, zipFileName: string) => {
+
+export const downloadMultiFiles = async (arr: any, zipFileName: string) => {
   const zip = new JSZip()
-  let count = 0
+
   arr = arr.filter(function( element:any ) {
     return element !== undefined;
- });
-  arr.forEach((subArr: any) => {
-    const folder = zip.folder(subArr.name)
-    subArr.info.forEach( async (el: any) => {
-      console.log(el)
-      const data = await fetch(el.assetUrl).then((r) => r.blob())
-      console.log(data)
-      folder?.file(el.name, data, { binary: true });
-    })
-    count++
-      if (count === arr.length) {
+  })
+  try {
+    let count = 0
+    await arr.forEach(async (subArr: any) => {
+      const folders:any = zip.folder(subArr.name)
+      for (const el of subArr.info) {
+        const data = await fetch(el.assetUrl).then((r) => r.blob())
+        folders.file(el.name, data, { binary: true })
+      }
+      count++
+      if (count == arr.length) {
         zip.generateAsync({ type: 'blob' }).then((content) => {
           FileSaver.saveAs(content, zipFileName)
         })
       }
-      console.log(zip)
-  })
+    })
+  } catch (error) {
+    console.log(error)
+  }
 }
 
 // How the func works

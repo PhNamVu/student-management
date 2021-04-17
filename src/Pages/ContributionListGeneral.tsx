@@ -8,7 +8,6 @@ import { TableBody, TableHead, TableRow, TableCell, Checkbox, TableContainer, Ty
 import IconButton from "@material-ui/core/IconButton"
 import GetAppIcon from '@material-ui/icons/GetApp'
 import { downloadMultiFiles } from '../helper/download-multi-file'
-import { consoleTestResultsHandler } from 'tslint/lib/test'
 
 
 //Define for the header row
@@ -200,8 +199,9 @@ export default function ContributionsPage(){
     )
     if (error) return <div> Error at Magazines component {console.log(error)}</div>
     const dataDetail = data && data.contributions
+    console.log(dataDetail)
     const rows: any = dataDetail?.map((el:any) => {
-        return createData(el.id, el.title, el.user?.fullName, el.user?.faculty?.label, el.isSelected, el.userByPublicBy?.fullName)
+        return createData(el.id, el.title, el.userByPublicBy?.fullName, el.user?.faculty?.label, el.isSelected, el.userByPublicBy?.fullName)
     })
 
     // handle 'select all' button
@@ -247,7 +247,9 @@ export default function ContributionsPage(){
         downloadMultiFiles(fileInfo, params.mgzTitle)
         console.log(fileInfo)
     }
-    console.log(selected);
+    console.log('into contribution List General')
+
+
     return (
         <Container>
             <h2 style={{ padding: "20px 0 0 0", clear: 'both' }}>Contribution of {params.mgzTitle}</h2>

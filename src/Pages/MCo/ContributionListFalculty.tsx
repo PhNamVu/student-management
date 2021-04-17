@@ -2,7 +2,6 @@
 import React from 'react'
 import { useGetContributeByConditionsQuery } from '../../graphql/autogenerate/hooks'
 import { Container, Table } from 'reactstrap'
-import { useParams } from 'react-router-dom'
 import { useNavigate } from "react-router-dom";
 import clsx from "clsx"
 import { createStyles, lighten, makeStyles, Theme } from "@material-ui/core/styles";
@@ -86,6 +85,7 @@ const CustomTableHeaderToolbar = (props: CustomTableHeaderToolbarProps) => {
         </Toolbar>
     );
 }
+console.log('zo MCO contribution List Faculty')
 
 const CustomTableHeader = (props: CustomTableHeaderProps) => {
     const {
@@ -175,7 +175,6 @@ const useStyles = makeStyles((theme: Theme) =>
 
 //this template apply for ADMIN, MANAGER, MCO
 export default function ContributionsPage(){
-    const params = useParams();
     const customStyle = useStyles();
     const [selected, setSelected] = React.useState<string[]>([]);
     const [page, setPage] = React.useState(0);
@@ -213,8 +212,9 @@ export default function ContributionsPage(){
     )
     if (error) return <div> Error at Magazines component {console.log(error)}</div>
     const dataDetail = data && data?.contributions || []
+
     const rows: any = dataDetail?.map((el:any) => {
-        return createData(el.id, el.title, el.user?.fullName, el.magazine?.label, el.isSelected, el.userByPublicBy?.fullName)
+        return createData(el.id, el.title, el.userByPublicBy?.fullName, el.magazine?.label, el.isSelected, el.userByPublicBy?.fullName)
     })
 
     // handle 'select all' button
@@ -257,7 +257,7 @@ export default function ContributionsPage(){
             let fileArr = el.artical.concat(el.image)
             if(selected.indexOf(el.id) > -1) return {info: fileArr, name: el.title}
         })
-        console.log('fileInfo', fileInfo)
+        
         downloadMultiFiles(fileInfo, dataDetail[0].faculty?.label || 'Contributions')
     }
 

@@ -259,7 +259,9 @@ export default function StudentContributionsList() {
         })
         downloadMultiFiles(fileInfo, dataDetail[0].faculty?.label || 'Contributions')
     }
+    console.log('zo Student contribution List')
 
+    
     return (
         <Container>
             <h2 style={{ padding: "20px 0 0 0", clear: 'both' }}>{renderTitle()}</h2>
