@@ -67,7 +67,7 @@ export const MagazineBlock = ({ id, label, closureTemp, closureFinal, tabStatus,
                             </> 
                         : null}
                         
-                        {(userRole == 'coordinator' || userRole == 'manager' || (userRole == 'guest' && (tabStatus != 2)) || (userRole == 'admin' && (tabStatus != 0)))?
+                        {(userRole == 'coordinator' || userRole == 'manager' || (userRole == 'guest' && (tabStatus == 2)) || (userRole == 'admin' && (tabStatus != 0)))?
                             <Button color="warning" className='btn-circle btn-lg' onClick={() =>{handleViewContribute(id, label)}}>
                                 <i className="far fa-eye"></i>
                                 <span style={{fontSize: '80%'}}>&nbsp;&nbsp;View Contribution</span>

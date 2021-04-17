@@ -29,11 +29,14 @@ export default function EditContributePage() {
       'x-hasura-user-id'
     ]
 
+    const isDisabled = (userRole == 'coordinator')? true : false
+
     const { data, loading, error } = useGetContributionQuery({
         variables: {
             id,
         },
     })
+
     const contribution = data && data.contributions[0]
     const [updateContribution] = useUpdateContributionMutation()
     const [updateStatus] = useUpdateStatusMutation()
@@ -98,7 +101,6 @@ export default function EditContributePage() {
         }
     }
 
-
     return (
         <Container>
             <h2 style={{ padding: "20px 0", clear: 'both' }}>Contribution {contribution?.title}</h2>
@@ -137,6 +139,7 @@ export default function EditContributePage() {
                                     id="title" 
                                     value={contribution?.title && title === '' ? contribution.title : title} 
                                     onChange={(e) => setTitle(e.target.value)}
+                                    disabled={isDisabled}
                                 />
                             </Col>
                         </FormGroup>
@@ -145,6 +148,7 @@ export default function EditContributePage() {
                             <Col lg='9' sm='10'>
                                 { !isBefore(new Date(contribution?.magazine?.closureFinal), new Date()) ?
                                     <Uploader
+                                        disabled={isDisabled}
                                         acceptedFileExtensions={'.docx,.doc,'}
                                         maxSizeFile={20}
                                         initFiles={contribution?.artical}
@@ -172,11 +176,12 @@ export default function EditContributePage() {
                                 }
                             </Col>
                         </FormGroup>
-                        <FormGroup row>
+                        <FormGroup row >
                             <Label for="image" sm='2'>Image</Label>
                             <Col lg='9' sm='10'>
                                 {   !isBefore(new Date(contribution?.magazine?.closureFinal), new Date()) ?
                                     <Uploader
+                                        disabled={isDisabled}
                                         acceptedFileExtensions={'.png,.jpg,.jpeg,'}
                                         maxSizeFile={20}
                                         initFiles={contribution?.image}
@@ -203,14 +208,14 @@ export default function EditContributePage() {
                                 }
                             </Col>
                         </FormGroup>
-                        <div className="d-flex justify-content-center">
+                        {(userRole == 'student')?<div className="d-flex justify-content-center">
                             <PrimaryButton 
                                 type="submit" 
                                 disabled={isBefore(new Date(contribution?.magazine?.closureFinal), new Date())}
                             >
                                 Save
                             </PrimaryButton>
-                        </div>
+                        </div>: null}
                     </Form>
                     
                 </Col>
