@@ -1,5 +1,61 @@
 query getUsers {
-    users (limit: 10) {
+    users (where: {is_delete: {_is_null: false}}){
+      id
+      email
+      fullName
+      roles
+      faculty{
         id
+        label
+      }
     }
+}
+
+mutation addUser($object: users_insert_input!) {
+  insert_users(objects: [$object]) {
+    affected_rows
+    returning {
+      id
+    }
+  }
+}
+
+query membersChatInfoByIds($userId1: uuid!,$userId2: uuid!) {
+  users(
+    where: {
+      id: {
+        _in: [$userId1, $userId2]
+      }
+    }
+  ) {
+    email
+    id
+    fullName
+    roles
+  }
+}
+
+query chatByFaculty( $where: users_bool_exp!) {
+  users(where: $where) {
+    email
+    id
+    fullName
+    roles
+  }
+}
+
+
+query yourMCO($facultyId: String!) {
+  users(
+    where: {
+      _and: {
+          facultyId: {
+          _eq: $facultyId
+        }
+        roles: {_eq: "MCO"}
+      }
+    }  
+  ) {
+    email
+  }
 }

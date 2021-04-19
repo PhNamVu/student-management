@@ -1,0 +1,6 @@
+query getFaculty {
+    facultys {
+        id
+        label
+    }
+}
