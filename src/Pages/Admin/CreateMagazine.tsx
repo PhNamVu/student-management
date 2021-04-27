@@ -72,7 +72,7 @@ export const CreateMagazine = () => {
             <Label for="finalclosuredate">Final Closure Date</Label>
             <div className="d-flex justify-content-end">
               <DatePicker required className="calendar"
-                minDate={new Date()}
+                minDate={closureTemp}
                 format='dd/MM/yyyy'
                 value={closureFinal}
                 onChange={(date) => setClosureFinal(date as Date)}
