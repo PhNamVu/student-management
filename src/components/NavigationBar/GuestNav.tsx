@@ -29,9 +29,9 @@ export const GuestNav = () => {
                 <NavItem className="header-links btn">
                   <Link to="/magazines">Magazine</Link>
                 </NavItem>
-                {/* <NavItem className="header-links btn">
+                <NavItem className="header-links btn">
                   <Link to="/contribution">Contribution</Link>
-                </NavItem> */}
+                </NavItem>
               </Nav>
             </div>
             <Nav navbar className="ml-sm-auto">
